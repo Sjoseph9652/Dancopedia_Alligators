@@ -32,7 +32,7 @@
         <label for="photos">Upload Photos:</label>
         <input type="file" id="photos" name="photos[]" multiple><br><br>
 
-        <button type="submit">Create Blog</button>
+        <button type="submit">Create Dance</button>
     </form>
 </body>
 </html>
