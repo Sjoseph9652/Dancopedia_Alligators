@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
+    <link rel="stylesheet" href="css/chatbot.css"> 
 </head>
 <style>
 .header {
@@ -143,8 +143,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Include Chatbot -->
   <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -152,6 +150,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Chatbot Script (external) -->
-    <script src="js/chatbot.js"></script> <!-- Link to your external chatbot JS -->
+    <script src="js/chatbot.js"></script> 
 </body>
 </html>
