@@ -1,8 +1,7 @@
 <?php
-
 //connection variables
 $host = "localhost";
-$dbname = "gatorz_DB";
+$dbname = "gatorz_db";
 $username = "root";
 $password = "";
 
@@ -25,7 +24,7 @@ if (mysqli_connect_errno()) {
 
 //sql statement variable
 $sql = "INSERT INTO users (first_name, last_name, email, user_password, user_role)
-        VALUES (?, ?, ?, ?, ?)"
+        VALUES (?, ?, ?, ?, ?)";
 
 //prepared statement object
 $stmt = mysqli_stmt_init($conn);
@@ -40,3 +39,6 @@ mysqli_stmt_bind_param($stmt, "sssss", $firstName, $lastName, $email, $userPassw
 
 //execute prepared statment
 mysqli_stmt_execute($stmt);
+
+$conn->close();
+?>
