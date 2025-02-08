@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Create a dance</h2>
-    <form action="save-dance.php" method="POST" enctype="multipart/form-data">
+    <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
         <label for="creator_email">Creator Email:</label>
         <input type="email" id="creator_email" name="creator_email" required><br><br>
 
@@ -16,10 +16,10 @@
         <input type="text" id="title" name="title" required><br><br>
 
         <label for="region">Region:</label>
-        <input type="text" id="region" name="region" reguired><br><br>
+        <input type="text" id="region" name="region" required><br><br>
 
         <label for="style">Style</label>
-        <input type="style" id="style" name="style" reguired><br><br>
+        <input type="style" id="style" name="style" required><br><br>
 
         <!-- Style, Tags, Region-->
 
@@ -28,10 +28,10 @@
 
         <label for="tags">Tags:</label><br>
         <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> 
-
+        <!--
         <label for="photos">Upload Photos:</label>
         <input type="file" id="photos" name="photos[]" multiple><br><br>
-
+-->
         <button type="submit">Create Dance</button>
     </form>
 </body>
