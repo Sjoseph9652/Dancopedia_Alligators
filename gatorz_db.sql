@@ -2,8 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
+
 -- Host: 127.0.0.1
 -- Generation Time: Feb 06, 2025 at 02:53 AM
+
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +39,7 @@ CREATE TABLE `dances` (
   `image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 --
 -- Dumping data for table `dances`
 --
@@ -45,6 +48,7 @@ INSERT INTO `dances` (`dance_ID`, `name`, `region`, `style`, `description`, `sta
 (1, 'Tango', 'Mexico', 'Tango', 'Dance', 0, ''),
 (2, 'example dance', 'Mexico', 'Southern', 'This is an example dance', 0, ''),
 (3, 'example dance', 'Mexico', 'Western', 'This is an example dance', 0, '');
+
 
 -- --------------------------------------------------------
 
@@ -75,6 +79,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+
 -- Dumping data for table `users`
 --
 
@@ -84,6 +89,7 @@ INSERT INTO `users` (`user_ID`, `first_name`, `last_name`, `email`, `user_passwo
 (3, 'Bill ', 'Bob', 'Bill.Bob@gmail.com', '4321', 'user');
 
 --
+
 -- Indexes for dumped tables
 --
 
@@ -113,7 +119,10 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dances`
 --
 ALTER TABLE `dances`
-  MODIFY `dance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+  MODIFY `dance_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+
 
 --
 -- AUTO_INCREMENT for table `preferences`
@@ -125,7 +134,9 @@ ALTER TABLE `preferences`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
