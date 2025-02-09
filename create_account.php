@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Create an account</h2>
-    <form action="save-account.php" method="POST">
+    <form action="save_account.php" method="POST">
     <label for="firstname">First Name</label><br>
     <input id="firstname" type="text" name="firstname" placeholder="First Name" required><br><br>
 
