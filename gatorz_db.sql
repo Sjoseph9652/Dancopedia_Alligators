@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2025 at 11:51 AM
+-- Generation Time: Feb 09, 2025 at 12:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,6 +45,47 @@ INSERT INTO `dances` (`dance_ID`, `name`, `region`, `style`, `description`, `sta
 (1, 'Tango', 'Mexico', 'Tango', 'Dance', 0, ''),
 (2, 'example dance', 'Mexico', 'Southern', 'This is an example dance', 0, ''),
 (3, 'example dance', 'Mexico', 'Western', 'This is an example dance', 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dancesuggestion`
+--
+
+CREATE TABLE `dancesuggestion` (
+  `suggestion_ID` int(11) NOT NULL,
+  `dance_name` varchar(30) NOT NULL,
+  `style` varchar(30) NOT NULL,
+  `region` varchar(30) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dancesuggestion`
+--
+
+INSERT INTO `dancesuggestion` (`suggestion_ID`, `dance_name`, `style`, `region`, `description`) VALUES
+(1, 'new dance ', 'East', 'pop', 'Add this ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inaccuracies`
+--
+
+CREATE TABLE `inaccuracies` (
+  `report_ID` int(11) NOT NULL,
+  `dance_name` varchar(30) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inaccuracies`
+--
+
+INSERT INTO `inaccuracies` (`report_ID`, `dance_name`, `description`) VALUES
+(1, 'tango ', 'I think this is from a different region'),
+(2, 'other dance ', 'I think this is from a different region');
 
 -- --------------------------------------------------------
 
@@ -94,6 +135,18 @@ ALTER TABLE `dances`
   ADD PRIMARY KEY (`dance_ID`);
 
 --
+-- Indexes for table `dancesuggestion`
+--
+ALTER TABLE `dancesuggestion`
+  ADD PRIMARY KEY (`suggestion_ID`);
+
+--
+-- Indexes for table `inaccuracies`
+--
+ALTER TABLE `inaccuracies`
+  ADD PRIMARY KEY (`report_ID`);
+
+--
 -- Indexes for table `preferences`
 --
 ALTER TABLE `preferences`
@@ -114,6 +167,18 @@ ALTER TABLE `users`
 --
 ALTER TABLE `dances`
   MODIFY `dance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `dancesuggestion`
+--
+ALTER TABLE `dancesuggestion`
+  MODIFY `suggestion_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `inaccuracies`
+--
+ALTER TABLE `inaccuracies`
+  MODIFY `report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `preferences`
