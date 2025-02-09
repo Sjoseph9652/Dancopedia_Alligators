@@ -6,6 +6,7 @@
     <title>Search Page</title>
 </head>
 <body>
+    <h2>Search</h2>
     <label for="search">Search by:</label>
     <div>
         <button type="button">Name</button>
@@ -13,7 +14,7 @@
         <button type="button">Style</button>
     </div>
     <div>
-        <input type="text" id="search" name="search" placeholder="Enter search term...">
+        <input type="text" id="search" name="search" placeholder="Enter search...">
     </div>
 </body>
 </html>
