@@ -1,5 +1,6 @@
 <?php
 ob_start();
+
 require 'db_configuration.php';
 include('header.php');
 
