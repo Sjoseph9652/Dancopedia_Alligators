@@ -2,8 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Feb 01, 2025 at 04:48 PM
+
+-- Host: 127.0.0.1
+-- Generation Time: Feb 06, 2025 at 02:53 AM
+
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -95,7 +97,10 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dances`
 --
 ALTER TABLE `dances`
+
   MODIFY `dance_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+
 
 --
 -- AUTO_INCREMENT for table `preferences`
@@ -107,7 +112,9 @@ ALTER TABLE `preferences`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+
   MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
