@@ -73,6 +73,30 @@
                     </div>
                 </div>
             </div>
+			 <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dance Name 3</h5>
+                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    </div>
+                </div>
+            </div>
+			 <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dance Name 3</h5>
+                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    </div>
+                </div>
+            </div>
+			 <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dance Name 3</h5>
+                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
