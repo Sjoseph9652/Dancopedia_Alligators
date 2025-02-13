@@ -7,7 +7,7 @@
     <title>report innaccuracies</title>
 </head>
 <body>
-    <form action="report_review.php" method="POST">
+    <form action="report_processing.php" method="POST">
         <label for="title">Dance Name</label>
         <input type="text" id="title" name="title" required><br><br>
 
