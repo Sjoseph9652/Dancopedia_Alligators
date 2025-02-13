@@ -30,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Register</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Settings</a></li>
                 </ul>
             </div>
         </div>
