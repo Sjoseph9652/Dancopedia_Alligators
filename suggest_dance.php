@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Dance Suggestion</h2>
-    <form action= "suggestion_review.php" method="POST">
+    <form action= "suggest_dance_processing.php" method="POST">
     <label for="title">Dance Name:</label>
     <input type="text" id="title" name="title" required><br><br>
 
