@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
 </head>
 <style>
-/* Header Background */
+/* Header Background, extra */
 .header {
     background-image: url('images/blog_dance2_480x480.webp'); 
 }
