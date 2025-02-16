@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `dances` (
   `dance_ID` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
+  `creator_email` varchar(30) NOT NULL,
   `region` varchar(30) NOT NULL,
   `style` varchar(30) NOT NULL,
   `description` text NOT NULL,
@@ -41,10 +42,10 @@ CREATE TABLE `dances` (
 -- Dumping data for table `dances`
 --
 
-INSERT INTO `dances` (`dance_ID`, `name`, `region`, `style`, `description`, `status`, `image`) VALUES
-(1, 'Tango', 'Mexico', 'Tango', 'Dance', 0, ''),
-(2, 'example dance', 'Mexico', 'Southern', 'This is an example dance', 0, ''),
-(3, 'example dance', 'Mexico', 'Western', 'This is an example dance', 0, '');
+INSERT INTO `dances` (`dance_ID`, `name`, `creator_email`, `region`, `style`, `description`, `status`, `image`) VALUES
+(1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, ''),
+(2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, ''),
+(3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '');
 
 -- --------------------------------------------------------
 
@@ -107,19 +108,22 @@ CREATE TABLE `preferences` (
 --
 
 CREATE TABLE `users` (
-  `user_ID` int(11) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
-  `last_name` varchar(30) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `user_password` varchar(30) NOT NULL,
-  `user_role` varchar(10) NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    hash VARCHAR(255),
+    active VARCHAR(10),
+    role VARCHAR(20),
+    modified_time DATETIME,
+    created_time DATETIME
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_ID`, `first_name`, `last_name`, `email`, `user_password`, `user_role`) VALUES
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `hash`, `role`) VALUES
 (1, 'Joe ', 'Salmon ', 'sv2606xg@go.minnstate.edu', 'password', 'user'),
 (2, 'example ', 'account', 'example.account@gmail.com', '1234', 'user'),
 (3, 'Bill ', 'Bob', 'Bill.Bob@gmail.com', '4321', 'user');
@@ -151,13 +155,6 @@ ALTER TABLE `inaccuracies`
 --
 ALTER TABLE `preferences`
   ADD PRIMARY KEY (`pref_ID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_ID`);
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -190,7 +187,7 @@ ALTER TABLE `preferences`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if (!function_exists('run_sql')) {
 
