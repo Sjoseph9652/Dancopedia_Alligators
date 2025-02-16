@@ -1,6 +1,6 @@
 <?php
-require 'db_configuration.php';
 session_start();
+require 'db_configuration.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
