@@ -17,7 +17,7 @@ $style = $_POST["style"];
 $image = file_get_contents($_FILES["photos"]["tmp_name"]);
 $MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is. 
 
-var_dump(/*$creator_email,*/ $danceName, $region, $description, $style, $image);
+//var_dump(/*$creator_email,*/ $danceName, $region, $description, $style, $image);
 
 //connection object
 //***Change to port 3306 when COMPLETE***
