@@ -62,7 +62,7 @@ session_start();
                     <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $row["description"]?></p>
                     
                     <?php if ($row["image"]) {?>
-                        <img src="<?php echo "data:image/jpeg;base64," . base64_encode($row["image"]) ?>">
+                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Style="width: 200px">
                     <?php } ?>
                     </div>
                 </div>
