@@ -28,10 +28,10 @@
 
         <label for="tags">Tags:</label><br>
         <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> 
-        <!--
+        
         <label for="photos">Upload Photos:</label>
-        <input type="file" id="photos" name="photos[]" multiple><br><br>
--->
+        <input type="file" id="photos" name="photos" multiple><br><br>
+
         <button type="submit">Create Dance</button>
     </form>
 </body>

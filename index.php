@@ -48,35 +48,45 @@ session_start();
     </header>
 	
 <!-- https://getbootstrap.com/docs/5.3/components/card/ --> 
+<?php include 'retrieve_dance.php';?> <!-- This is the php code that retrieves the dances from the database. -->
 <section class="popular-dances py-5">
     <div class="container">
         <h2 class="text-center mb-4">Popular Dances</h2>
         <p class="text-center text-muted mb-5">Some of the most searched dances around the world</p>
         <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php foreach($result_rows as $row) {?>
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Dance Name 1</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $row["name"] ?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $row["description"]?></p>
+                    
+                    <?php if ($row["image"]) {?>
+                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Style="width: 200px">
+                    <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+            <?php /*
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $name[1]?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $desc[1]?></p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Dance Name 2</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $name[3]?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $desc[3]?></p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Dance Name 3</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
-                    </div>
-                </div>
-            </div>
+            */ ?>
+        <!--
 			 <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
@@ -101,6 +111,7 @@ session_start();
                     </div>
                 </div>
             </div>
+                    -->
         </div>
     </div>
 </section>
