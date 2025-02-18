@@ -35,7 +35,8 @@ CREATE TABLE `dances` (
   `style` varchar(30) NOT NULL,
   `description` text NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `image` blob NOT NULL
+  `image` blob NOT NULL,
+  `MimeTpe` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
