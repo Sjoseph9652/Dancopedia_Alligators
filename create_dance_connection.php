@@ -8,17 +8,20 @@ $username = "root";
 $password = "";
 
 //form variables
-$creator_email = $_POST["creator_email"];
+/*$creator_email = $_POST["creator_email"];*/
 $danceName = $_POST["title"];
 $region = $_POST["region"];
 $description = $_POST["description"];
 $style = $_POST["style"];
-/*$image = $_POST["image"];*/
+/*var_dump($_FILES["photos"])*/ #tells to jpeg lol
+$image = file_get_contents($_FILES["photos"]["tmp_name"]);
+$MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is. 
 
-var_dump($creator_email, $danceName, $region, $description, $style, /*$image*/);
+//var_dump(/*$creator_email,*/ $danceName, $region, $description, $style, $image);
 
 //connection object
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+//***Change to port 3306 when COMPLETE***
+$conn = mysqli_connect($host, $username, $password, $dbname, 3308);
 
 //Check for connection error
 if (mysqli_connect_errno()) {
@@ -26,8 +29,8 @@ if (mysqli_connect_errno()) {
 }
 
 //sql statement variable
-$sql = "INSERT INTO dances (name, creator_email, region, style, description /*, image*/)
-        VALUES (?,?,?,?,?/*, ?*/)";
+$sql = "INSERT INTO dances (name, /*creator_email,*/ region, style, description , image, MimeType)
+        VALUES (?,?,?,?,?,?)";
 
 //prepared statement object
 $stmt = mysqli_stmt_init($conn);
@@ -38,7 +41,7 @@ if (! mysqli_stmt_prepare($stmt, $sql)) {
 }
 
 //bind variables to prepared statement
-mysqli_stmt_bind_param($stmt, "sssss", $danceName, $creator_email, $region, $style, $description/*, $image*/);
+mysqli_stmt_bind_param($stmt, "ssssss", $danceName, /*$creator_email,*/ $region, $style, $description, $image,$MimeType);
 
 //execute prepared statment
 mysqli_stmt_execute($stmt);
