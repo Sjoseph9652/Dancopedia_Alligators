@@ -1,3 +1,14 @@
+<?php
+session_start();
+//var_dump($_SESSION);
+if (isset($_SESSION['email'])) 
+{
+    echo "Logged in as: " . $_SESSION['email'];
+} else {
+    echo "User is not logged in.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,17 +31,17 @@
 	<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Dancopedia</a>
+            <a class="navbar-brand" href="index.php">Dancopedia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"> <a class="nav-link" id="open-chat" href="#">Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="my_account.php">Account</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -44,35 +55,45 @@
     </header>
 	
 <!-- https://getbootstrap.com/docs/5.3/components/card/ --> 
+<?php include 'retrieve_dance.php';?> <!-- This is the php code that retrieves the dances from the database. -->
 <section class="popular-dances py-5">
     <div class="container">
         <h2 class="text-center mb-4">Popular Dances</h2>
         <p class="text-center text-muted mb-5">Some of the most searched dances around the world</p>
         <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php foreach($result_rows as $row) {?>
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Dance Name 1</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $row["name"] ?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $row["description"]?></p>
+                    
+                    <?php if ($row["image"]) {?>
+                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Style="width: 200px">
+                    <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+            <?php /*
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $name[1]?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $desc[1]?></p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Dance Name 2</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
+                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $name[3]?> </h5>
+                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $desc[3]?></p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Dance Name 3</h5>
-                        <p class="card-text">A brief description of what makes this dance unique.</p>
-                    </div>
-                </div>
-            </div>
+            */ ?>
+        <!--
 			 <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
@@ -97,6 +118,7 @@
                     </div>
                 </div>
             </div>
+                    -->
         </div>
     </div>
 </section>
@@ -122,16 +144,16 @@
                 <div class="col-md-4">
                     <h5>Account</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Saved Dances</a></li>
+                        <li><a href="my_account.php">Profile</a></li>
+                        <li><a href="my_account.php">Saved Dances</a></li>
                         <li><a href="#">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Explore</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Home Page</a></li>
-                        <li><a href="#">Search</a></li>
+                        <li><a href="index.php">Home Page</a></li>
+                        <li><a href="search_results.html">Search</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">

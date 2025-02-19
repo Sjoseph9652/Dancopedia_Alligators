@@ -1,3 +1,12 @@
+<?php
+session_start(); 
+// Check if the user is logged in
+if (!(isset($_SESSION['email']))) 
+{
+    echo "<p>You are not logged in. Please <a href='LoginForm.php'>login</a> to view your credentials.</p>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +42,8 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="LoginForm.php">Register</a></li>
+                <!-- <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Register</a></li> -->
             </ul>
         </div>
     </div>
@@ -92,7 +101,7 @@
     $(document).ready(function() {
         // fetch with ajax
         $.ajax({
-            url: 'fetch_dances.php', 
+            url: 'fetch_account_info.php', 
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -127,3 +136,4 @@
 </script>
 </body>
 </html>
+
