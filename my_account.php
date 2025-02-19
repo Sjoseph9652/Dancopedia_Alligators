@@ -34,14 +34,14 @@ if (!(isset($_SESSION['email'])))
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Dancopedia</a>
+        <a class="navbar-brand" href="index.php">Dancopedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href=#>Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
                 <!-- <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Register</a></li> -->
             </ul>
@@ -69,16 +69,16 @@ if (!(isset($_SESSION['email'])))
             <div class="col-md-4">
                 <h5>Account</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Saved Dances</a></li>
+                    <li><a href="my_account.php">Profile</a></li>
+                    <li><a href="my_account.php">Saved Dances</a></li>
                     <li><a href="#">Change Password</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <h5>Explore</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Home Page</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="index.php">Home Page</a></li>
+                    <li><a href="search_results.html">Search</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
