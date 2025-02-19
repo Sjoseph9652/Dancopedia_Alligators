@@ -1,5 +1,8 @@
 <?php
+session_start(); 
 ob_start();
+require 'db_configuration.php';
+include('header.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['login'])) {
@@ -27,7 +30,7 @@ ob_flush();
         <div class="tab-content">
             <div id="login" class="tab-pane fade show active">
                 <h2>Welcome Back!</h2>
-                <form action="login_form_handler.php" method="post">
+                <form action="loginForm.php" method="post">
                     <div class="mb-3">
                         <label>Email Address</label>
                         <input type="email" class="form-control" required name="email">
