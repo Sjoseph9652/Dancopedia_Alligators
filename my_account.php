@@ -112,18 +112,37 @@ if (!(isset($_SESSION['email'])))
                     // dynamically creates cards based on returned results
                     dances.forEach(dance => {
                         const card = `
-                            <div class="col-md-4">
+                            <div class="col-md-4" id= "dance-${dance.dance_ID}">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-body">
                                         <h5 class="card-title">${dance.name}</h5>
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                         <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
+                                        <button data-id="${dance.id}">Update</button>
+                                        <button class="delete_button" data-id="${dance.dance_ID}">Delete</button>
                                     </div>
                                 </div>
                             </div>`;
                         container.append(card);
                     });
+
+                    $('.delete_button').click(function()
+                    {
+                        const dance_ID = $(this).data('id');
+                        console.log(dance_ID);
+                        $.ajax({
+                            url: 'delete_dance.php',
+                            method: 'POST',
+                            data: { dance_ID:dance_ID},
+                            success: function(response)
+                            {
+                                location.reload();
+                            }
+                        });
+                    });
+
+
                 } else {
                     alert('Failed to fetch dances: ' + response.error);
                 }
