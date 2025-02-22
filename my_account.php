@@ -119,14 +119,15 @@ if (!(isset($_SESSION['email'])))
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                         <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
-                                        <button data-id="${dance.id}">Update</button>
-                                        <button class="delete_button" data-id="${dance.dance_ID}">Delete</button>
+                                        <a href="update_dance.php?dance_ID=${dance.dance_ID} class="btn-primary">Update</a>
+                                        <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
                                     </div>
                                 </div>
                             </div>`;
                         container.append(card);
                     });
 
+                    //Delete Button
                     $('.delete_button').click(function()
                     {
                         const dance_ID = $(this).data('id');
