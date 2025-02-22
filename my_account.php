@@ -29,6 +29,12 @@ if (!(isset($_SESSION['email'])))
 .header {
     background-image: url('images/blog_dance2_480x480.webp');
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
 </style>
 <body>
 
@@ -56,6 +62,10 @@ if (!(isset($_SESSION['email'])))
 
 <section class="dance-list py-5">
     <div class="container">
+        <div class="button-container">
+            <a href="create_dance.php" class="btn btn-primary">Create a Dance</a>
+            <a href="report_inaccuracies.php" class="btn btn-danger">Report Inaccuracies</a>
+        </div>
         <h2 class="text-center mb-4">Dances List</h2>
         <div class="row" id="dances-container">
             <!-- Dances will be appended here dynamically -->
