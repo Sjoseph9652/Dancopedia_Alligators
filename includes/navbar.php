@@ -1,4 +1,11 @@
 <!-- navbar.php -->
+
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="index.php">
@@ -20,11 +27,21 @@
                     <a class="nav-link" href="account_details.php">Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link btn btn-primary text-white" href="settings.php">Settings</a>
                 </li>
+
+                <!-- Login / Logout -->
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- Show Logout button when logged in -->
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger text-white" href="logout.php">Logout</a>
+                    </li>
+                <?php else: ?>
+                    <!-- Show Sign In button when logged out -->
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

@@ -7,6 +7,8 @@
     <title>Create a dance</title>
 </head>
 <body>
+    <?php include_once 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+
     <h2>Create a dance</h2>
     <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
         <label for="creator_email">Creator Email:</label>
