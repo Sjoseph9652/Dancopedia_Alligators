@@ -49,11 +49,11 @@ if (isset($_SESSION['email']))
 
     <!-- Header -->
     <header class="header">
-        <h1>Dancopedia</h1>
-        <p>Discover Dances of Mexico</p>
+        <h1 class="text-center">Dancopedia</h1>
+        <p class="text-center">Discover Dances of Mexico</p>
         <button class="btn btn-primary">Search</button>
     </header>
-	
+
 <!-- https://getbootstrap.com/docs/5.3/components/card/ --> 
 <?php include 'retrieve_dance.php';?> <!-- This is the php code that retrieves the dances from the database. -->
 <section class="popular-dances py-5">
@@ -119,9 +119,17 @@ if (isset($_SESSION['email']))
                 </div>
             </div>
                     -->
+<!-- dynamic card section
+<section class="dance-list py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Popular Dances</h2>
+        <div class="row" id="dances-container">
+             Dances will be appended here dynamically
+
         </div>
     </div>
 </section>
+-->
 
 <!-- Chatbot Container -->
 <div class="chat-container" id="chatbot" style="display: none;">
@@ -218,5 +226,50 @@ if (isset($_SESSION['email']))
             });
         });
     </script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // fetch with ajax
+        $.ajax({
+            url: 'fetch_dances.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const dances = response.data;
+                    const container = $('#dances-container');
+
+                    let count = 12;
+                    // dynamically creates cards based on returned results
+                    for (let i = 0; i < dances.length && i < count; i++) {
+                         const dance = dances[i];
+
+                         const card = `
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${dance.name}</h5>
+                                        <p class="card-text">${dance.description}</p>
+                                        <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
+                                        <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        container.append(card);
+                    }
+                } else {
+                    alert('Failed to fetch dances: ' + response.error);
+                }
+            },
+            error: function() {
+                alert('An error occurred while fetching dances.');
+            }
+        });
+    });
+</script>
 </body>
 </html>
