@@ -29,19 +29,25 @@ if (!(isset($_SESSION['email'])))
 .header {
     background-image: url('images/blog_dance2_480x480.webp');
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
 </style>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Dancopedia</a>
+        <a class="navbar-brand" href="index.php">Dancopedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href=#>Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
                 <!-- <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Register</a></li> -->
             </ul>
@@ -56,6 +62,10 @@ if (!(isset($_SESSION['email'])))
 
 <section class="dance-list py-5">
     <div class="container">
+        <div class="button-container">
+            <a href="create_dance.php" class="btn btn-primary">Create a Dance</a>
+            <a href="report_inaccuracies.php" class="btn btn-danger">Report Inaccuracies</a>
+        </div>
         <h2 class="text-center mb-4">Dances List</h2>
         <div class="row" id="dances-container">
             <!-- Dances will be appended here dynamically -->
@@ -69,16 +79,16 @@ if (!(isset($_SESSION['email'])))
             <div class="col-md-4">
                 <h5>Account</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Saved Dances</a></li>
+                    <li><a href="my_account.php">Profile</a></li>
+                    <li><a href="my_account.php">Saved Dances</a></li>
                     <li><a href="#">Change Password</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <h5>Explore</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Home Page</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="index.php">Home Page</a></li>
+                    <li><a href="search_results.html">Search</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -112,18 +122,38 @@ if (!(isset($_SESSION['email'])))
                     // dynamically creates cards based on returned results
                     dances.forEach(dance => {
                         const card = `
-                            <div class="col-md-4">
+                            <div class="col-md-4" id= "dance-${dance.dance_ID}">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-body">
                                         <h5 class="card-title">${dance.name}</h5>
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                         <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
+                                        <a href="update_dance.php?dance_ID=${dance.dance_ID} class="btn-primary">Update</a>
+                                        <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
                                     </div>
                                 </div>
                             </div>`;
                         container.append(card);
                     });
+
+                    //Delete Button
+                    $('.delete_button').click(function()
+                    {
+                        const dance_ID = $(this).data('id');
+                        console.log(dance_ID);
+                        $.ajax({
+                            url: 'delete_dance.php',
+                            method: 'POST',
+                            data: { dance_ID:dance_ID},
+                            success: function(response)
+                            {
+                                location.reload();
+                            }
+                        });
+                    });
+
+
                 } else {
                     alert('Failed to fetch dances: ' + response.error);
                 }

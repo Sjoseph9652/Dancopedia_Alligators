@@ -1,5 +1,12 @@
 <?php
 session_start();
+//var_dump($_SESSION);
+if (isset($_SESSION['email'])) 
+{
+    echo "Logged in as: " . $_SESSION['email'];
+} else {
+    echo "User is not logged in.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,16 +31,16 @@ session_start();
 	<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Dancopedia</a>
+            <a class="navbar-brand" href="index.php">Dancopedia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"> <a class="nav-link" id="open-chat" href="#">Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="#">Sign In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="my_account.php">Account</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Settings</a></li>
                 </ul>
             </div>
@@ -42,11 +49,11 @@ session_start();
 
     <!-- Header -->
     <header class="header">
-        <h1>Dancopedia</h1>
-        <p>Discover Dances of Mexico</p>
+        <h1 class="text-center">Dancopedia</h1>
+        <p class="text-center">Discover Dances of Mexico</p>
         <button class="btn btn-primary">Search</button>
     </header>
-	
+
 <!-- https://getbootstrap.com/docs/5.3/components/card/ --> 
 <?php include 'retrieve_dance.php';?> <!-- This is the php code that retrieves the dances from the database. -->
 <section class="popular-dances py-5">
@@ -112,9 +119,17 @@ session_start();
                 </div>
             </div>
                     -->
+<!-- dynamic card section
+<section class="dance-list py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Popular Dances</h2>
+        <div class="row" id="dances-container">
+             Dances will be appended here dynamically
+
         </div>
     </div>
 </section>
+-->
 
 <!-- Chatbot Container -->
 <div class="chat-container" id="chatbot" style="display: none;">
@@ -137,16 +152,16 @@ session_start();
                 <div class="col-md-4">
                     <h5>Account</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Saved Dances</a></li>
+                        <li><a href="my_account.php">Profile</a></li>
+                        <li><a href="my_account.php">Saved Dances</a></li>
                         <li><a href="#">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Explore</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Home Page</a></li>
-                        <li><a href="#">Search</a></li>
+                        <li><a href="index.php">Home Page</a></li>
+                        <li><a href="search_results.html">Search</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -211,5 +226,50 @@ session_start();
             });
         });
     </script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // fetch with ajax
+        $.ajax({
+            url: 'fetch_dances.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const dances = response.data;
+                    const container = $('#dances-container');
+
+                    let count = 12;
+                    // dynamically creates cards based on returned results
+                    for (let i = 0; i < dances.length && i < count; i++) {
+                         const dance = dances[i];
+
+                         const card = `
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${dance.name}</h5>
+                                        <p class="card-text">${dance.description}</p>
+                                        <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
+                                        <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        container.append(card);
+                    }
+                } else {
+                    alert('Failed to fetch dances: ' + response.error);
+                }
+            },
+            error: function() {
+                alert('An error occurred while fetching dances.');
+            }
+        });
+    });
+</script>
 </body>
 </html>
