@@ -67,9 +67,15 @@ if (isset($_SESSION['email']))
                     <div class="card-body">
                     <h5 class="card-title"><!--Dance Name 1--> <?php echo $row["name"] ?> </h5>
                     <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $row["description"]?></p>
+
+                    <?php if (isset($row["link"])) {?>
+                        <iframe src= <?php echo $row["link"]?>></iframe>
+                    <?php
+                    }
+                    ?>
                     
                     <?php if ($row["image"]) {?>
-                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Style="width: 200px">
+                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Height="200" Style="width: 200px">
                     <?php } ?>
                     </div>
                 </div>

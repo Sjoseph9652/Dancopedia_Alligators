@@ -36,7 +36,8 @@ CREATE TABLE `dances` (
   `description` text NOT NULL,
   `status` tinyint(1) NOT NULL,
   `image` blob NOT NULL,
-  `MimeType` varchar(30) DEFAULT NULL
+  `MimeType` varchar(30) DEFAULT NULL,
+  `Link` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -44,7 +45,7 @@ CREATE TABLE `dances` (
 --
 
 
-INSERT INTO `dances` (`dance_ID`, `name`, `creator_email`, `region`, `style`, `description`, `status`, `image`, `MimeType`) VALUES
+INSERT INTO `dances` (`dance_ID`, `name`, `creator_email`, `region`, `style`, `description`, `status`, `image`, `MimeType`,`Link`) VALUES
 (1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, '', NULL),
 (2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, '', NULL),
 (3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '', NULL);
