@@ -49,8 +49,8 @@ if (isset($_SESSION['email']))
 
     <!-- Header -->
     <header class="header">
-        <h1 class="text-center">Dancopedia</h1>
-        <p class="text-center">Discover Dances of Mexico</p>
+        <h1 class="text-center" style="color: white; font-weight: bold;">Dancopedia</style></h1>
+        <p class="text-center" style="color:white;">Discover Dances of Mexico</style></p>
         <button class="btn btn-primary">Search</button>
     </header>
 
@@ -154,7 +154,7 @@ if (isset($_SESSION['email']))
                     <ul class="list-unstyled">
                         <li><a href="my_account.php">Profile</a></li>
                         <li><a href="my_account.php">Saved Dances</a></li>
-                        <li><a href="#">Change Password</a></li>
+                        <li><a href="reset-password.php">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
