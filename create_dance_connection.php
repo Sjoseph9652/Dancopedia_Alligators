@@ -15,7 +15,9 @@ $description = $_POST["description"];
 $style = $_POST["style"];
 /*var_dump($_FILES["photos"])*/ #tells to jpeg lol
 $image = file_get_contents($_FILES["photos"]["tmp_name"]);
-$MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is. 
+$MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is.
+
+$link =$_POST["link"];
 
 //var_dump(/*$creator_email,*/ $danceName, $region, $description, $style, $image);
 
@@ -29,8 +31,8 @@ if (mysqli_connect_errno()) {
 }
 
 //sql statement variable
-$sql = "INSERT INTO dances (name, creator_email, region, style, description , image, MimeType)
-        VALUES (?,?,?,?,?,?,?)";
+$sql = "INSERT INTO dances (name, creator_email, region, style, description , image, MimeType, link)
+        VALUES (?,?,?,?,?,?,?,?)";
 
 //prepared statement object
 $stmt = mysqli_stmt_init($conn);
@@ -41,7 +43,7 @@ if (! mysqli_stmt_prepare($stmt, $sql)) {
 }
 
 //bind variables to prepared statement
-mysqli_stmt_bind_param($stmt, "sssssss", $danceName, $creator_email, $region, $style, $description, $image, $MimeType);
+mysqli_stmt_bind_param($stmt, "ssssssss", $danceName, $creator_email, $region, $style, $description, $image, $MimeType,$link);
 
 //execute prepared statment
 mysqli_stmt_execute($stmt);
@@ -51,3 +53,11 @@ mysqli_commit($conn);
 
 $conn->close();
 ?>
+
+<!-- After dance is made you can return to the homepage.--> 
+<p>
+    <h1>Dance created Successfully!</h1>
+    <br><br>
+    <a href="index.php"><input type="submit" value="Return to Home" id="returnHome" name="returnHome"></a>
+        <br><br>
+</p>
