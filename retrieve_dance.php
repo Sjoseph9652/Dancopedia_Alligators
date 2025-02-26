@@ -9,7 +9,7 @@ $password = "";
 
 //connection object
 //***Change to port 3306 when COMPLETE***
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+$conn = mysqli_connect($host, $username, $password, $dbname, 3308);
 
 //Check for connection error
 if (mysqli_connect_errno()) {
@@ -17,7 +17,7 @@ if (mysqli_connect_errno()) {
 }
 
 //sql statement variable
-$sql = " SELECT name, description, MimeType, image FROM dances limit 6";
+$sql = " SELECT link, name, description, MimeType, image FROM dances limit 6";
 $result = $conn->query($sql);
 
 /*

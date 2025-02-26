@@ -30,6 +30,13 @@
 
         <label for="tags">Tags:</label><br>
         <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> 
+
+        <!-- video link --> 
+         <!-- This text field is for inserting links into the database.
+          These links will be outputted and put on the home page under the index cards --> 
+          <!-- ***The youtube video links only display if they are (Embedded html) under share*** --> 
+        <label for="link">Dance Video link:</label>
+        <input type="text" id="link" name="link" size="70"><br><br>
         
         <label for="photos">Upload Photos:</label>
         <input type="file" id="photos" name="photos" multiple><br><br>
