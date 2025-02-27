@@ -118,7 +118,7 @@ if (isset($_SESSION['email']))
                     <ul class="list-unstyled">
                         <li><a href="my_account.php">Profile</a></li>
                         <li><a href="my_account.php">Saved Dances</a></li>
-                        <li><a href="reset-password.php">Change Password</a></li>
+                        <li><a href="forget-password.php">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
