@@ -8,6 +8,7 @@
 </head>
 <body>
     <?php include_once 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+    <?php include 'includes/header.php'; ?>
 
     <h2>Create a dance</h2>
     <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
@@ -43,5 +44,6 @@
 
         <button type="submit">Create Dance</button>
     </form>
+    <?php include 'includes/footer.php'; ?>
 </body>
 </html>
