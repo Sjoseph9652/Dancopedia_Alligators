@@ -17,7 +17,7 @@ if (mysqli_connect_errno()) {
 }
 
 //sql statement variable
-$sql = " SELECT name, description, MimeType, image FROM dances limit 6";
+$sql = " SELECT link, name, description, MimeType, image FROM dances limit 6";
 $result = $conn->query($sql);
 
 /*
