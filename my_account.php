@@ -88,7 +88,7 @@ if (!(isset($_SESSION['email'])))
                 <h5>Explore</h5>
                 <ul class="list-unstyled">
                     <li><a href="index.php">Home Page</a></li>
-                    <li><a href="search_results.html">Search</a></li>
+                    <li><a href="search_results.php">Search</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
