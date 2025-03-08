@@ -27,8 +27,8 @@
  <?php include "includes/navbar.php"; ?>
 
 <header class="header">
-    <h1 class="text-center">Search</h1>
-    <p class="text-center">Explore traditional and popular dances</p>
+    <h1 class="text-center" style="color: white; font-weight: bold;">Search</h1>
+    <p class="text-center" style="color:white;">Explore traditional and popular dances</p>
 </header>
 
 <div class="text-center">
