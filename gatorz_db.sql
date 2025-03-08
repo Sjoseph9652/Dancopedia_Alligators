@@ -46,9 +46,9 @@ CREATE TABLE `dances` (
 
 
 INSERT INTO `dances` (`dance_ID`, `name`, `creator_email`, `region`, `style`, `description`, `status`, `image`, `MimeType`,`Link`) VALUES
-(1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, '', NULL),
-(2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, '', NULL),
-(3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '', NULL);
+(1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, '', NULL, NULL),
+(2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, '', NULL, NULL),
+(3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '', NULL, NULL);
 -- --------------------------------------------------------
 
 --
