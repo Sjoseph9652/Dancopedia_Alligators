@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>report innaccuracies</title>
 </head>
+<?php include_once 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+<?php include 'includes/header.php'; ?>
+
 <body>
     <form action="report_processing.php" method="POST">
         <label for="title">Dance Name</label>
@@ -16,4 +19,5 @@
 
         <button type="submit">submit report</button>
 </body>
+<?php include 'includes/footer.php'; ?>
 </html>
