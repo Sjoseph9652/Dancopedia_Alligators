@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Page</title>
-</head>
+   <?php include 'includes/header.php'; ?> 
 <body>
+	<?php include 'includes/navbar.php'; ?>
     <h2>Search</h2>
     <form action="search.php" method="POST">
         <label for="search">Search by:</label>
@@ -26,5 +23,7 @@
         max-height: 200px; overflow-y: auto;"> 
         <!-- Search results will appear here -->
     </div>
+	
+	 <?php include 'includes/footer.php'; ?>
 </body>
 </html>

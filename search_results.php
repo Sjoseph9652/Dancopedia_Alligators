@@ -23,26 +23,12 @@
 </style>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Dancopedia</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="LoginForm.php">Register</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+ <!-- navbar -->
+ <?php include "includes/navbar.php"; ?>
 
 <header class="header">
-    <h1 class="text-center">Search</h1>
-    <p class="text-center">Explore traditional and popular dances</p>
+    <h1 class="text-center" style="color: white; font-weight: bold;">Search</h1>
+    <p class="text-center" style="color:white;">Explore traditional and popular dances</p>
 </header>
 
 <div class="text-center">
@@ -51,13 +37,13 @@
         <br><br>
 
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="name-button" id="name-button" autocomplete="off" checked>
+            <input type="radio" class="btn-check" name="search-button" id="name-button" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="name-button">Name</label>
 
-            <input type="radio" class="btn-check" name="region-button" id="region-button" autocomplete="off">
+            <input type="radio" class="btn-check" name="search-button" id="region-button" autocomplete="off">
             <label class="btn btn-outline-primary" for="region-button">Region</label>
 
-            <input type="radio" class="btn-check" name="style-button" id="style-button" autocomplete="off">
+            <input type="radio" class="btn-check" name="search-button" id="style-button" autocomplete="off">
             <label class="btn btn-outline-primary" for="style-button">Style</label>
         </div>
         <br>
@@ -116,48 +102,65 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        // fetch with ajax
+        // fetch column number prefrence with ajax
         $.ajax({
-            url: 'fetch_dances.php', 
+            url: 'fetch_prefs.php',
             method: 'GET',
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
-                    const dances = response.data;
-                    const container = $('#dances-container');
-                    let col_pref = 3;
+                    col_pref = response.columns;
+                } else {
+                    console.warn('Failed to fetch preferences:', response.error);
+                }
+            },
+            error: function () {
+                console.warn('Error fetching preferences.');
+            }
+        });
 
-                    // dynamically creates cards based on returned results
-                    dances.forEach(dance => {
-                        let card_start = ''
-                        switch(col_pref) {
-                            case 2:
-                                card_start = `
+        $(document).ready(function () {
+            // fetch search results with ajax
+            $.ajax({
+                url: 'fetch_dances.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        const dances = response.data;
+                        const container = $('#dances-container');
+
+                        // dynamically creates cards based on returned results
+                        dances.forEach(dance => {
+                            let card_start = ''
+                            switch (col_pref) {
+                                case 2:
+                                    card_start = `
                             <div class="col-md-6">
                                 <div class="card mb-2 shadow-sm">`
-                                break;
-                            case 3:
-                                card_start = `
+                                    break;
+                                case 3:
+                                    card_start = `
                             <div class="col-md-4">
                                 <div class="card mb-3 shadow-sm">`
-                                break;
-                            case 4:
-                                card_start = `
+                                    break;
+                                case 4:
+                                    card_start = `
                             <div class="col-md-3">
                                 <div class="card mb-4 shadow-sm">`
-                                break;
-                            case 5:
-                                card_start = `
+                                    break;
+                                case 5:
+                                    card_start = `
                             <div class="col-md-2">
                                 <div class="card mb-5 shadow-sm">`
-                                break;
-                            case 6:
-                                card_start = `
+                                    break;
+                                case 6:
+                                    card_start = `
                             <div class="col-md-2">
                                 <div class="card mb-6 shadow-sm">`
-                                break;
-                        }
-                                const card_body = `
+                                    break;
+                            }
+                            const card_body = `
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">${dance.name}</h5>
                                         <p class="card-text">${dance.description}</p>
@@ -165,15 +168,16 @@
                                         <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>
                                 </div>
                             </div>`;
-                        container.append($(card_start + card_body));
-                    });
-                } else {
-                    alert('Failed to fetch dances: ' + response.error);
+                            container.append($(card_start + card_body));
+                        });
+                    } else {
+                        alert('Failed to fetch dances: ' + response.error);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while fetching dances.');
                 }
-            },
-            error: function() {
-                alert('An error occurred while fetching dances.');
-            }
+            });
         });
     });
 </script>
