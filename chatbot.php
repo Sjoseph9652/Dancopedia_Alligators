@@ -2,62 +2,64 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/f40040d297.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/chatbot.css">
-</head>
-<body>
+if (isset($_POST['user_message'])) {
+    $message = addslashes($_POST['user_message']);
 
-<?php 
-if (isset($_POST['input'])) {
-    $message = '{"role": "user", "content": "' . addslashes($_POST['input']) . '"}';
+    $apiKey = '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'; 
+    $apiUrl = 'https://api.openai.com/v1/chat/completions';
+
     $headers = [
         'Content-Type: application/json',
-        'Authorization: Bearer APIKEYHERE'
+        'Authorization: Bearer ' . $apiKey
     ];
-    
-    $ch = curl_init('https://api.openai.com/v1/chat/completions');
-    $json_data = '{"model":"gpt-3.5-turbo",
-        "messages": [{"role": "system", "content": "You are a chatbot assisting users on an educational website about Indian history and traditional outfits."}, ' . $message . ']}';
+
+    $postData = [
+        'model' => 'gpt-4o-mini', 
+        'messages' => [
+            [
+                'role' => 'system',
+                'content' => 'You are a chatbot assisting users on an educational website about dance traditions worldwide.'
+            ],
+            [
+                'role' => 'user',
+                'content' => $message
+            ]
+        ],
+        'temperature' => 0.7
+    ];
+
+    $ch = curl_init($apiUrl);
 
     curl_setopt_array($ch, [
         CURLOPT_HTTPHEADER => $headers,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => $json_data
+        CURLOPT_POSTFIELDS => json_encode($postData)
     ]);
-    
+
     $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get the HTTP status code
+
     if ($response === false) {
-        echo "Request error: " . curl_error($ch);
+        echo json_encode(['error' => 'cURL error: ' . curl_error($ch)]);
     } else {
         $decoded_response = json_decode($response, true);
-        echo isset($decoded_response['choices'][0]['message']['content']) ? $decoded_response['choices'][0]['message']['content'] : 'Error processing response';
+
+        if ($httpCode !== 200) {
+            // Log the raw response if the API returns an error (debug)
+            echo json_encode([
+                'error' => 'API error: ' . ($decoded_response['error']['message'] ?? 'Unknown error'),
+                'status' => $httpCode,
+                'response' => $response
+            ]);
+        } else {
+            $bot_message = $decoded_response['choices'][0]['message']['content'] ?? 'Sorry, I couldn\'t process your request right now.';
+            echo nl2br(json_encode(['response' => $bot_message])); //  line breaks 
+        }
     }
+
     curl_close($ch);
     exit();
 }
 ?>
-
-<div class="chat-box-container">
-    <button class="open-button">Chat <i class="fa-regular fa-comment"></i></button>
-    <div class="chat-popup" id="myForm">
-        <form id="chat-form" class="form-container">
-            <div class="chat-header">Chat</div>
-            <div class="chat-messages" id="chat-messages"></div>
-            <textarea placeholder="Type your message..." name="input" required></textarea>
-            <button id="chat-submit" type="submit" class="btn">Send <i class="fa-regular fa-paper-plane"></i></button>
-            <button type="button" class="btn cancel">Close</button>
-        </form>
-    </div> 
-</div>
-
-</body>
-</html>

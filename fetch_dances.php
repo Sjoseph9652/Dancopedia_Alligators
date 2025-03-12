@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Content-Type: application/json');
 
     try {
-        $query = "SELECT dance_ID, name, region, style, description, status FROM dances";
+        $query = "SELECT dance_ID, name, region, style, description, status, image FROM dances";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
