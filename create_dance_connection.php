@@ -52,12 +52,17 @@ mysqli_stmt_execute($stmt);
 mysqli_commit($conn);
 
 $conn->close();
+
+header("location:create_dance.php?Successful=yes"); #Returns back to the form page.
+
 ?>
 
 <!-- After dance is made you can return to the homepage.--> 
+ <!--
 <p>
     <h1>Dance created Successfully!</h1>
     <br><br>
     <a href="index.php"><input type="submit" value="Return to Home" id="returnHome" name="returnHome"></a>
         <br><br>
 </p>
+-->

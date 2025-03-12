@@ -46,9 +46,9 @@ CREATE TABLE `dances` (
 
 
 INSERT INTO `dances` (`dance_ID`, `name`, `creator_email`, `region`, `style`, `description`, `status`, `image`, `MimeType`,`Link`) VALUES
-(1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, '', NULL),
-(2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, '', NULL),
-(3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '', NULL);
+(1, 'Tango', 'example.account@gmail.com','Mexico','Tango', 'Dance', 0, '', NULL, NULL),
+(2, 'example dance', 'example.account@gmail.com', 'Mexico', 'Southern', 'This is an example dance', 0, '', NULL, NULL),
+(3, 'example dance', 'example.account@gmail.com',  'Mexico','Western','This is an example dance', 0, '', NULL, NULL);
 -- --------------------------------------------------------
 
 --
@@ -99,6 +99,7 @@ INSERT INTO `inaccuracies` (`report_ID`, `dance_name`, `description`) VALUES
 CREATE TABLE `preferences` (
   `pref_ID` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `value` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
