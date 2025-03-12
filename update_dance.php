@@ -55,7 +55,7 @@ $dance = mysqli_fetch_assoc($result);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"> <a class="nav-link" id="open-chat" href="#">Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="search_results.php">Search</a></li>
                     <li class="nav-item"><a class="nav-link" href="my_account.php">Account</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Settings</a></li>
@@ -116,7 +116,7 @@ $dance = mysqli_fetch_assoc($result);
                     <h5>Explore</h5>
                     <ul class="list-unstyled">
                         <li><a href="index.php">Home Page</a></li>
-                        <li><a href="search_results.html">Search</a></li>
+                        <li><a href="search_results.php">Search</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
