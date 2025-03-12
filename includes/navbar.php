@@ -24,7 +24,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" href="search_results.php">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="account_details.php">Account</a>
+                    <a class="nav-link" href="my_account.php">Account</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary text-white" href="settings.php">Settings</a>
