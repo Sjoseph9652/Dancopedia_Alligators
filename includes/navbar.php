@@ -21,10 +21,10 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" id="open-chat" href="#">Chat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="search_results.php">Search</a>
+                    <a class="nav-link" href="search.php">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="my_account.php">Account</a>
+                    <a class="nav-link" href="account_details.php">Account</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary text-white" href="settings.php">Settings</a>
@@ -34,7 +34,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <!-- Show Logout button when logged in -->
                     <li class="nav-item">
-                        <a class="nav-link btn btn-danger" href="logout.php">Logout</a>
+                        <a class="nav-link btn btn-danger text-white" href="logout.php">Logout</a>
                     </li>
                 <?php else: ?>
                     <!-- Show Sign In button when logged out -->

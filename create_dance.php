@@ -2,35 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dancopedia - Create Dance</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/chatbot.css">
-    
-    <!-- References Used ------------------------------------
-    	# https://www.w3schools.com/php/php_mysql_connect.asp
-    	# https://www.w3schools.com/jquery/jquery_ajax_get_post.asp
-    	# https://medium.com/@jenniferehodge1/create-cards-dynamicallyin-javascript-ac46c5eb2296
-	--------------------------------------------------------->
-    
+    <title>Create a dance</title>
 </head>
-<style>
-.header {
-    background-image: url('images/blog_dance2_480x480.webp');
-}
-</style>
-
-<?php include 'includes/navbar.php'; ?> <!-- Include the navbar here -->
-    
-<header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Create Dance</h1>
-    <p class="text-center" style="color:white;">Enter Information For a Dance</p>
-</header>
-
 <body>
-    <h2>Create a Dance</h2>
+    <?php include_once 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+    <?php include 'includes/header.php'; ?>
+
+    <h2>Create a dance</h2>
     <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
         <label for="creator_email">Creator Email:</label>
         <input type="email" id="creator_email" name="creator_email" required><br><br>
@@ -63,15 +43,6 @@
         <input type="file" id="photos" name="photos" multiple><br><br>
 
         <button type="submit">Create Dance</button>
-
-        <!-- Confirmation to the user that a dance was added to the database --> 
-        <?php 
-        if (isset($_GET["Successful"])) {
-            echo('<span style="color:Green;background-color:yellow">  Dance added! </span>');
-        }
-        ?>
-        
-
     </form>
     <?php include 'includes/footer.php'; ?>
 </body>
