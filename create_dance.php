@@ -63,6 +63,15 @@
         <input type="file" id="photos" name="photos" multiple><br><br>
 
         <button type="submit">Create Dance</button>
+
+        <!-- Confirmation to the user that a dance was added to the database --> 
+        <?php 
+        if (isset($_GET["Successful"])) {
+            echo('<span style="color:Green;background-color:yellow">  Dance added! </span>');
+        }
+        ?>
+        
+
     </form>
     <?php include 'includes/footer.php'; ?>
 </body>
