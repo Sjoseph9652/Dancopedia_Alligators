@@ -23,7 +23,7 @@
                     <ul class="list-unstyled">
                         <li><a href="#">Documentation</a></li>
                         <li><a href="#">Requirements</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
             </div>
