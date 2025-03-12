@@ -29,29 +29,13 @@ if (isset($_SESSION['email']))
 
 <body>
 	<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">Dancopedia</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> <a class="nav-link" id="open-chat" href="#">Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="search_results.html">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="my_account.php">Account</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white" href="#">Settings</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+     <!-- navbar -->
+    <?php include "includes/navbar.php"; ?>
 
     <!-- Header -->
     <header class="header">
-        <h1 class="text-center">Dancopedia</h1>
-        <p class="text-center">Discover Dances of Mexico</p>
-        <button class="btn btn-primary">Search</button>
+        <h1 class="text-center" style="color: white; font-weight: bold;">Dancopedia</style></h1>
+        <p class="text-center" style="color:white;">Discover Dances of Mexico</style></p>
     </header>
 
 <!-- https://getbootstrap.com/docs/5.3/components/card/
@@ -108,37 +92,9 @@ if (isset($_SESSION['email']))
     </div>
 </div>
 
-	<!-- http://www.w3schools.com/TAgs/tag_footer.asp -->
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Account</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="my_account.php">Profile</a></li>
-                        <li><a href="my_account.php">Saved Dances</a></li>
-                        <li><a href="#">Change Password</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Explore</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.php">Home Page</a></li>
-                        <li><a href="search_results.html">Search</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Resources</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Requirements</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- footer -->
+<?php include "includes/footer.php"; ?>
+
 
     <!-- Include Chatbot -->
     <!-- Include jQuery -->
