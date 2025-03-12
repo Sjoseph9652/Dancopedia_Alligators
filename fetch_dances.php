@@ -19,17 +19,25 @@ $email = $_SESSION["email"];
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Content-Type: application/json');
 
+    // pull search query parts from form
+    $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+    $searchType = isset($_GET['type']) ? $_GET['type'] : '';
+
     try {
-        $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64
-                    FROM dances
-                    ORDER BY RAND()
-                    LIMIT 6 ";
+        // determines type of search query and pulls results
+        if ($searchType === "name-button") {
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE name LIKE ?";
+        } elseif ($searchType === "region-button") {
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE region LIKE ?";
+        } elseif ($searchType === "style-button") {
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE style LIKE ?";
+        }
         $stmt = $pdo->prepare($query);
-        $stmt->execute();
+        $stmt->execute(["%$searchQuery%"]);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // image handleing
+        // image handling
         foreach ($results as &$dance) {
                     if (!empty($dance['image_base64'])) {
                         $dance['image'] = "data:" . $dance['MimeType'] . ";base64," . $dance['image_base64'];

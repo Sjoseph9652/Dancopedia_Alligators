@@ -32,7 +32,7 @@
 </header>
 
 <div class="text-center">
-    <form action="" method="POST">
+    <form method="get">
         <label>Search by:</label>
         <br><br>
 
@@ -50,7 +50,7 @@
         <br>
         <div class="d-flex justify-content-center mt-3">
             <div class="d-flex align-items-center" style="max-width: 300px;">
-                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </div>
         </div>
@@ -120,16 +120,24 @@
             }
         });
 
-        $(document).ready(function () {
+        // gets results based on query and after clicking search
+        $('form').on('submit', function(event) {
+            event.preventDefault(); // prevents page refresh when searching
+
+            let query = $('input[type="search"]').val().trim();
+            let searchType = $('input[name="search-button"]:checked').attr('id');
+
             // fetch search results with ajax
             $.ajax({
                 url: 'fetch_dances.php',
                 method: 'GET',
+                data: { search: query, type: searchType },
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
                         const dances = response.data;
                         const container = $('#dances-container');
+                        container.empty(); // clears previous results
 
                         // dynamically creates cards based on returned results
                         dances.forEach(dance => {
