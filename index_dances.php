@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64
                     FROM dances
                     ORDER BY RAND()
-                    LIMIT 6 ";
+                    LIMIT 12 ";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // image handleing
+        // image handling
         foreach ($results as &$dance) {
                     if (!empty($dance['image_base64'])) {
                         $dance['image'] = "data:" . $dance['MimeType'] . ";base64," . $dance['image_base64'];
