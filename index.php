@@ -182,15 +182,22 @@ if (isset($_SESSION['email']))
                                     break;
                             }
                             const card_body = `
-                                 <div class="card-body d-flex flex-column">
-                                                <h5 class="card-title">${dance.name}</h5>
-                                                <p class="card-text">${dance.description}</p>
-                                                <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
-                                                <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>
-                                        </div>
-                                    </div>`;
-                            container.append($(card_start + card_body));
-                        });
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">${dance.name}</h5>
+                                            <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
+                                            <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>
+                                    </div>
+                                </div>`;
+
+                                // opens new page on click
+                                const $card = $(card_start + card_body);
+                                $card.on('click', function() {
+                                    localStorage.setItem('dance', JSON.stringify(dance));
+                                    window.location.href = 'dance_detail.php';
+                                });
+
+                                container.append($card);
+                            });
                     } else {
                         alert('Failed to fetch dances: ' + response.error);
                     }
