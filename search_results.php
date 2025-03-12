@@ -32,7 +32,7 @@
 </header>
 
 <div class="text-center">
-    <form action="search.php" method="POST">
+    <form action="" method="POST">
         <label>Search by:</label>
         <br><br>
 
@@ -102,6 +102,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
+        col_pref = 4; // default in case no pref exists
         // fetch column number prefrence with ajax
         $.ajax({
             url: 'fetch_prefs.php',

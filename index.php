@@ -38,35 +38,6 @@ if (isset($_SESSION['email']))
         <p class="text-center" style="color:white;">Discover Dances of Mexico</style></p>
     </header>
 
-<!-- https://getbootstrap.com/docs/5.3/components/card/
-<?php include 'retrieve_dance.php';?>
-<section class="popular-dances py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Popular Dances</h2>
-        <p class="text-center text-muted mb-5">Some of the most searched dances around the world</p>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach($result_rows as $row) {?>
-            <div class="col">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-
-                    <h5 class="card-title"><!--Dance Name 1--> <?php echo $row["name"] ?> </h5>
-                    <p class="card-text"><!--A brief description of what makes this dance unique.--> <?php echo $row["description"]?></p>
-
-                    <?php if (isset($row["link"])) {?>
-                        <iframe src= <?php echo $row["link"]?>></iframe>
-                    <?php
-                    }
-                    ?>                    
-                    <?php if ($row["image"]) {?>
-                        <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" Height="200" Style="width: 200px">
-                    <?php } ?>
-                    </div>
-                </div>
-            </div>
-            <?php } ?> -->
-
-
 
 <!-- dynamic card section -->
 <section class="dance-list py-5">
@@ -92,9 +63,8 @@ if (isset($_SESSION['email']))
     </div>
 </div>
 
-<!-- footer -->
-<?php include "includes/footer.php"; ?>
-
+    <!-- footer -->
+    <?php include "includes/footer.php"; ?>
 
     <!-- Include Chatbot -->
     <!-- Include jQuery -->
@@ -173,7 +143,7 @@ if (isset($_SESSION['email']))
         $(document).ready(function () {
             // fetch search results with ajax
             $.ajax({
-                url: 'retrieve_dance.php',
+                url: 'index_dances.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function (response) {
@@ -212,25 +182,20 @@ if (isset($_SESSION['email']))
                                     break;
                             }
                             const card_body = `
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">${dance.name}</h5>
-                                        <p class="card-text">${dance.description}</p>
-                                        <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
-                                        <?php if ($row["image"]) { ?>
-                                            <img src="<?php echo "data:".$row["MimeType"].";base64," . base64_encode($row["image"]) ?>" style="width: 200px">
-                                        <?php } ?>
-                                </div>
-                            </div>`;
+                                 <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title">${dance.name}</h5>
+                                                <p class="card-text">${dance.description}</p>
+                                                <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
+                                                <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>
+                                        </div>
+                                    </div>`;
                             container.append($(card_start + card_body));
                         });
                     } else {
                         alert('Failed to fetch dances: ' + response.error);
                     }
                 },
-                error: function () {
-                    alert('An error occurred while fetching dances.');
-                    console.error(error);
-                }
+
             });
         });
     });

@@ -74,7 +74,7 @@ if (!(isset($_SESSION['email'])))
                 <h5>Explore</h5>
                 <ul class="list-unstyled">
                     <li><a href="index.php">Home Page</a></li>
-                    <li><a href="search_results.php">Search</a></li>
+                    <li><a href="search_results.html">Search</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -114,7 +114,7 @@ if (!(isset($_SESSION['email'])))
                                         <h5 class="card-title">${dance.name}</h5>
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
-                                        <img src="${dance.image_url}" alt="dance image" width="100%">
+                                        <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
                                         <a href="update_dance.php?dance_ID=${dance.dance_ID} class="btn-primary">Update</a>
                                         <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
                                     </div>
