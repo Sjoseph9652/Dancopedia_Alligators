@@ -16,7 +16,7 @@
     <input id="lastname" type="text" name="lastname" placeholder="Last name" required><br><br>
 
     <label for="usermail">Email</label><br>
-    <input id="usermail" type="email" name="usermail" placeholder="Yourname@email.com" required><br><br>
+    <input id="usermail" type="email" name="usermail" placeholder="Yourname@email.com"><br><br>
 
     <label for="password">Password</label><br>
     <input id="password" type="password" name="password" placeholder="Password" required><br><br>

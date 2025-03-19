@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +40,9 @@
 <body>
     <h2>Create a Dance</h2>
     <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
+
         <label for="creator_email">Creator Email:</label>
-        <input type="email" id="creator_email" name="creator_email" required><br><br>
+        <input type="email" id="creator_email" name="creator_email" value= <?php echo $_SESSION['email']?> required><br><br>
 
         <label for="title">Dance Name:</label>
         <input type="text" id="title" name="title" required><br><br>
@@ -53,9 +58,10 @@
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
 
+        <!--
         <label for="tags">Tags:</label><br>
-        <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> 
-
+        <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> -->
+        
         <!-- video link --> 
          <!-- This text field is for inserting links into the database.
           These links will be outputted and put on the home page under the index cards --> 
