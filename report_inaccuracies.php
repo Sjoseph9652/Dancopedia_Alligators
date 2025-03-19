@@ -23,7 +23,11 @@
 }
 </style>
 
-<?php include_once 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+<!-- Navbar -->
+<?php include_once 'includes/navbar.php'; ?>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
 
 <header class="header">
         <h1 class="text-center" style="color: white; font-weight: bold;">Report Inaccuracies</h1>
