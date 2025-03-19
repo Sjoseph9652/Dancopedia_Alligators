@@ -146,7 +146,38 @@ if (!(isset($_SESSION['email'])))
                     const container = $('#dances-container');
 
                     // dynamically creates cards based on returned results
-                    dances.forEach(dance => {
+                    dances.forEach(dance => 
+                    {
+                        let mediaContent = '';
+                        
+                        if(dance.image_url && dance.video_link)
+                        {
+                            // image and video
+                            console.log("Hello World!");
+                            mediaContent = `
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="${dance.image_url}" alt="dance image" width="100%">
+                                </div>
+                                <div class="col-md-6">
+                                    <iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>`;
+                        } 
+                        else if (dance.image_url) 
+                        {
+                            console.log(dance);
+                            // just image
+                            mediaContent = `<img src="${dance.image_url}" alt="dance image" width="100%">`;
+                        }
+
+                        else if (dance.video_link) 
+                        {
+                            console.log("just the video");
+                            // just video
+                            mediaContent = `<iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>`;
+                        }
+
                         const card = `
                             <div class="col-md-4" id= "dance-${dance.dance_ID}">
                                 <div class="card mb-4 shadow-sm">
@@ -154,7 +185,7 @@ if (!(isset($_SESSION['email'])))
                                         <h5 class="card-title">${dance.name}</h5>
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
-                                        <img src="blog_dance2_480x480.webp" alt="dance image" width="100%" >
+                                        ${mediaContent}
                                         <a href="update_dance.php?dance_ID=${dance.dance_ID}" class="btn-primary">Update</a>
                                         <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
                                     </div>

@@ -99,6 +99,7 @@ INSERT INTO `inaccuracies` (`report_ID`, `dance_name`, `description`) VALUES
 CREATE TABLE `preferences` (
   `pref_ID` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `value` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
