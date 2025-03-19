@@ -19,6 +19,7 @@ ob_flush();
 <title>Register/Login Form</title>
 <!-- <link href="css/loginForm.css" rel="stylesheet"> -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 <body>
 <div class="container mt-5">
@@ -37,7 +38,9 @@ ob_flush();
                     </div>
                     <div class="mb-3">
                         <label>Password</label>
-                        <input type="password" class="form-control" required name="password">
+                        <input type="password" class="form-control" id="password1" required name="password">
+                        <i class="bi bi-eye-slash" id="togglePass1"></i>
+                            <script src="passwordToggle2.js"></script>
                     </div>
                     <button class="btn btn-primary w-100" name="login">Log In</button>
                     <a href="confirmEmail.php" class="d-block text-center mt-2">Forgot password?</a>
@@ -61,8 +64,12 @@ ob_flush();
                         <input type="email" class="form-control" required name="email">
                     </div>
                     <div class="mb-3">
-                        <label>Set A Password</label>
-                        <input type="password" class="form-control" required name="password">
+                        <p>
+                            <label>Set A Password</label>
+                            <input type="password" class="form-control" id="password" required name="password" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%?^&*])[A-Za-z\d!@#$%?^&*]+" minlength=8 maxlength=20 title="Password must contain at least one Uppercase, Lowercase, Digit, Special Character, and be 8 characters long" style="width:90%">
+                            <i class="bi bi-eye-slash" id="togglePass"></i>
+                            <script src="passwordToggle.js"></script>
+                        </p>
                     </div>
                     <button class="btn btn-success w-100" name="register">Register</button>
                 </form>
