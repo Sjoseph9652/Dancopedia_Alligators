@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Content-Type: application/json');
 
     try {
-        $query = "SELECT dance_ID, name, region, style, description, status FROM dances WHERE creator_email = :email";
+        $query = "SELECT dance_ID, name, region, style, description, status, Link FROM dances WHERE creator_email = :email";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Add image URL to each dance entry
         foreach ($results as &$dance) {
             $dance['image_url'] = "fetch_account_info.php?dance_ID=" . $dance['dance_ID']; // to be referenced in account page
+            $dance['video_link'] = $dance['Link'];
         }
 
         echo json_encode(['success' => true, 'data' => $results]);
