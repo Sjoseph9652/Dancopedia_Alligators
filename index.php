@@ -25,6 +25,20 @@ if (isset($_SESSION['email']))
 .header {
     background-image: url('images/blog_dance2_480x480.webp'); 
 }
+
+#dances-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+}
+
+#dances-container .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
 </style>
 
 <body>
@@ -109,31 +123,31 @@ if (isset($_SESSION['email']))
                                 case 2:
                                     card_start = `
                             <div class="col-md-6">
-                                <div class="card mb-2 shadow-sm">`
+                                <div class="card mb-2 shadow-sm align-items-stretch">`
                                     break;
                                 case 3:
                                     card_start = `
                             <div class="col-md-4">
-                                <div class="card mb-3 shadow-sm">`
+                                <div class="card mb-3 shadow-sm align-items-stretch">`
                                     break;
                                 case 4:
                                     card_start = `
                             <div class="col-md-3">
-                                <div class="card mb-4 shadow-sm">`
+                                <div class="card mb-4 shadow-sm align-items-stretch">`
                                     break;
                                 case 5:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-5 shadow-sm">`
+                                <div class="card mb-5 shadow-sm align-items-stretch">`
                                     break;
                                 case 6:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-6 shadow-sm">`
+                                <div class="card mb-6 shadow-sm align-items-stretch">`
                                     break;
                             }
                             const card_body = `
-                                        <div class="card-body d-flex flex-column">
+                                        <div class="card-body d-flex flex-column h-300">
                                             <h5 class="card-title">${dance.name}</h5>
                                             <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                             <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>

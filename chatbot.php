@@ -3,10 +3,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-$servername = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$database = "gatorz_db"; 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "gatorz_db";
 
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
@@ -30,16 +30,16 @@ if (isset($_POST['user_message'])) {
         $_SESSION['dance_style'] = ucfirst($message);
         unset($_SESSION['awaiting_style']);
 
-        
+
         $dance_name = $_SESSION['dance_name'];
         $region = $_SESSION['dance_region'];
         $style = $_SESSION['dance_style'];
-        $creator_email = "admin@example.com"; 
+        $creator_email = "admin@example.com";
         $status = 0;
         $dance_description = $_SESSION['dance_description'] ?? 'No description available.';
 
         // Insert into database
-		$stmt = $conn->prepare("INSERT INTO dances (name, creator_email, region, style, description, status, image, MimeType, Link) 
+		$stmt = $conn->prepare("INSERT INTO dances (name, creator_email, region, style, description, status, image, MimeType, Link)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       // Set default values for image
 		$default_image = "default.jpg"; // Change this to a valid image filename or URL
@@ -107,7 +107,7 @@ if (isset($_POST['user_message'])) {
     ]);
 
     $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get the HTTP status code
 
     if ($response === false) {
         echo json_encode(['error' => 'cURL error: ' . curl_error($ch)]);
@@ -115,6 +115,7 @@ if (isset($_POST['user_message'])) {
         $decoded_response = json_decode($response, true);
 
         if ($httpCode !== 200) {
+            // Log the raw response if the API returns an error (debug)
             echo json_encode([
                 'error' => 'API error: ' . ($decoded_response['error']['message'] ?? 'Unknown error'),
                 'status' => $httpCode,
