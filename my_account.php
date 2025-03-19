@@ -149,10 +149,10 @@ if (!(isset($_SESSION['email'])))
                     const container = $('#dances-container');
 
                     // dynamically creates cards based on returned results
-                    dances.forEach(dance => 
+                    dances.forEach(dance =>
                     {
                         let mediaContent = '';
-                        
+
                         if(dance.image_url && dance.video_link)
                         {
                             // image and video
@@ -166,15 +166,15 @@ if (!(isset($_SESSION['email'])))
                                     <iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>
                                 </div>
                             </div>`;
-                        } 
-                        else if (dance.image_url) 
+                        }
+                        else if (dance.image_url)
                         {
                             console.log(dance);
                             // just image
                             mediaContent = `<img src="${dance.image_url}" alt="dance image" width="100%">`;
                         }
 
-                        else if (dance.video_link) 
+                        else if (dance.video_link)
                         {
                             console.log("just the video");
                             // just video
