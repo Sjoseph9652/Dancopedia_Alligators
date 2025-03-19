@@ -19,6 +19,14 @@ if (session_status() == PHP_SESSION_NONE) {
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" id="open-chat" href="#">Chat</a>
+                    <script>
+                        $(document).ready(function() {
+                            $("#open-chat").click(function(e) {
+                                e.preventDefault();
+                                $("#chatbot").fadeIn();
+                            });
+                        });
+                    </script>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="search_results.php">Search</a>

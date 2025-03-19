@@ -22,7 +22,11 @@
 }
 </style>
 
-<?php include 'includes/navbar.php'; ?> <!-- Include the navbar here -->
+<!-- Navbar -->
+<?php include 'includes/navbar.php'; ?>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
     
 <header class="header">
     <h1 class="text-center" style="color: white; font-weight: bold;">Create Dance</h1>
