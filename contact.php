@@ -25,6 +25,9 @@ session_start();
      <!-- navbar -->
     <?php include "includes/navbar.php"; ?>
 
+    <!-- Include Chatbot -->
+    <?php include "includes/chatbot_code.php"; ?>
+
     <!-- Header -->
     <header class="header">
         <h1 class="text-center" style="color: white; font-weight: bold;">Danceopedia</style></h1>
