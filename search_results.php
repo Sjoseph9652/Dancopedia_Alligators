@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/custom_style.css">
     
     <!-- References Used ------------------------------------
     	# https://www.w3schools.com/php/php_mysql_connect.asp
@@ -17,9 +18,7 @@
     
 </head>
 <style>
-.header {
-    background-image: url('images/blog_dance2_480x480.webp');
-}
+
 </style>
 <body>
 
@@ -29,75 +28,43 @@
  <!-- Include Chatbot -->
 <?php include "includes/chatbot_code.php"; ?>
 
-<header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Search</h1>
-    <p class="text-center" style="color:white;">Explore traditional and popular dances</p>
-</header>
+<main>
 
-<div class="text-center">
-    <form method="get">
-        <label>Search by:</label>
-        <br><br>
-
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="search-button" id="name-button" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="name-button">Name</label>
-
-            <input type="radio" class="btn-check" name="search-button" id="region-button" autocomplete="off">
-            <label class="btn btn-outline-primary" for="region-button">Region</label>
-
-            <input type="radio" class="btn-check" name="search-button" id="style-button" autocomplete="off">
-            <label class="btn btn-outline-primary" for="style-button">Style</label>
-        </div>
-        <br>
-        <br>
-        <div class="d-flex justify-content-center mt-3">
-            <div class="d-flex align-items-center" style="max-width: 300px;">
-                <input class="form-control mr-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<section class="dance-list py-5">
+<section class="text-center dance-list py-5">
     <div class="container">
-        <h2 class="text-center mb-4">Search Results</h2>
+        <h2>Search</h2>
+        <form method="get">
+            <br>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="search-button" id="name-button" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="name-button">Name</label>
+
+                    <input type="radio" class="btn-check" name="search-button" id="region-button" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="region-button">Region</label>
+
+                    <input type="radio" class="btn-check" name="search-button" id="style-button" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="style-button">Style</label>
+                </div>
+                <br>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <div class="d-flex align-items-center" style="max-width: 300px;">
+                        <input class="form-control mr-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        <br>
         <div class="row" id="dances-container">
             <!-- dances appear on cards dynamically -->
         </div>
     </div>
+</div>
 </section>
+</main>
 
-<footer class="text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Account</h5>
-                <ul class="list-unstyled">
-                    <li><a href="my_account.php">Profile</a></li>
-                    <li><a href="my_account.php">Saved Dances</a></li>
-                    <li><a href="#">Change Password</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Explore</h5>
-                <ul class="list-unstyled">
-                    <li><a href="index.php">Home Page</a></li>
-                    <li><a href="search_results.html">Search</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Resources</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Requirements</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+<!-- footer -->
+ <?php include "includes/footer.php"; ?>
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -149,27 +116,27 @@
                                 case 2:
                                     card_start = `
                             <div class="col-md-6">
-                                <div class="card mb-2 shadow-sm">`
+                                <div class="card mb-2 shadow-sm align-items-stretch">`
                                     break;
                                 case 3:
                                     card_start = `
                             <div class="col-md-4">
-                                <div class="card mb-3 shadow-sm">`
+                                <div class="card mb-3 shadow-sm align-items-stretch">`
                                     break;
                                 case 4:
                                     card_start = `
                             <div class="col-md-3">
-                                <div class="card mb-4 shadow-sm">`
+                                <div class="card mb-4 shadow-sm align-items-stretch">`
                                     break;
                                 case 5:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-5 shadow-sm">`
+                                <div class="card mb-5 shadow-sm align-items-stretch">`
                                     break;
                                 case 6:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-6 shadow-sm">`
+                                <div class="card mb-6 shadow-sm align-items-stretch">`
                                     break;
                             }
                             const card_body = `

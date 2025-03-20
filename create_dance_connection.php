@@ -57,7 +57,7 @@ header("location:create_dance.php?Successful=yes"); #Returns back to the form pa
 
 ?>
 
-<!-- After dance is made you can return to the homepage.--> 
+<!-- After dance is made you can return to the homepage.-->
  <!--
 <p>
     <h1>Dance created Successfully!</h1>
