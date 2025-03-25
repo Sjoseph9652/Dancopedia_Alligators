@@ -43,8 +43,8 @@ if (!(isset($_SESSION['email'])))
 <?php include "includes/navbar.php"; ?>
 
 <header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Dance Management</h1>
-    <p class="text-center" style="color:white;">Add, Delete, or Edit Dances</p>
+    <h1 class="text-center" style="color: white; font-weight: bold;">User Management</h1>
+    <p class="text-center" style="color:white;">Add, Delete, or Edit Users</p>
 </header>
 
 
@@ -74,6 +74,9 @@ if (!(isset($_SESSION['email'])))
 
 <!-- footer -->
 <?php include 'includes/footer.php'; ?>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -106,6 +109,8 @@ if (!(isset($_SESSION['email'])))
                                         <h5 class="card-title">${userData.first_name} ${userData.last_name}</h5>
                                         <p class="card-text">Email: ${userData.email}</p>
                                         <p class="card-text">Role: ${userData.role}</p>
+                                        <a href="update_user.php?dance_ID=${userData.user_id}" class="btn-primary">Update</a>
+                                        <button class="delete_button btn-primary" data-id="${userData.user_id}">Delete</button>
                                     </div>
                                 </div>
                             `);
@@ -119,15 +124,15 @@ if (!(isset($_SESSION['email'])))
                     //Delete Button
                     $('.delete_button').click(function()
                     {
-                        const dance_ID = $(this).data('id');
-                        console.log(dance_ID);
+                        const user_id = $(this).data('id');
+                        console.log(user_id);
                         $.ajax({
-                            url: 'delete_dance.php',
+                            url: 'delete_user.php',
                             method: 'POST',
-                            data: { dance_ID:dance_ID},
+                            data: { user_id:user_id},
                             success: function(response)
                             {
-                                location.reload();
+                                window.history.back();
                             }
                         });
                     });

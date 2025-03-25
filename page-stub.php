@@ -1,3 +1,13 @@
+<?php
+session_start();
+//var_dump($_SESSION);
+if (isset($_SESSION['email']))
+{
+    echo "Logged in as: " . $_SESSION['email'];
+} else {
+    echo "User is not logged in.";
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,19 +38,12 @@
 
 
 <main>
-    <section>
-        <br>
-        <div class="container text-center py-5">
-            <h2>Forgot Password</h2>
-                <br>
-                <form method="post" action="send-password-reset.php">
-
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email">
-
-                    <button class="btn btn-outline-success" type="submit">Send</button>
-
-                </form>
+    <section class="dance-list py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Page Header</h2>
+            <div class="row" id="dances-container">
+                <!-- dances will be appended here dynamically -->
+            </div>
         </div>
     </section>
 </main>
@@ -55,14 +58,3 @@
 
 </body>
 </html>
-
-<?php
-session_start();
-//var_dump($_SESSION);
-if (isset($_SESSION['email']))
-{
-    echo "Logged in as: " . $_SESSION['email'];
-} else {
-    echo "User is not logged in.";
-}
-?>
