@@ -12,6 +12,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
+    <link rel="stylesheet" href="css/custom_style.css">
 </head>
 <style>
 /* Header Background, extra */
@@ -28,19 +29,15 @@ session_start();
     <!-- Include Chatbot -->
     <?php include "includes/chatbot_code.php"; ?>
 
-    <!-- Header -->
-    <header class="header">
-        <h1 class="text-center" style="color: white; font-weight: bold;">Danceopedia</style></h1>
-        <p class="text-center" style="color:white;">Discover Dances of Mexico</style></p>
-    </header>
 
-<main class="container py-5">
-<h2 class="text-center mb-4">Contact Us</h2>
+
+<main>
+<h2 class="text-center mb-4 py-5">Contact Us</h2>
   <div class="row justify-content-center">
     <div class="col-md-8">
       <form action="submit_contact.php" method="POST" class="w3-card p-4 bg-white shadow rounded">
         <div class="mb-3">
-          <label for="name" class="form-label"><strong>Name</strong></label>
+          <label for="name" class="form-label"><h2>Name</h2></label>
           <input type="text" class="form-control" id="name" name="name" required />
         </div>
 

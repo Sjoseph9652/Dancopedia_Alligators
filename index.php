@@ -19,12 +19,15 @@ if (isset($_SESSION['email']))
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
+    <link rel="stylesheet" href="css/custom_style.css">
 </head>
 <style>
 /* Header Background, extra */
 .header {
     background-image: url('images/blog_dance2_480x480.webp'); 
 }
+
+
 </style>
 
 <body>
@@ -32,13 +35,8 @@ if (isset($_SESSION['email']))
      <!-- navbar -->
     <?php include "includes/navbar.php"; ?>
 
-    <!-- Header -->
-    <header class="header">
-        <h1 class="text-center" style="color: white; font-weight: bold;">Dancopedia</style></h1>
-        <p class="text-center" style="color:white;">Discover Dances of Mexico</style></p>
-    </header>
 
-
+<main>
 <!-- dynamic card section -->
 <section class="dance-list py-5">
     <div class="container">
@@ -48,22 +46,8 @@ if (isset($_SESSION['email']))
         </div>
     </div>
 </section>
+</main>
 
-
-<!-- Chatbot Container -->
- <!--
-<div class="chat-container" id="chatbot" style="display: none;">
-    <div class="chat-header">
-        Chatbot
-        <button type="button" class="close" aria-label="Close" id="close-chat">&times;</button>
-    </div>
-    <div class="chat-body" id="chat-messages"></div>
-    <div class="modal-footer">
-        <textarea id="message-input" placeholder="Ask a question"></textarea>
-        <button id="chat-submit">Send</button>
-    </div>
-</div>
--->
 
 <!-- footer -->
 <?php include "includes/footer.php"; ?>
@@ -109,31 +93,31 @@ if (isset($_SESSION['email']))
                                 case 2:
                                     card_start = `
                             <div class="col-md-6">
-                                <div class="card mb-2 shadow-sm">`
+                                <div class="card mb-2 shadow-sm align-items-stretch">`
                                     break;
                                 case 3:
                                     card_start = `
                             <div class="col-md-4">
-                                <div class="card mb-3 shadow-sm">`
+                                <div class="card mb-3 shadow-sm align-items-stretch">`
                                     break;
                                 case 4:
                                     card_start = `
                             <div class="col-md-3">
-                                <div class="card mb-4 shadow-sm">`
+                                <div class="card mb-4 shadow-sm align-items-stretch">`
                                     break;
                                 case 5:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-5 shadow-sm">`
+                                <div class="card mb-5 shadow-sm align-items-stretch">`
                                     break;
                                 case 6:
                                     card_start = `
                             <div class="col-md-2">
-                                <div class="card mb-6 shadow-sm">`
+                                <div class="card mb-6 shadow-sm align-items-stretch">`
                                     break;
                             }
                             const card_body = `
-                                        <div class="card-body d-flex flex-column">
+                                        <div class="card-body d-flex flex-column h-300">
                                             <h5 class="card-title">${dance.name}</h5>
                                             <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                             <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>

@@ -3,7 +3,9 @@ session_start();
 // Check if the user is logged in
 if (!(isset($_SESSION['email']))) 
 {
-    echo "<p>You are not logged in. Please <a href='LoginForm.php'>login</a> to view your credentials.</p>";
+
+    header("Location: LoginForm.php");
+
     exit;
 }
 ?>
@@ -18,6 +20,7 @@ if (!(isset($_SESSION['email'])))
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/custom_style.css">
     
     <!-- References Used ------------------------------------
     	# https://www.w3schools.com/php/php_mysql_connect.asp
@@ -30,12 +33,7 @@ if (!(isset($_SESSION['email'])))
 .header {
     background-image: url('images/blog_dance2_480x480.webp');
 }
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
+
 </style>
 <body>
 
@@ -45,55 +43,25 @@ if (!(isset($_SESSION['email'])))
 <!-- Include Chatbot -->
 <?php include "includes/chatbot_code.php"; ?>
 
-<header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Dances</h1>
-    <p class="text-center" style="color:white;">Explore traditional and popular dances</p>
-</header>
 
 
+<main>
 
-<section class="dance-buttons py-5">
+<section class="text-center py-5">
+    <div class="container">
+        <div class="row" id="details-container">
+           <!-- details dynamically added here -->
+        </div>
+    </div>
+</section>
+
+
+<section class="dance-list py-5">
     <div class="container">
         <div class="button-container">
             <a href="create_dance.php" class="btn btn-primary">Create a Dance</a>
             <a href="report_inaccuracies.php" class="btn btn-danger">Report Inaccuracies</a>
         </div>
-    </div>
-</section>
-
-<section class="text-center">
-    <div class="row" id="details-container">
-       <!-- details dynamically added here -->
-    </div>
-</section>
-<br>
-
-<section class="text-center">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="card mb-3 shadow-sm">
-                <p>activity?</p>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card mb-3 shadow-sm">
-                <p>activity?</p>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card mb-3 shadow-sm">
-                <p>activity?</p>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card mb-3 shadow-sm">
-                <p>activity?</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="dance-list py-5">
     <div class="container">
         <h2 class="text-center mb-4">Dances List</h2>
         <div class="row" id="dances-container">
@@ -102,35 +70,36 @@ if (!(isset($_SESSION['email'])))
     </div>
 </section>
 
-<footer class="text-center">
+<section class="text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h5>Account</h5>
-                <ul class="list-unstyled">
-                    <li><a href="my_account.php">Profile</a></li>
-                    <li><a href="my_account.php">Saved Dances</a></li>
-                    <li><a href="#">Change Password</a></li>
-                </ul>
+            <div class="col-sm-3">
+                <div class="card mb-3 shadow-sm">
+                    <p>activity?</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>Explore</h5>
-                <ul class="list-unstyled">
-                    <li><a href="index.php">Home Page</a></li>
-                    <li><a href="search_results.html">Search</a></li>
-                </ul>
+            <div class="col-sm-3">
+                <div class="card mb-3 shadow-sm">
+                    <p>activity?</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>Resources</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Requirements</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <div class="col-sm-3">
+                <div class="card mb-3 shadow-sm">
+                    <p>activity?</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 shadow-sm">
+                    <p>activity?</p>
+                </div>
             </div>
         </div>
     </div>
-</footer>
+</section>
+
+</main>
+
+<?php include "includes/footer.php"; ?>
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -149,10 +118,10 @@ if (!(isset($_SESSION['email'])))
                     const container = $('#dances-container');
 
                     // dynamically creates cards based on returned results
-                    dances.forEach(dance => 
+                    dances.forEach(dance =>
                     {
                         let mediaContent = '';
-                        
+
                         if(dance.image_url && dance.video_link)
                         {
                             // image and video
@@ -166,15 +135,15 @@ if (!(isset($_SESSION['email'])))
                                     <iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>
                                 </div>
                             </div>`;
-                        } 
-                        else if (dance.image_url) 
+                        }
+                        else if (dance.image_url)
                         {
                             console.log(dance);
                             // just image
                             mediaContent = `<img src="${dance.image_url}" alt="dance image" width="100%">`;
                         }
 
-                        else if (dance.video_link) 
+                        else if (dance.video_link)
                         {
                             console.log("just the video");
                             // just video
