@@ -40,10 +40,6 @@ if (!(isset($_SESSION['email'])))
 <!-- navbar -->
 <?php include "includes/navbar.php"; ?>
 
-<!-- Include Chatbot -->
-<?php include "includes/chatbot_code.php"; ?>
-
-
 
 <main>
 
@@ -232,5 +228,9 @@ if (!(isset($_SESSION['email'])))
 </script>
 
 </body>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
+
 </html>
 

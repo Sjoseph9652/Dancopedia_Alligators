@@ -110,4 +110,8 @@
 </script>
 
 </body>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
+
 </html>
