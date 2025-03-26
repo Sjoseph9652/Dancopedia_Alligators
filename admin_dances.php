@@ -43,8 +43,8 @@ if (!(isset($_SESSION['email'])))
 <?php include "includes/navbar.php"; ?>
 
 <header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">User Management</h1>
-    <p class="text-center" style="color:white;">Add, Delete, or Edit Users</p>
+    <h1 class="text-center" style="color: white; font-weight: bold;">Dance Management</h1>
+    <p class="text-center" style="color:white;">Add, Delete, or Edit Dances</p>
 </header>
 
 
@@ -75,6 +75,9 @@ if (!(isset($_SESSION['email'])))
 <!-- footer -->
 <?php include 'includes/footer.php'; ?>
 
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
+
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS -->
@@ -93,7 +96,7 @@ if (!(isset($_SESSION['email'])))
 
                     // dynamically creates list items based on returned results
                     const list_start = `<div class="list-group" id="list-tab" role="tablist">
-                                                <a href="#" class="list-group-item list-group-item-action">Username</a>`
+                                                <a href="#" class="list-group-item list-group-item-action">Dance Name</a>`
                     list_container.append(list_start);
                     dances.forEach(dance => {
                         const $list_item = $(`<a href="#" class="list-group-item list-group-item-action" data-dance='${JSON.stringify(dance)}'>${dance.name}</a>`);

@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="container navbar navbar-expand-lg navbar-lite bg-light">
     <div class="container">
         <a class="navbar-brand" href="index.php">
             <img src="images/Dance_icon.webp" alt="Dancopedia Logo" width="40" height="40" class="me-2">

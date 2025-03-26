@@ -16,12 +16,23 @@ ob_flush();
 <!DOCTYPE html>
 <html>
 <head>
-<title>Register/Login Form</title>
-<!-- <link href="css/loginForm.css" rel="stylesheet"> -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet" />
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dancopedia - Discover Dances</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
+    <link rel="stylesheet" href="css/custom_style.css">
 </head>
 <body>
+    <!-- navbar -->
+    <?php include "includes/navbar.php"; ?>
+
+    <!-- Include Chatbot -->
+    <?php include "includes/chatbot_code.php"; ?>
+
+    <main>
 <div class="container mt-5">
     <div class="form">
         <ul class="nav nav-tabs mb-3">
@@ -77,6 +88,11 @@ ob_flush();
         </div>
     </div>
 </div>
+</main>
+
+
+<!-- Include footer -->
+<?php include "includes/footer.php"; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

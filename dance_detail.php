@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/custom_style.css">
     
     <!-- References Used ------------------------------------
     	# https://www.w3schools.com/php/php_mysql_connect.asp
@@ -26,19 +27,20 @@
  <!-- navbar -->
  <?php include "includes/navbar.php"; ?>
 
-<header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Dance Details</h1>
-    <p class="text-center" style="color:white;">More Information About This Dance</p>
-</header>
 
-<section class="text-center">
+<main>
+<section class="text-center py-5">
+    <div class="container">
+        <h2>Dance Details</h2>
     <div class="row" id="details-container">
        <!-- details dynamically added here -->
     </div>
+</div>
 </section>
 <br>
 
 <section class="text-center">
+    <div class="container">
     <div class="row">
         <div class="col-sm-3">
             <div class="card mb-3 shadow-sm">
@@ -61,8 +63,9 @@
             </div>
         </div>
     </div>
+</div>
 </section>
-
+</main>
 <!-- footer -->
  <?php include "includes/footer.php"; ?>
 
