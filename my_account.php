@@ -122,32 +122,13 @@ if (!(isset($_SESSION['email'])))
                     {
                         let mediaContent = '';
 
-                        if(dance.image_url && dance.video_link)
+                        if(dance.video_link)
                         {
-                            // image and video
-                            console.log("Hello World!");
-                            mediaContent = `
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="${dance.image_url}" alt="dance image" width="100%">
-                                </div>
-                                <div class="col-md-6">
-                                    <iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>`;
+                            mediaContent = `<iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>`;
                         }
                         else if (dance.image_url)
                         {
-                            console.log(dance);
-                            // just image
                             mediaContent = `<img src="${dance.image_url}" alt="dance image" width="100%">`;
-                        }
-
-                        else if (dance.video_link)
-                        {
-                            console.log("just the video");
-                            // just video
-                            mediaContent = `<iframe width="100%" height="200" src="${dance.video_link}" frameborder="0" allowfullscreen></iframe>`;
                         }
 
                         const card = `
@@ -158,8 +139,10 @@ if (!(isset($_SESSION['email'])))
                                         <p class="card-text">${dance.description}</p>
                                         <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                         ${mediaContent}
-                                        <a href="update_dance.php?dance_ID=${dance.dance_ID}" class="btn-primary">Update</a>
-                                        <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
+                                        <div class="mt-auto pt-3 d-flex justify-content-between">
+                                            <a href="update_dance.php?dance_ID=${dance.dance_ID}" class="btn btn-primary">Update</a>
+                                            <button class="delete_button btn btn-primary" data-id="${dance.dance_ID}">Delete</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>`;
