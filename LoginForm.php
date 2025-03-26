@@ -20,7 +20,8 @@ ob_flush();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dancopedia - Discover Dances</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- THis style sheet is needed for the "Eye" icon -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
     <link rel="stylesheet" href="css/custom_style.css">
@@ -49,8 +50,8 @@ ob_flush();
                     </div>
                     <div class="mb-3">
                         <label>Password</label>
-                        <input type="password" class="form-control" id="password1" required name="password">
-                        <i class="bi bi-eye-slash" id="togglePass1"></i>
+                        <input type="password" class="form-control eye" id="password1" required name="password">
+                        <i class="bi bi-eye-slash eye1" id="togglePass1"></i>
                             <script src="passwordToggle2.js"></script>
                     </div>
                     <button class="btn btn-primary w-100" name="login">Log In</button>
@@ -77,8 +78,8 @@ ob_flush();
                     <div class="mb-3">
                         <p>
                             <label>Set A Password</label>
-                            <input type="password" class="form-control" id="password" required name="password" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%?^&*])[A-Za-z\d!@#$%?^&*]+" minlength=8 maxlength=20 title="Password must contain at least one Uppercase, Lowercase, Digit, Special Character, and be 8 characters long" style="width:90%">
-                            <i class="bi bi-eye-slash" id="togglePass"></i>
+                            <input type="password" class="form-control eye" id="password" required name="password" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%?^&*])[A-Za-z\d!@#$%?^&*]+" minlength=8 maxlength=20 title="Password must contain at least one Uppercase, Lowercase, Digit, Special Character, and be 8 characters long" style="width:100%">
+                            <i class="bi bi-eye-slash eye1" id="togglePass"></i>
                             <script src="passwordToggle.js"></script>
                         </p>
                     </div>
