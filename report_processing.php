@@ -40,4 +40,7 @@ mysqli_stmt_bind_param($stmt, "ss", $title, $complaint);
 mysqli_stmt_execute($stmt);
 
 $conn->close();
+
+header("Location: my_account.php");
+exit();
 ?>
