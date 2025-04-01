@@ -71,3 +71,11 @@ html, body {
     margin-bottom: 20px;
 }
 
+/* these classes move the eye-slash icon with the input field */
+.eye {
+    display: inline;
+}
+
+.eye1 {
+    margin-left:-30px;
+}

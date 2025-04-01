@@ -30,14 +30,16 @@
     <section class="dance-list py-5">
         <div class="container text-center">
             <h2 class="text-center mb-4">Report Inaccuracy</h2>
-            <br>
+        
             <form action="report_processing.php" method="POST">
-                <label for="title">Dance Name</label>
-                <input type="text" id="title" name="title" required><br><br>
-
-                <label for="complaint">Complaint:</label><br>
-                <textarea id="complaint" name="complaint" rows="4" cols="50" required></textarea><br><br>
-
+            <div class="mb-3 text-start fw-bold">
+                <label class="form-label" for="title">Dance Name</label>
+                <input type="text" class="form-control" id="title" name="title" required><br>
+            </div>
+            <div class="mb-3 text-start fw-bold">
+                <label class="form-label" for="complaint">Complaint:</label><br>
+                <textarea id="complaint" class="form-control" name="complaint" rows="4" cols="50" required></textarea><br>
+            </div>
                 <button class="btn btn-outline-success" type="submit">Submit</button>
         </div>
     </section>

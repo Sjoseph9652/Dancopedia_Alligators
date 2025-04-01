@@ -23,11 +23,9 @@ session_start();
 
 <body>
 	<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-     <!-- navbar -->
-    <?php include "includes/navbar.php"; ?>
+  <!-- navbar -->
+  <?php include "includes/navbar.php"; ?>
 
-    <!-- Include Chatbot -->
-    <?php include "includes/chatbot_code.php"; ?>
 
 
 
@@ -74,4 +72,8 @@ session_start();
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
+
 </html>
