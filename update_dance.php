@@ -86,7 +86,7 @@ $dance = mysqli_fetch_assoc($result);
 
                     <div class="mb-3">
                         <label for="style" class="form-label">Link</label>
-                        <input type="text" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($dance['Link']); ?>" required>
+                        <input type="text" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($dance['Link']); ?>">
                     </div>
 
                     <div class="mb-3 text-start fw-bold">
