@@ -116,7 +116,14 @@ if (isset($_SESSION['email']))
                                 <div class="card mb-6 shadow-sm align-items-stretch">`
                                     break;
                             }
-                            const card_body = `
+                            /*NEW up until the :*/
+                            const card_body = dance.link ? `<div class="card-body d-flex flex-column h-300"> 
+                                            <h5 class="card-title">${dance.name}</h5>
+                                            <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
+                                            <iframe src="${dance.link}"></iframe>
+                                        </div>
+                                    </div>
+                                </div>` : `
                                         <div class="card-body d-flex flex-column h-300">
                                             <h5 class="card-title">${dance.name}</h5>
                                             <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
