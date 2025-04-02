@@ -1,0 +1,81 @@
+/* deals with cards */
+#dances-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+}
+
+#dances-container .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* sets background image and centers */
+body {
+    background-image: url('../images/blog_dance2_480x480.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+
+/* dims background image */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+
+/* container sections to overlay background image  */
+.container, .card, footer, navbar {
+    background: rgba(255, 255, 255, 0.85);
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* button adjustments */
+.btn {
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* helps ensure that the footer is pinned to the bottom of the page */
+main {
+    flex: 1;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* these classes move the eye-slash icon with the input field */
+.eye {
+    display: inline;
+}
+
+.eye1 {
+    margin-left:-30px;
+}
