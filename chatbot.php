@@ -13,126 +13,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$uploadDir = "uploads/";
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0777, true);
-}
-
-// OpenAI API Key
-$apiKey = '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';
-$apiUrl = 'https://api.openai.com/v1/chat/completions';
-
-// Handle Image Upload
-if (isset($_FILES['dance_image'])) {
-    $image = $_FILES['dance_image'];
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    $fileType = mime_content_type($image['tmp_name']);
-
-    if (in_array($fileType, $allowedTypes)) {
-        $fileName = uniqid() . "_" . basename($image['name']);
-        $filePath = $uploadDir . $fileName;
-
-        if (move_uploaded_file($image['tmp_name'], $filePath)) {
-            $_SESSION['dance_image'] = $filePath;
-            echo "✅ Image uploaded successfully! Please enter a video URL.";
-        } else {
-            echo "❌ Error moving uploaded file.";
-        }
-    } else {
-        echo "❌ Invalid image format. Please upload a JPG, PNG, or GIF.";
-    }
-    exit();
-}
-
-// Video URL Submission
-if (isset($_POST['video_url'])) {
-    $_SESSION['dance_video'] = $_POST['video_url'];
-    
-    $stmt = $conn->prepare("INSERT INTO dances (name, creator_email, region, style, description, status, image, MimeType, Link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-    $dance_name = $_SESSION['dance_name'] ?? "Unknown Dance";
-    $region = $_SESSION['dance_region'] ?? "Unknown Region";
-    $style = $_SESSION['dance_style'] ?? "Unknown Style";
-    $creator_email = "admin@example.com";
-    $status = 0;
-    $description = $_SESSION['dance_description'] ?? 'No description available.';
-    $imagePath = $_SESSION['dance_image'] ?? "default.jpg";
-    $videoUrl = $_SESSION['dance_video'] ?? null;
-
-    $mimeType = mime_content_type($imagePath);
-
-    $stmt->bind_param("ssssissss", $dance_name, $creator_email, $region, $style, $description, $status, $imagePath, $mimeType, $videoUrl);
-
-    if ($stmt->execute()) {
-        echo "✅ The dance '$dance_name' has been successfully added to the database!";
-    } else {
-        echo "❌ Error: " . $stmt->error;
-    }
-
-    $stmt->close();
-    exit();
-}
-
-// Handle Text Input from Chat
 if (isset($_POST['user_message'])) {
     $message = strtolower(trim($_POST['user_message']));
 
-    if (preg_match('/tell me about (.+)/i', $message, $matches)) {
-        $dance_name = ucfirst(trim($matches[1]));
-        $_SESSION['dance_name'] = $dance_name;
-
-        // Fetch description from OpenAI API
-        $postData = [
-            'model' => 'gpt-4', 
-            'messages' => [
-                ['role' => 'system', 'content' => 'You are an assistant knowledgeable about dance traditions from all over the world. Provide detailed descriptions when asked about specific dances.'],
-                ['role' => 'user', 'content' => "Tell me about the dance called $dance_name."]
-            ],
-            'temperature' => 0.7
-        ];
-
-        $headers = [
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $apiKey
-        ];
-
-        $ch = curl_init($apiUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($response === false) {
-            echo "❌ Error: " . curl_error($ch);
-            curl_close($ch);
-            exit();
-        }
-
-        $decodedResponse = json_decode($response, true);
-
-        if ($httpCode !== 200 || empty($decodedResponse['choices'][0]['message']['content'])) {
-            echo "❌ Error: Could not retrieve description for $dance_name.";
-        } else {
-            $description = $decodedResponse['choices'][0]['message']['content'];
-            $_SESSION['dance_description'] = $description;
-
-            echo "$description\n\nWould you like to add the dance '$dance_name' to the database? (yes/no)";
-        }
-
-        curl_close($ch);
-        exit();
-    }
-
-    if ($message === 'yes') {
-        $_SESSION['awaiting_region'] = true;
-        echo "Great! What region is '{$_SESSION['dance_name']}' associated with?";
-        exit();
-    }
-
-    if (isset($_SESSION['awaiting_region'])) {
+    //  region input
+    if (isset($_SESSION['awaiting_region']) && isset($_SESSION['dance_name'])) {
         $_SESSION['dance_region'] = ucfirst($message);
         unset($_SESSION['awaiting_region']);
         $_SESSION['awaiting_style'] = true;
@@ -140,17 +25,119 @@ if (isset($_POST['user_message'])) {
         exit();
     }
 
-    if (isset($_SESSION['awaiting_style'])) {
+    // style input
+    if (isset($_SESSION['awaiting_style']) && isset($_SESSION['dance_name'])) {
         $_SESSION['dance_style'] = ucfirst($message);
         unset($_SESSION['awaiting_style']);
-        $_SESSION['awaiting_image_upload'] = true;
-        echo "Great! Please upload an image for '{$_SESSION['dance_name']}'.";
+
+
+        $dance_name = $_SESSION['dance_name'];
+        $region = $_SESSION['dance_region'];
+        $style = $_SESSION['dance_style'];
+        $creator_email = "admin@example.com";
+        $status = 0;
+        $dance_description = $_SESSION['dance_description'] ?? 'No description available.';
+
+        // Insert into database
+		$stmt = $conn->prepare("INSERT INTO dances (name, creator_email, region, style, description, status, image, MimeType, Link)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      // Set default values for image
+		$default_image = "default.jpg"; // Change this to a valid image filename or URL
+		$default_mime = "image/jpeg"; // Change this to match your default image type
+		$default_link = "https://example.com/default-dance.jpg"; // Example link if needed
+
+		$stmt->bind_param("ssssissss", $dance_name, $creator_email, $region, $style, $dance_description, $status, $default_image, $default_mime, $default_link);
+
+        if ($stmt->execute()) {
+            echo "✅ The dance '$dance_name' (Region: $region, Style: $style) has been successfully added to the database!";
+        } else {
+            echo "❌ Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+
+        // Clear session data
+        unset($_SESSION['dance_name'], $_SESSION['dance_region'], $_SESSION['dance_style'], $_SESSION['dance_description']);
         exit();
     }
 
-    echo "Sorry, I didn't understand your message.";
+    if (isset($_SESSION['awaiting_dance_confirmation']) && isset($_SESSION['dance_name'])) {
+        if ($message === 'yes') {
+            $_SESSION['awaiting_region'] = true;
+            unset($_SESSION['awaiting_dance_confirmation']);
+            echo "Great! What region is '{$_SESSION['dance_name']}' associated with?";
+        } else {
+            echo "Dance addition canceled.";
+            unset($_SESSION['awaiting_dance_confirmation'], $_SESSION['dance_name'], $_SESSION['dance_description']);
+        }
+        exit();
+    }
+
+    // Chatbot API
+    $apiKey = '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';
+    $apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+    $headers = [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $apiKey
+    ];
+
+    $postData = [
+        'model' => 'gpt-4o-mini', 
+        'messages' => [
+            [
+                'role' => 'system',
+                'content' => 'You are a chatbot assisting users on an educational website about dance traditions worldwide. If a user expresses interest in adding a dance, confirm first, then ask them for region and style step by step.'
+            ],
+            [
+                'role' => 'user',
+                'content' => $message
+            ]
+        ],
+        'temperature' => 0.7
+    ];
+
+    $ch = curl_init($apiUrl);
+
+    curl_setopt_array($ch, [
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($postData)
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get the HTTP status code
+
+    if ($response === false) {
+        echo json_encode(['error' => 'cURL error: ' . curl_error($ch)]);
+    } else {
+        $decoded_response = json_decode($response, true);
+
+        if ($httpCode !== 200) {
+            // Log the raw response if the API returns an error (debug)
+            echo json_encode([
+                'error' => 'API error: ' . ($decoded_response['error']['message'] ?? 'Unknown error'),
+                'status' => $httpCode,
+                'response' => $response
+            ]);
+        } else {
+            $bot_message = $decoded_response['choices'][0]['message']['content'] ?? 'Sorry, I couldn\'t process your request right now.';
+
+            // Extract dance name and description
+            if (preg_match('/\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b.*?is\s.*?\b(\w+ dance|style|tradition)\b/i', $bot_message, $matches)) {
+                $_SESSION['dance_name'] = trim($matches[1]);
+                $_SESSION['dance_description'] = $bot_message;
+                $_SESSION['awaiting_dance_confirmation'] = true;
+                echo "$bot_message\n\nWould you like to add the dance '{$_SESSION['dance_name']}' to the database? (yes/no)";
+                exit();
+            }
+
+            echo $bot_message;
+        }
+    }
+
+    curl_close($ch);
     exit();
 }
-
-echo "No valid request received.";
-exit();
+?>
