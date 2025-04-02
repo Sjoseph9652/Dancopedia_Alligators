@@ -61,7 +61,7 @@ $dance = mysqli_fetch_assoc($result);
         <div class="container">
             <h2>Update Dance</h2>
             <br>
-                <form action="process_dance_update.php" method="POST">
+                <form action="process_dance_update.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="dance_ID" value="<?php echo $dance['dance_ID']; ?>">
 
                     <div class="mb-3">
@@ -82,6 +82,16 @@ $dance = mysqli_fetch_assoc($result);
                     <div class="mb-3">
                         <label for="style" class="form-label">Style</label>
                         <input type="text" class="form-control" id="style" name="style" value="<?php echo htmlspecialchars($dance['style']); ?>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="style" class="form-label">Link</label>
+                        <input type="text" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($dance['Link']); ?>">
+                    </div>
+
+                    <div class="mb-3 text-start fw-bold">
+                        <label class="form-label" for="photos">Upload Photos:</label>
+                        <input type="file" class="form-control" id="photo" name="photo">
                     </div>
 
                     <button type="submit" class="btn btn-success">Save Changes</button>
