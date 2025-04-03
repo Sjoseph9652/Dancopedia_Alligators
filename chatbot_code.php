@@ -52,11 +52,17 @@
                     type: "POST",
                     data: { user_message: message },
                     success: function(response) {
+                        console.log("Server Response: ", response);  // Debugging: Log the response to the console
                         $("#chat-messages").append("<div class='bot-message'><strong>Bot:</strong> " + response + "</div>");
                         
-                        if (response.includes("upload an image")) {
+                        // Display Upload Button
+                        if (/upload.*image/i.test(response)) {  
                             $("#uploadButton").show();
+                        } else {
+                            $("#uploadButton").hide();
                         }
+                        
+                        // Display Video URL 
                         if (response.includes("Please enter a video URL")) {
                             $("#videoUrlInput").show();
                             $("#submitVideoUrl").show();
@@ -66,7 +72,7 @@
             }
         });
 
-        // Allow Enter key to send messages
+        //  to send messages
         $("#message-input").keypress(function(e) {
             if (e.which == 13) {
                 e.preventDefault();
@@ -103,6 +109,7 @@
                     return xhr;
                 },
                 success: function(response) {
+                    console.log("Image Upload Response: ", response);  // Debugging: Log the response to the console
                     $("#chat-messages").append("<div class='bot-message'><strong>Bot:</strong> " + response + "</div>");
                     $("#uploadButton").hide();
                     $("#progressWrapper").hide();
@@ -116,7 +123,7 @@
             });
         });
 
-        // Video URL Submission Handling
+        // Video URL 
         $("#submitVideoUrl").click(function() {
             var videoUrl = $("#videoUrlInput").val().trim();
 
@@ -126,6 +133,7 @@
                     type: "POST",
                     data: { video_url: videoUrl },
                     success: function(response) {
+                        console.log("Video URL Response: ", response);  // Debugging: Log the response to the console
                         $("#chat-messages").append("<div class='bot-message'><strong>Bot:</strong> " + response + "</div>");
                         $("#videoUrlInput").hide();
                         $("#submitVideoUrl").hide();
