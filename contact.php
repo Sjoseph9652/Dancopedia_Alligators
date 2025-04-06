@@ -35,17 +35,17 @@ session_start();
     <div class="col-md-8">
       <form action="submit_contact.php" method="POST" class="w3-card p-4 bg-white shadow rounded">
         <div class="mb-3">
-          <label for="name" class="form-label"><h2>Name</h2></label>
+          <label for="name" class="form-label" style="color: black;"><strong>Name</strong></label>
           <input type="text" class="form-control" id="name" name="name" required />
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label"><strong>Email</strong></label>
+          <label for="email" class="form-label" style="color: black;"><strong>Email</strong></label>
           <input type="email" class="form-control" id="email" name="email" required />
         </div>
 
         <div class="mb-3">
-          <label for="message" class="form-label"><strong>Message</strong></label>
+          <label for="message" class="form-label" style="color: black;"><strong>Message</strong></label>
           <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
         </div>
 
