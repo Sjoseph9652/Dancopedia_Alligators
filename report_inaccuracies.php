@@ -57,7 +57,9 @@
 </html>
 
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 //var_dump($_SESSION);
 if (isset($_SESSION['email']))
 {

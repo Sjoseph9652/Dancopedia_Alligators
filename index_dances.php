@@ -13,7 +13,8 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-$email = $_SESSION["email"];
+//$email = $_SESSION["email"];
+$email = $_SESSION["email"] ?? null;
 
 // ajax get request
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
