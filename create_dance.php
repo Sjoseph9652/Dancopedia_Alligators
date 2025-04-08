@@ -76,6 +76,16 @@ session_start();
                         <input type="file" class="form-control" id="photos" name="photos" multiple>
                     </div>
                     <button class="btn btn-outline-success" type="submit">Create Dance</button>
+                    
+                    
+                    <!-- Confirmation to the user that a dance was added to the database -->
+                        <?php
+                        if (isset($_GET["Successful"])) {
+                            
+                            echo('<Div style="margin-top: 20px"><span style="color:Green;padding: 15px;font-size:larger; font-family:Sans-serif; background-color:lightblue; opacity: 0.7s; border-radius: 25px;">  Dance added! </span></div>');
+                        }
+                        ?>
+                    
 
 
         </div>
@@ -93,10 +103,5 @@ session_start();
 </body>
 </html>
 
-<!-- Confirmation to the user that a dance was added to the database -->
-<?php
-if (isset($_GET["Successful"])) {
-    echo('<span style="color:Green;background-color:yellow">  Dance added! </span>');
-}
-?>
+
 
