@@ -3,12 +3,13 @@ session_start(); // start session
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+// connection variables 
 $host = 'localhost';
 $dbname = 'gatorz_db';
 $username = 'root';
 $password = '';
 
+// sets up connection to database and does error handling 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

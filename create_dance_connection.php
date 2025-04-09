@@ -13,13 +13,11 @@ $danceName = $_POST["title"];
 $region = $_POST["region"];
 $description = $_POST["description"];
 $style = $_POST["style"];
-/*var_dump($_FILES["photos"])*/ #tells to jpeg lol
 $image = file_get_contents($_FILES["photos"]["tmp_name"]);
 $MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is.
-
 $link =$_POST["link"];
 
-//var_dump(/*$creator_email,*/ $danceName, $region, $description, $style, $image);
+
 
 //connection object
 //***Change to port 3306 when COMPLETE***
@@ -56,13 +54,3 @@ $conn->close();
 header("location:create_dance.php?Successful=yes"); #Returns back to the form page.
 
 ?>
-
-<!-- After dance is made you can return to the homepage.-->
- <!--
-<p>
-    <h1>Dance created Successfully!</h1>
-    <br><br>
-    <a href="index.php"><input type="submit" value="Return to Home" id="returnHome" name="returnHome"></a>
-        <br><br>
-</p>
--->
