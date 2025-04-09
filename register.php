@@ -10,6 +10,7 @@ if (isset($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['pa
     $hashPass = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $email_validation = substr(md5(rand(0, 1000)), 0, 10);
 
+    //sql insert statement variables
     $sql = "INSERT INTO users (first_name, last_name, email, hash, active, role, modified_time, created_time)"
          . " VALUES ('$first_name', '$last_name', '$email', '$hashPass', '$email_validation', 'user', NOW(), NOW())";
 

@@ -38,39 +38,49 @@ session_start();
             <br>
                 <form action="create_dance_connection.php" method="POST" enctype="multipart/form-data">
 
+                    <!-- creator email -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="creator_email">Creator Email:</label>
                         <input type="email" class="form-control" id="creator_email" name="creator_email" value= <?php echo $_SESSION['email']?> required>
                     </div>
+
+                    <!-- Dance name -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="title">Dance Name:</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
+
+                    <!-- Region -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="region">Region:</label>
                         <input type="text" class="form-control" id="region" name="region" required>
                     </div>
+
+                    <!-- Style -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="style">Style:</label>
                         <input type="style" class="form-control" id="style" name="style" required>
                     </div>
                     <!-- Style, Tags, Region-->
+                    <!-- Description -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="description">Description:</label><br>
                         <textarea id="description" class="form-control" name="description" rows="4" cols="50" required></textarea>
                     </div>
-                    <!--
-                    <label for="tags">Tags:</label><br>
-                    <textarea id="tags" name="tags" rows="4" cols="50"></textarea><br><br> -->
+                   
 
                     <!-- video link -->
                      <!-- This text field is for inserting links into the database.
                       These links will be outputted and put on the home page under the index cards -->
                       <!-- ***The youtube video links only display if they are (Embedded html) under share*** -->
+
+                      <!-- Video -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="link">Dance Video link:</label>
                         <input type="text" class="form-control" id="link" name="link" size="70">
                     </div>
+
+                    <!-- upload photos-->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="photos">Upload Photos:</label>
                         <input type="file" class="form-control" id="photos" name="photos" multiple>

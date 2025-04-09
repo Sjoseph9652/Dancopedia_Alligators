@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// Connection variables 
 $host = "localhost";
 $dbname = "gatorz_db";
 $username = "root";
@@ -11,9 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "error" => "Unauthorized"]);
         exit;
     }
-
+// connection object
     $conn = mysqli_connect($host, $username, $password, $dbname, 3306);
 
+// checks for a connection error 
     if (mysqli_connect_errno()) 
     {
         die("Connection Error: " . mysqli_connect_error());

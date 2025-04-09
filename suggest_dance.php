@@ -6,15 +6,19 @@
 <?php include 'includes/navbar.php'; ?>
     <h2>Dance Suggestion</h2>
     <form action= "suggest_dance_processing.php" method="POST">
+    <!-- Dance name --> 
     <label for="title">Dance Name:</label>
     <input type="text" id="title" name="title" required><br><br>
 
+    <!-- Region  --> 
     <label for="region">Region:</label>
     <input type="text" id="region" name="region" reguired><br><br>
 
+    <!-- Style --> 
     <label for="style">Style</label>
     <input type="style" id="style" name="style" reguired><br><br>
 
+    <!-- Description --> 
     <label for="description">Description:</label><br>
     <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
 
