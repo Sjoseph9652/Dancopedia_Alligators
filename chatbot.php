@@ -19,7 +19,7 @@ if (!is_dir($uploadDir)) {
 }
 
 // OpenAI API Key
-$apiKey = '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';
+$apiKey = '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';
 $apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 // Handle Image Upload
@@ -76,20 +76,22 @@ if (isset($_POST['video_url'])) {
 // Handle Text Input from Chat
 if (isset($_POST['user_message'])) {
     $message = strtolower(trim($_POST['user_message']));
+    $pattern = '/(what is|tell me about|explain|describe|give me information about|talk about)\s(.+)/i';
 
-    if (preg_match('/tell me about (.+)/i', $message, $matches)) {
-        $dance_name = ucfirst(trim($matches[1]));
+    if (preg_match($pattern, $message, $matches)) {
+        $dance_name = ucfirst(trim($matches[2])); // Extract dance name from user message
         $_SESSION['dance_name'] = $dance_name;
 
-        // Fetch description from OpenAI API
+        // Fetch description from GPT-4o-mini
         $postData = [
-            'model' => 'gpt-4', 
+            'model' => 'gpt-4o-mini',
             'messages' => [
                 ['role' => 'system', 'content' => 'You are an assistant knowledgeable about dance traditions from all over the world. Provide detailed descriptions when asked about specific dances.'],
-                ['role' => 'user', 'content' => "Tell me about the dance called $dance_name."]
+                ['role' => 'user', 'content' => $message]  // Send the user's original message directly
             ],
             'temperature' => 0.7
         ];
+
 
         $headers = [
             'Content-Type: application/json',
