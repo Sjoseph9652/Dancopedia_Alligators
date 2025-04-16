@@ -11,7 +11,7 @@ if (!isset($_SESSION['email'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dancopedia - Users List</title>
+  <title>Dancopedia - User Preferences</title>
 
   <!-- Bootstrap & DataTables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,24 +37,22 @@ if (!isset($_SESSION['email'])) {
 <main>
 <section class="text-center py-5">
   <div class="container">
-    <h2 class="mb-4">Interactions</h2>
+    <h2 class="mb-4">User Preferences</h2>
 
     <div class="mb-3 text-end">
       <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
       <button id="deleteBtn" class="btn btn-danger">Delete</button>
     </div>
 
-    <table id="interactionsTable" class="table table-bordered table-hover align-middle text-center">
+    <table id="preferencesTable" class="table table-bordered table-hover align-middle text-center">
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
           <th>ID</th>
-          <th>Dance Name</th>
-          <th>Author</th>
-          <th>Title</th>
-          <th>Comment</th>
-          <th>Stars</th>
-          <th>Created Date</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Description</th>
         </tr>
       </thead>
     </table>
@@ -71,7 +69,7 @@ if (!isset($_SESSION['email'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-dark">
-        Are you sure you want to delete the selected interaction(s)? This action <strong>cannot</strong> be undone.
+        Are you sure you want to delete the selected preference(s)? This action <strong>cannot</strong> be undone.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -81,9 +79,11 @@ if (!isset($_SESSION['email'])) {
   </div>
 </div>
 
-<?php include "includes/footer.php"; ?>
+<!-- Footer -->
+<?php include 'includes/footer.php'; ?>
+<?php include 'includes/chatbot_code.php'; ?>
 
-<!-- JS dependencies -->
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -91,28 +91,25 @@ if (!isset($_SESSION['email'])) {
 
 <script>
 $(document).ready(function () {
-  const table = $('#interactionsTable').DataTable({
-    "ajax": "fetch_admin_interactions.php",
+  const table = $('#preferencesTable').DataTable({
+    "ajax": "fetch_admin_preferences.php",
     "columns": [
       {
         "data": null,
         "orderable": false,
         "className": 'dt-body-center',
         "render": function (data, type, row) {
-          return `<input type="checkbox" class="row-checkbox" value="${row.interaction_id}">`;
+          return `<input type="checkbox" class="row-checkbox" value="${row.pref_ID}">`;
         }
       },
-      { "data": "interaction_id" },
+      { "data": "pref_ID" },
+      { "data": "user_id" },
       { "data": "name" },
-      { "data": "email" },
-      { "data": "title" },
-      { "data": "comment" },
-      { "data": "stars" },
-      { "data": "created_on" }
+      { "data": "value" },
+      { "data": "description" }
     ]
   });
 
-  // Checkbox logic
   function updateButtonVisibility() {
     const checkedCount = $('.row-checkbox:checked').length;
     $('#editBtn').toggle(checkedCount === 1);
@@ -127,7 +124,6 @@ $(document).ready(function () {
     updateButtonVisibility();
   });
 
-  // Delete
   let selectedDeleteIDs = [];
 
   $('#deleteBtn').on('click', function () {
@@ -136,7 +132,7 @@ $(document).ready(function () {
     }).get();
 
     if (selectedDeleteIDs.length === 0) {
-      alert('Please select at least one interaction to delete.');
+      alert('Please select at least one preference to delete.');
       return;
     }
 
@@ -144,22 +140,16 @@ $(document).ready(function () {
     modal.show();
   });
 
-
-
-  // Edit
   $('#editBtn').on('click', function () {
     const selectedCheckbox = $('.row-checkbox:checked');
-
     if (selectedCheckbox.length !== 1) return;
 
     const row = selectedCheckbox.closest('tr');
     const rowData = table.row(row).data();
+    const prefID = rowData.pref_ID;
 
-    const interactionID = rowData.interaction_id;
-
-    window.location.href = `update_interaction.php?interaction_id=${interactionID}`;
+    window.location.href = `update_preference.php?pref_ID=${prefID}`;
   });
-
 });
 </script>
 
