@@ -1,3 +1,5 @@
+// Script is used to toggle to password off and on. It does this by toggling the type in the input box. 
+
 function passwordShow() {
     const togglePassword = document.querySelector('#togglePass1');
     const password = document.querySelector('#password1');
