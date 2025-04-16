@@ -1,4 +1,3 @@
-<!-- ***This page helps send to data to the database through the form*** -->
 <?php
 
 //connection variables
@@ -15,8 +14,8 @@ $description = $_POST["description"];
 $style = $_POST["style"];
 $image = file_get_contents($_FILES["photos"]["tmp_name"]);
 $MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is.
-$link =$_POST["link"];
 
+$link =$_POST["link"];
 
 
 //connection object
