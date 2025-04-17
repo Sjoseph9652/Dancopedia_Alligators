@@ -1,4 +1,4 @@
-/* deals with cards */
+/* deals with dance cards */
 #dances-container .card {
     display: flex;
     flex-direction: column;
@@ -9,6 +9,23 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+}
+
+/* deals with interaction cards */
+#interactions-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+}
+
+#interactions-container .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: black;
 }
 
 /* sets background image and centers */

@@ -35,7 +35,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" href="my_account.php">Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white" href="settings.php">Settings</a>
+                    <a class="nav-link btn btn-primary text-white" href="admin_dashboard.php">Admin</a>
                 </li>
 
                 <!-- Login / Logout -->
