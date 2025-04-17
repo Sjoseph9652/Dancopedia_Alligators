@@ -12,7 +12,7 @@ if (!function_exists('run_sql')) {
     DEFINE('DATABASE_PASSWORD', 'ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ');
 
     // Create database connection ***CHANGE PORT BACK 3306*** 
-    $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+    $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE, 55656);
     $db->set_charset("utf8");
 
     // Function to execute SQL queries
