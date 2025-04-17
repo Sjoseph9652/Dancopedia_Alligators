@@ -3,7 +3,9 @@ session_start();
 // Check if the user is logged in
 if (!(isset($_SESSION['email'])))
 {
-    echo "<p>You are not logged in. Please <a href='LoginForm.php'>login</a> to view your credentials.</p>";
+
+    header("Location: LoginForm.php");
+
     exit;
 }
 ?>
@@ -18,6 +20,7 @@ if (!(isset($_SESSION['email'])))
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/custom_style.css">
 
     <!-- References Used ------------------------------------
     	# https://www.w3schools.com/php/php_mysql_connect.asp
@@ -30,50 +33,71 @@ if (!(isset($_SESSION['email'])))
 .header {
     background-image: url('images/blog_dance2_480x480.webp');
 }
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
+
 </style>
 <body>
 
 <!-- navbar -->
 <?php include "includes/navbar.php"; ?>
 
-<header class="header">
-    <h1 class="text-center" style="color: white; font-weight: bold;">Dance Management</h1>
-    <p class="text-center" style="color:white;">Add, Delete, or Edit Dances</p>
-</header>
 
+<main>
 
-<section class="text-center">
-    <div class="button-container">
-        <a href="create_dance.php" class="btn btn-primary">Create a Dance</a>
-    </div>
-    <div class="container mt-4">
-        <div class="row">
-            <!-- dance list -->
-            <div class="col-md-8">
-                <div id="dance-list-container" class="list-group">
-                    <!-- dances will be added here dynamically -->
-                </div>
-            </div>
-
-            <!-- selected dance card -->
-            <div class="col-md-4">
-                <div id="dance-card-container">
-                    <!-- dance card will be displayed here dynamically -->
-                </div>
-            </div>
+<section class="text-center py-5">
+    <div class="container">
+      <h2 class="mb-4">Dances</h2>
+      <div class="mb-3 text-end">
+          <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
+          <button id="statusBtn" class="btn btn-info me-2">Change Status</button>
+          <button id="deleteBtn" class="btn btn-danger">Delete</button>
         </div>
+      <table id="danceTable" class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-dark">
+          <tr>
+            <th><input type="checkbox" id="selectAll"></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Region</th>
+            <th>Style</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+      </table>
     </div>
+
 </section>
-<br>
+
+
+</main>
+
+<!-- deletion modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark">
+        Are you sure you want to delete the selected dance(s)? This action <strong>cannot</strong> be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- footer -->
 <?php include 'includes/footer.php'; ?>
+
+</body>
+
 
 <!-- Include Chatbot -->
 <?php include "includes/chatbot_code.php"; ?>
@@ -82,75 +106,125 @@ if (!(isset($_SESSION['email'])))
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.24.1/dist/bootstrap-table.min.js"></script>
+
+
 <script>
-    $(document).ready(function() {
-        // fetch with ajax
-        $.ajax({
-            url: 'fetch_dances_admin.php',
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    const dances = response.data;
-                    const list_container = $('#dance-list-container');
+$(document).ready(function () {
+  $('#danceTable').DataTable({
+    "ajax": "fetch_admin_dances.php",
 
-                    // dynamically creates list items based on returned results
-                    const list_start = `<div class="list-group" id="list-tab" role="tablist">
-                                                <a href="#" class="list-group-item list-group-item-action">Dance Name</a>`
-                    list_container.append(list_start);
-                    dances.forEach(dance => {
-                        const $list_item = $(`<a href="#" class="list-group-item list-group-item-action" data-dance='${JSON.stringify(dance)}'>${dance.name}</a>`);
+    "columns": [
+      {
+        "data": null,
+        "orderable": false,
+        "className": 'dt-body-center',
+        "render": function (data, type, row) {
+          return `<input type="checkbox" class="row-checkbox" value="${row.dance_ID}">`;
+        }
+      },
+      { "data": "dance_ID" },
+      { "data": "name" },
+      { "data": "creator_email" },
+      { "data": "region" },
+      { "data": "style" },
+      { "data": "description" },
+      {
+        "data": "status",
+        "render": function(data) {
+          return data == 1 ? "Active" : "Inactive";
+        }
+      },
+      {
+        "data": "image",
+        "render": function(data, type, row) {
+          if (data && row.MimeType) {
+            return `<img src="data:${row.MimeType};base64,${data}" style="max-width:100px;">`;
+          }
+          return "No Image";
+        }
+      },
+      {
+        "data": "Link",
+        "render": function(data) {
+          return data ? `<a href="${data}" target="_blank">View</a>` : "No Link";
+        }
+      }
+    ]
+  });
+});
 
-                        $list_item.on('click', function() {
-                            const danceData = JSON.parse($(this).attr('data-dance'));
-                            $('#dance-card-container').html(`
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${danceData.name}</h5>
-                                            <p class="card-text">${danceData.description}</p>
-                                            <p class="text-muted">Region: ${danceData.region} | Style: ${danceData.style}</p>
-                                            <img src="${danceData.image || 'images/default-dance.webp'}" alt="dance image" width="100%">
-                                            <a href="update_dance.php?dance_ID=${dance.dance_ID}" class="btn-primary">Update</a>
-                                            <button class="delete_button btn-primary" data-id="${dance.dance_ID}">Delete</button>
-                                    </div>
-                                </div>
-                            `);
-                        });
-
-                        list_container.append($list_item);
-                    });
-                    const list_end = '</div> </div>'
-                    list_container.append(list_end);
-
-                    //Delete Button
-                    $('.delete_button').click(function()
-                    {
-                        const dance_ID = $(this).data('id');
-                        console.log(dance_ID);
-                        $.ajax({
-                            url: 'delete_dance.php',
-                            method: 'POST',
-                            data: { dance_ID:dance_ID},
-                            success: function(response)
-                            {
-                                location.reload();
-                            }
-                        });
-                    });
+$('#selectAll').on('click', function () {
+  const isChecked = $(this).is(':checked');
+  $('.row-checkbox').prop('checked', isChecked);
+});
+function updateButtonVisibility() {
+  const checkedCount = $('.row-checkbox:checked').length;
+  $('#editBtn').toggle(checkedCount === 1);
+}
 
 
-                } else {
-                    alert('Failed to fetch users: ' + response.error);
-                }
-            },
-            error: function() {
-                alert('An error occurred while fetching users.');
-            }
-        });
-    });
+$(document).on('change', '.row-checkbox', function () {
+  updateButtonVisibility();
+});
+
+$('#selectAll').on('click', function () {
+  $('.row-checkbox').prop('checked', this.checked);
+  updateButtonVisibility();
+});
+
+let selectedDeleteIDs = [];
+
+$('#deleteBtn').on('click', function () {
+  selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
+    return this.value;
+  }).get();
+
+  if (selectedDeleteIDs.length === 0) {
+    alert('Please select at least one dance to delete.');
+    return;
+  }
+
+  // modal
+  const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+  modal.show();
+});
+
+$('#statusBtn').on('click', function () {
+  const ids = $('.row-checkbox:checked').map(function () {
+    return this.value;
+  }).get();
+
+  if (ids.length === 0) {
+    alert('Please select at least one item to change status.');
+    return;
+  }
+
+  // You would send these IDs to the server via AJAX
+  console.log('Change status of these IDs:', ids);
+  // TODO: Add AJAX to toggle status
+});
+
+$('#editBtn').on('click', function () {
+  const table = $('#danceTable').DataTable();
+  const selectedCheckbox = $('.row-checkbox:checked');
+
+  if (selectedCheckbox.length !== 1) return;
+
+  const row = selectedCheckbox.closest('tr');
+  const rowData = table.row(row).data();
+
+  const danceID = rowData.dance_ID;
+
+  window.location.href = `update_dance.php?dance_ID=${danceID}`;
+});
+
 </script>
 
 
-</body>
+
 </html>
 

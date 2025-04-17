@@ -1,11 +1,11 @@
-<!-- ***This page helps send to data to the database through the form*** -->
 <?php
 
 //connection variables
-$host = "localhost";
-$dbname = "gatorz_db";
+$host = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 //form variables
 $creator_email = $_POST["creator_email"];
@@ -15,13 +15,13 @@ $description = $_POST["description"];
 $style = $_POST["style"];
 $image = file_get_contents($_FILES["photos"]["tmp_name"]);
 $MimeType = $_FILES["photos"]["type"]; // Tells what type of image that is.
-$link =$_POST["link"];
 
+$link =$_POST["link"];
 
 
 //connection object
 //***Change to port 3306 when COMPLETE***
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+$conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
 //Check for connection error
 if (mysqli_connect_errno()) {

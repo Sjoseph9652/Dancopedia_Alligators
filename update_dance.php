@@ -1,13 +1,14 @@
 <?php
 session_start();
 
-$host = "localhost";
-$dbname = "gatorz_db";
+$host = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+$conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
 // Check if dance_ID is in the URL
 if (!isset($_GET['dance_ID'])) {

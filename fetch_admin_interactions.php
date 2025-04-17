@@ -1,14 +1,15 @@
 <?php
 session_start();
 
-// Connection variables
-$host = "metro.proxy.rlwy.net";
-$dbname = "railway";
-$username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// sets up connection to database and does error handling 
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
+
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,20 +17,20 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// $email = $_SESSION["email"];
-$email = isset($_SESSION["email"]) ? $_SESSION["email"] : "none@none.com";
+$email = $_SESSION["email"];
 
 // ajax get request
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Content-Type: application/json');
 
     try {
-        $query = "SELECT users.*, preferences.*
-                          FROM users
-                          LEFT JOIN preferences ON users.id = preferences.user_id
-                          WHERE users.email = :email";
+        $query = "SELECT
+                    i.*, d.name, d.dance_ID, u.email, u.id
+                    FROM interactions i
+                    JOIN users u ON i.user_id = u.id
+                    JOIN dances d ON i.dance_id = d.dance_ID";
+
         $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

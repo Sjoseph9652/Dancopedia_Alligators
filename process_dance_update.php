@@ -1,13 +1,21 @@
 <?php
 session_start();
-// Connection variables 
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
+if (isset($_POST['redirect_back'])) {
+    $back = $_POST['redirect_back'];
+    unset($_SESSION['redirect_back']); // clear it after using
+    header("Location: $back");
+    exit;
+}
 
-// Connection object 
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+// Connection variables
+$host = "metro.proxy.rlwy.net";
+$dbname = "railway";
+$username = "root";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
+
+// Connection object
+$conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
 // form variables in IF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -34,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "sssssssi", $newName, $newDesc, $newRegion, $newStyle, $image, $MimeType, $newLink, $dance_ID);
     }
-    else 
+    else
     {
         // Update query without image
         $query = "UPDATE dances SET name=?, description=?, region=?, style=?, link=? WHERE dance_ID=?";
