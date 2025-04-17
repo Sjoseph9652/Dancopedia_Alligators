@@ -2,12 +2,11 @@
 session_start();
 
 //connection variables
-$host = "metro.proxy.rlwy.net";
+$servername = "metro.proxy.rlwy.net";
 $dbname = "railway";
 $username = "root";
 $password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
 $port = 55656;
-
 //connection object
 $mysqli = new mysqli($host, $username, $password, $dbname);
 

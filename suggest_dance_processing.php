@@ -1,7 +1,7 @@
 <?php
 // Handles adding the dance suggestions from the form into the dancesuggestion table in the database
 //connection variables
-$host = "metro.proxy.rlwy.net";
+$servername = "metro.proxy.rlwy.net";
 $dbname = "railway";
 $username = "root";
 $password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";

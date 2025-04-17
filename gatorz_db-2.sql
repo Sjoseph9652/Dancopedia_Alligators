@@ -146,7 +146,7 @@ CREATE TABLE `interactions` (
   `stars` decimal(10,0) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `comment` varchar(600) DEFAULT NULL,
-  `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_on` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
