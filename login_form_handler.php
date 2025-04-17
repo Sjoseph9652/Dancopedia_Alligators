@@ -2,11 +2,11 @@
 session_start();
 
 //connection variables
-$host = "localhost";
-$dbname = "gatorz_db";
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
-
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 //connection object
 $mysqli = new mysqli($host, $username, $password, $dbname);
 

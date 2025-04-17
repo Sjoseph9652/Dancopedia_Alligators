@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-$host = "localhost";
-$dbname = "gatorz_db";
+$host = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 $email = $_SESSION['email'] ?? null;
 $title = $_POST['title'] ?? null;

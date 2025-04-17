@@ -132,7 +132,7 @@ $(document).ready(function() {
                         window.location.href = 'dance_detail.php';
                     });
 
-                        container.append(card);
+                        container.append($card);
                     });
 
                     //Delete Button

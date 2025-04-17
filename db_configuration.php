@@ -6,10 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
 if (!function_exists('run_sql')) {
 
     // Database configuration for Dancopedia AI on localhost
-    DEFINE('DATABASE_HOST', 'localhost');
-    DEFINE('DATABASE_DATABASE', 'gatorz_db');
+    DEFINE('DATABASE_HOST', 'metro.proxy.rlwy.net');
+    DEFINE('DATABASE_DATABASE', 'railway');
     DEFINE('DATABASE_USER', 'root');
-    DEFINE('DATABASE_PASSWORD', '');
+    DEFINE('DATABASE_PASSWORD', 'ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ');
 
     // Create database connection ***CHANGE PORT BACK 3306*** 
     $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);

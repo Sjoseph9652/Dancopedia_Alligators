@@ -1,10 +1,11 @@
 <?php
 session_start(); // log user session
 
-$host = 'localhost';
-$dbname = 'gatorz_db';
-$username = 'root';
-$password = '';
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
+$username = "root";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
