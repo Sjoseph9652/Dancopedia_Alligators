@@ -15,7 +15,7 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-$email = $_SESSION["email"];
+$email = isset($_SESSION["email"]) ? $_SESSION["email"] : "none@none.com";
 
 // If an image request is made
 if (isset($_GET['dance_ID'])) {
