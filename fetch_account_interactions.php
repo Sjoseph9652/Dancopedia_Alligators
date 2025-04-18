@@ -1,5 +1,5 @@
 <?php
-session_save_path('/tmp')
+session_save_path('/tmp');
 session_start(); // log user session
 
 $host = "metro.proxy.rlwy.net";
