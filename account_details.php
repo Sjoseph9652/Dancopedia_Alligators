@@ -1,5 +1,7 @@
 <?php
+session_save_path('/tmp')
 session_start();
+
 
 // Dummy user data (replace with actual user session data)(to corespond with the logged user)
 // $user_name = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';

@@ -1,4 +1,5 @@
 <?php
+session_save_path('/tmp')
 session_start(); // start session
 
 error_reporting(E_ALL);

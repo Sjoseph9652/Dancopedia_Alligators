@@ -1,4 +1,5 @@
 <?php
+session_save_path('/tmp')
 session_start();
 // Connection variables 
 $servername = "metro.proxy.rlwy.net";
