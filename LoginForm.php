@@ -45,7 +45,7 @@ ob_flush();
         <div class="tab-content">
             <div id="login" class="tab-pane fade show active">
                 <h2>Welcome Back!</h2>
-                <form action="loginForm.php" method="post">
+                <form action="LoginForm.php" method="post">
                     <div class="mb-3">
                         <label>Email Address</label>
                         <input type="email" class="form-control" required name="email">
