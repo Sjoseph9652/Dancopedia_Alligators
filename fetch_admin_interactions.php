@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$servername = "metro.proxy.rlwy.net";
+$host = "metro.proxy.rlwy.net";
 $dbname = "railway";
 $username = "root";
 $password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
