@@ -19,7 +19,6 @@ $default_columns = 4;
 
 // login check
 if (!isset($_SESSION['email'])) {
-    echo json_encode(['success' => false, 'error' => 'No session email found']);
     exit;
 }
 
