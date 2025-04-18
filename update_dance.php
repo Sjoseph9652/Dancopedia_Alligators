@@ -1,5 +1,5 @@
 <?php
-session_save_path('/tmp')
+session_save_path('/tmp');
 session_start();
 if (!isset($_SESSION['redirect_back'])) {
     if (!empty($_SERVER['HTTP_REFERER'])) {
