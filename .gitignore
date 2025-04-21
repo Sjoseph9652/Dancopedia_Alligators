@@ -1,0 +1,16 @@
+# Ignore config file with sensitive credentials
+config.php
+
+# Ignore Composer dependencies (if committing vendor is not desired)
+vendor/
+
+# Ignore environment config
+.env
+
+# Ignore OS and IDE junk
+.DS_Store
+Thumbs.db
+*.log
+
+# Ignore XAMPP / temp folders (if any)
+tmp/
