@@ -1,14 +1,17 @@
 <?php
+session_save_path('/tmp');
 session_start();
-
-$host = "localhost";
-$dbname = "gatorz_db";
+// Connection variables 
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+// Connection object 
+$conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
-
+// form variables in IF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dance_ID = $_POST['dance_ID'];
     $newName = $_POST['name'];

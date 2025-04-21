@@ -1,4 +1,5 @@
 <?php
+session_save_path('/tmp');
 session_start(); 
 ob_start();
 require 'db_configuration.php';
@@ -37,13 +38,15 @@ ob_flush();
 <div class="container mt-5">
     <div class="form">
         <ul class="nav nav-tabs mb-3">
+            <!-- navigation tabs for Login and New users -->
             <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#login">Login</a></li>
             <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#register">New User</a></li>
         </ul>
+        <!-- These tabs are shown when the user logins in --> 
         <div class="tab-content">
             <div id="login" class="tab-pane fade show active">
                 <h2>Welcome Back!</h2>
-                <form action="loginForm.php" method="post">
+                <form action="LoginForm.php" method="post">
                     <div class="mb-3">
                         <label>Email Address</label>
                         <input type="email" class="form-control" required name="email">
@@ -58,6 +61,7 @@ ob_flush();
                     <a href="confirmEmail.php" class="d-block text-center mt-2">Forgot password?</a>
                 </form>
             </div>
+            <!-- These tabs are shown when there is a new user --> 
             <div id="register" class="tab-pane fade">
                 <h2>Register as a new user</h2>
                 <form action="register.php" method="post">

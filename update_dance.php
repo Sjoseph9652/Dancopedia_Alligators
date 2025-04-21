@@ -1,13 +1,19 @@
 <?php
+session_save_path('/tmp');
 session_start();
+if (!isset($_SESSION['redirect_back'])) {
+    if (!empty($_SERVER['HTTP_REFERER'])) {
+        $_SESSION['redirect_back'] = $_SERVER['HTTP_REFERER'];
+    }
+}
 
-$host = "localhost";
-$dbname = "gatorz_db";
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
-
-$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+$conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
 // Check if dance_ID is in the URL
 if (!isset($_GET['dance_ID'])) {
@@ -64,31 +70,37 @@ $dance = mysqli_fetch_assoc($result);
                 <form action="process_dance_update.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="dance_ID" value="<?php echo $dance['dance_ID']; ?>">
 
+                    <!-- Dance name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Dance Name</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($dance['name']); ?>" required>
                     </div>
 
+                    <!-- Description -->
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" required><?php echo htmlspecialchars($dance['description']); ?></textarea>
                     </div>
 
+                    <!-- Region -->
                     <div class="mb-3">
                         <label for="region" class="form-label">Region</label>
                         <input type="text" class="form-control" id="region" name="region" value="<?php echo htmlspecialchars($dance['region']); ?>" required>
                     </div>
 
+                    <!-- Style -->
                     <div class="mb-3">
                         <label for="style" class="form-label">Style</label>
                         <input type="text" class="form-control" id="style" name="style" value="<?php echo htmlspecialchars($dance['style']); ?>" required>
                     </div>
 
+                    <!-- Links -->
                     <div class="mb-3">
                         <label for="style" class="form-label">Link</label>
                         <input type="text" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($dance['Link']); ?>">
                     </div>
 
+                    <!-- Upload photos -->
                     <div class="mb-3 text-start fw-bold">
                         <label class="form-label" for="photos">Upload Photos:</label>
                         <input type="file" class="form-control" id="photo" name="photo">
@@ -96,6 +108,7 @@ $dance = mysqli_fetch_assoc($result);
 
                     <button type="submit" class="btn btn-success">Save Changes</button>
                     <a href="my_account.php" class="btn btn-secondary">Cancel</a>
+                    <input type="hidden" name="redirect_back" value="<?php echo htmlspecialchars($_SESSION['redirect_back'] ?? 'my_account.php'); ?>">
                 </form>
         </div>
     </section>

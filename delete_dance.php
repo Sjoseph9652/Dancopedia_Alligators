@@ -1,19 +1,22 @@
 <?php
+session_save_path('/tmp');
 session_start();
-
-$host = "localhost";
-$dbname = "gatorz_db";
+// Connection variables 
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['email'])) {
         echo json_encode(["success" => false, "error" => "Unauthorized"]);
         exit;
     }
+// connection object
+    $conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
-    $conn = mysqli_connect($host, $username, $password, $dbname, 3306);
-
+// checks for a connection error 
     if (mysqli_connect_errno()) 
     {
         die("Connection Error: " . mysqli_connect_error());
