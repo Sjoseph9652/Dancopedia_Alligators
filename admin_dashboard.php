@@ -1,11 +1,16 @@
 <?php
 session_start();
+
 // Check if the user is logged in
 if (!(isset($_SESSION['email'])))
 {
 
     header("Location: LoginForm.php");
 
+    exit;
+}
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: index.php");
     exit;
 }
 ?>

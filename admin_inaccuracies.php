@@ -4,6 +4,10 @@ if (!isset($_SESSION['email'])) {
     header("Location: LoginForm.php");
     exit;
 }
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,11 +15,12 @@ if (!isset($_SESSION['email'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dancopedia - Users List</title>
+  <title>Dancopedia - Inaccuracy Reports</title>
 
   <!-- Bootstrap & DataTables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/index.css">
@@ -37,13 +42,25 @@ if (!isset($_SESSION['email'])) {
 <main>
 <section class="text-center py-5">
   <div class="container">
-    <h2 class="mb-4">Inaccuracies</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm" title="Go back">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="flex-grow-1 text-center mb-0">Inaccuracy Reports</h2>
+      <div style="width: 32px;"></div>
+    </div>
+
+    <div class="mb-3 text-end">
+      <button id="deleteBtn" class="btn btn-danger">Delete</button>
+    </div>
+
     <table id="inaccuraciesTable" class="table table-bordered table-hover align-middle text-center">
       <thead class="table-dark">
         <tr>
+          <th><input type="checkbox" id="selectAll"></th>
           <th>Report ID</th>
           <th>Dance Name</th>
-          <th>Description</th>
+          <th>Issue</th>
         </tr>
       </thead>
     </table>
@@ -51,6 +68,26 @@ if (!isset($_SESSION['email'])) {
 </section>
 </main>
 
+<!-- Delete Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark">
+        Are you sure you want to delete the selected report(s)? This action <strong>cannot</strong> be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
 <?php include "includes/footer.php"; ?>
 
 <!-- JS dependencies -->
@@ -61,13 +98,56 @@ if (!isset($_SESSION['email'])) {
 
 <script>
 $(document).ready(function () {
-  $('#inaccuraciesTable').DataTable({
+  const table = $('#inaccuraciesTable').DataTable({
     "ajax": "fetch_admin_inaccuracies.php",
     "columns": [
+      {
+        "data": null,
+        "orderable": false,
+        "className": 'dt-body-center',
+        "render": function (data, type, row) {
+          return `<input type="checkbox" class="row-checkbox" value="${row.report_ID}">`;
+        }
+      },
       { "data": "report_ID" },
       { "data": "dance_name" },
-      { "data": "description" },
+      { "data": "description" }
     ]
+  });
+
+  // Select All toggle
+  $('#selectAll').on('click', function () {
+    $('.row-checkbox').prop('checked', this.checked);
+  });
+
+  let selectedDeleteIDs = [];
+
+  $('#deleteBtn').on('click', function () {
+    selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
+      return this.value;
+    }).get();
+
+    if (selectedDeleteIDs.length === 0) {
+      alert('Please select at least one report to delete.');
+      return;
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modal.show();
+  });
+
+  $('#confirmDeleteBtn').on('click', function () {
+    // TODO: Send selectedDeleteIDs via AJAX to delete them server-side
+    console.log("Deleting reports with IDs:", selectedDeleteIDs);
+
+    // Example AJAX call (uncomment and implement delete_reports.php):
+    /*
+    $.post("delete_reports.php", { ids: selectedDeleteIDs }, function(response) {
+      table.ajax.reload();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+      modal.hide();
+    });
+    */
   });
 });
 </script>

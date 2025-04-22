@@ -1,5 +1,8 @@
 <?php
 session_start();
+file_put_contents("log.txt", print_r($_POST, true));
+
+
 // Connection variables 
 $host = "localhost";
 $dbname = "gatorz_db";
@@ -28,8 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
+        exit;
     } else {
         echo json_encode(["success" => false, "error" => "Failed to delete dance"]);
+        exit;
     }
 }
 ?>

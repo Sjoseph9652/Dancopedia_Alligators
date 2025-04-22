@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 // Dummy user data (replace with actual user session data)(to corespond with the logged user)
 // $user_name = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 // $user_status = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'Guest';
