@@ -1,13 +1,15 @@
 <?php
+session_save_path('/tmp');
 session_start();
 file_put_contents("log.txt", print_r($_POST, true));
 
 
 // Connection variables 
-$host = "localhost";
-$dbname = "gatorz_db";
+$servername = "metro.proxy.rlwy.net";
+$dbname = "railway";
 $username = "root";
-$password = "";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['email'])) {
@@ -15,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 // connection object
-    $conn = mysqli_connect($host, $username, $password, $dbname, 3306);
+    $conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
 // checks for a connection error 
     if (mysqli_connect_errno()) 

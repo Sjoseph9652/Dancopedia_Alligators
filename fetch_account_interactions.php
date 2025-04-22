@@ -1,10 +1,12 @@
 <?php
+session_save_path('/tmp');
 session_start(); // log user session
 
-$host = 'localhost';
-$dbname = 'gatorz_db';
-$username = 'root';
-$password = '';
+$host = "metro.proxy.rlwy.net";
+$dbname = "railway";
+$username = "root";
+$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
+$port = 55656;
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -18,7 +20,6 @@ $default_columns = 4;
 
 // login check
 if (!isset($_SESSION['email'])) {
-
     exit;
 }
 
