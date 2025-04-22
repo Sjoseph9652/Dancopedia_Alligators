@@ -1,6 +1,9 @@
 <?php
 session_save_path('/tmp');
 session_start();
+file_put_contents("log.txt", print_r($_POST, true));
+
+
 // Connection variables 
 $servername = "metro.proxy.rlwy.net";
 $dbname = "railway";
@@ -30,8 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
+        exit;
     } else {
         echo json_encode(["success" => false, "error" => "Failed to delete dance"]);
+        exit;
     }
 }
 ?>
