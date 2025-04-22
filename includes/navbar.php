@@ -50,7 +50,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php else: ?>
                     <!-- Show Sign In button when logged out -->
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary" href="/LoginForm.php">Sign In</a>
+                        <a class="nav-link btn btn-outline-primary" href="LoginForm.php">Sign In</a>
                     </li>
                 <?php endif; ?>
             </ul>
