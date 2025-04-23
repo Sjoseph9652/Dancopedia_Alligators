@@ -1,12 +1,10 @@
 <?php
-
 session_start(); // log user session
 // Connection variables
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
-$port = 3306;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 // sets up connection to database and does error handling 
 try {

@@ -9,7 +9,7 @@ $password = "";
 
 //connection object
 //***Change to port 3306 when COMPLETE***
-$conn = mysqli_connect($host, $username, $password, $dbname, $port);
+$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
 
 //Check for connection error
 if (mysqli_connect_errno()) {

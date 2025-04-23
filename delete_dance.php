@@ -1,15 +1,10 @@
 <?php
-session_save_path('/tmp');
 session_start();
-file_put_contents("log.txt", print_r($_POST, true));
-
-
 // Connection variables 
 $host = "localhost";
 $dbname = "gatorz_db";
 $username = "root";
 $password = "";
-$port = 3306;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['email'])) {
@@ -17,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 // connection object
-    $conn = mysqli_connect($host, $username, $password, $dbname, $port);
+    $conn = mysqli_connect($host, $username, $password, $dbname, 3306);
 
 // checks for a connection error 
     if (mysqli_connect_errno()) 
@@ -33,10 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
-        exit;
     } else {
         echo json_encode(["success" => false, "error" => "Failed to delete dance"]);
-        exit;
     }
 }
 ?>

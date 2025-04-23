@@ -1,12 +1,10 @@
 <?php
-
 session_start(); // log user session
 
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
-$port = 3306;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -20,6 +18,7 @@ $default_columns = 4;
 
 // login check
 if (!isset($_SESSION['email'])) {
+
     exit;
 }
 

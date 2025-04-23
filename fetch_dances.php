@@ -1,12 +1,10 @@
 <?php
-
 session_start();
 // Connection variables
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
-$port = 3306;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 // sets up connection to database and does error handling 
 try {
@@ -29,27 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         // determines type of search query and pulls results
         if ($searchType === "name-button") {
-            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE name LIKE ? AND status = 1";
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE name LIKE ?";
         } elseif ($searchType === "region-button") {
-            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE region LIKE ? AND status = 1";
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE region LIKE ?";
         } elseif ($searchType === "style-button") {
-            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE style LIKE ? AND status = 1";
-        } elseif ($searchType === "any-button") {
-            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64
-                      FROM dances
-                      WHERE (name LIKE ? OR region LIKE ? OR style LIKE ?)
-                      AND status = 1";
+            $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64 FROM dances WHERE style LIKE ?";
         }
-
-        if ($searchType === "any-button") {
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([
-                "%$searchQuery%", "%$searchQuery%", "%$searchQuery%"
-            ]);
-        } else {
-            $stmt = $pdo->prepare($query);
-            $stmt->execute(["%$searchQuery%"]);
-        }
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(["%$searchQuery%"]);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

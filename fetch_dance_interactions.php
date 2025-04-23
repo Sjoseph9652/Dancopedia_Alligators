@@ -1,12 +1,10 @@
 <?php
-
 session_start();
 
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
-$port = 3306;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

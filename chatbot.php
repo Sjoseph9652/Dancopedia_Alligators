@@ -1,14 +1,12 @@
 <?php
 if (!isset($_SESSION)) {
-    session_save_path('/tmp');
     session_start();
 }
 
-$host = "localhost";
-$dbname = "gatorz_db";
+$servername = "localhost";
 $username = "root";
 $password = "";
-$port = 3306;
+$database = "gatorz_db";
 
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {

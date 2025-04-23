@@ -1,12 +1,10 @@
 <?php
-
 session_start();
 // Connection variables 
-$host = "localhost";
-$dbname = "gatorz_db";
-$username = "root";
-$password = "";
-$port = 3306;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 // sets up connection to database and does error handling 
 try {
@@ -26,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64
                     FROM dances
-                    WHERE status = 1
                     ORDER BY RAND()
                     LIMIT 12 ";
         $stmt = $pdo->prepare($query);

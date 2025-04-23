@@ -4,7 +4,6 @@ if (isset($_SESSION['email']))
 {
     echo "Logged in as: " . $_SESSION['email'];
 } else {
-
     session_start();
     echo "User is not logged in.";
 }
@@ -55,11 +54,9 @@ if (isset($_SESSION['email']))
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Recent Interactions</h2>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <button type="button" class="btn btn-primary btn-sm square-btn" data-bs-toggle="modal" data-bs-target="#interactionModal">
-                    +
-                </button>
-            <?php endif; ?>
+            <button type="button" class="btn btn-primary btn-sm square-btn" data-bs-toggle="modal" data-bs-target="#interactionModal">
+                +
+            </button>
         </div>
         <div class="row" id="interactions-container">
             <!-- interactions will append here dynamically -->

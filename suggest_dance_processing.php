@@ -1,7 +1,6 @@
 <?php
 // Handles adding the dance suggestions from the form into the dancesuggestion table in the database
 //connection variables
-
 $host = "localhost";
 $dbname = "gatorz_db";
 $username = "root";
