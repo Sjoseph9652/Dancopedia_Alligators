@@ -57,14 +57,13 @@
 </html>
 
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-//var_dump($_SESSION);
-if (isset($_SESSION['email']))
-{
-    echo "Logged in as: " . $_SESSION['email'];
-} else {
-    echo "User is not logged in.";
+<?php
+session_start();
+if (isset($_SESSION['report_feedback'])) {
+    $type = $_SESSION['feedback_type'] ?? 'info';
+    echo '<div class="alert alert-' . htmlspecialchars($type) . ' text-center" role="alert">'
+         . htmlspecialchars($_SESSION['report_feedback']) .
+         '</div>';
+    unset($_SESSION['report_feedback'], $_SESSION['feedback_type']);
 }
 ?>

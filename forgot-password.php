@@ -57,7 +57,7 @@
 </html>
 
 <?php
-session_start();
+//session_start();
 //var_dump($_SESSION);
 if (isset($_SESSION['email']))
 {
