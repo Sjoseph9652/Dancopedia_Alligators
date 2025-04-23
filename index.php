@@ -134,6 +134,7 @@ if (isset($_SESSION['email']))
                                 // opens new page on click
                                 const $card = $(card_start + card_body);
                                 $card.on('click', function() {
+                                    dance.video_link = dance.link;
                                     localStorage.setItem('dance', JSON.stringify(dance));
                                     window.location.href = 'dance_detail.php';
                                 });
