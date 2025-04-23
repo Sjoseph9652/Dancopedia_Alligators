@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $query = "SELECT dance_ID, name, region, style, description, status, link, MimeType, TO_BASE64(image) AS image_base64
                     FROM dances
+                    WHERE status = 1
                     ORDER BY RAND()
                     LIMIT 12 ";
         $stmt = $pdo->prepare($query);

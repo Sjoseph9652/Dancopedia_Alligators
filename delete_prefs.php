@@ -17,16 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection Error: " . mysqli_connect_error());
     }
 
-    $id = $_POST['user_id'];
+    $id = $_POST['pref_id'];
 
-    $sql = "DELETE FROM users WHERE id = ?";
+    $sql = "DELETE FROM preferences WHERE pref_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
     } else {
-        echo json_encode(["success" => false, "error" => "Failed to delete user"]);
+        echo json_encode(["success" => false, "error" => "Failed to delete preference"]);
     }
 }
 ?>

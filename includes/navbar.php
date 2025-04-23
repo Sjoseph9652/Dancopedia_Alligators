@@ -34,9 +34,12 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link" href="my_account.php">Account</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white" href="admin_dashboard.php">Admin</a>
-                </li>
+                <!-- Admin button (only visible to admins) -->
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_dashboard.php">Admin</a>
+                    </li>
+                <?php endif; ?>
 
                 <!-- Login / Logout -->
                 <?php if (isset($_SESSION['user_id'])): ?>
