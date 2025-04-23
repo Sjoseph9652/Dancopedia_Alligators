@@ -1,8 +1,11 @@
 <?php
 session_start(); 
 // Check if the user is logged in
-if (!(isset($_SESSION['email']))) {
+if (!(isset($_SESSION['email']))) 
+{
+
     header("Location: LoginForm.php");
+
     exit;
 }
 ?>
@@ -20,10 +23,10 @@ if (!(isset($_SESSION['email']))) {
     <link rel="stylesheet" href="css/custom_style.css">
     
     <!-- References Used ------------------------------------
-        # https://www.w3schools.com/php/php_mysql_connect.asp
-        # https://www.w3schools.com/jquery/jquery_ajax_get_post.asp
-        # https://medium.com/@jenniferehodge1/create-cards-dynamicallyin-javascript-ac46c5eb2296
-    --------------------------------------------------------->
+    	# https://www.w3schools.com/php/php_mysql_connect.asp
+    	# https://www.w3schools.com/jquery/jquery_ajax_get_post.asp
+    	# https://medium.com/@jenniferehodge1/create-cards-dynamicallyin-javascript-ac46c5eb2296
+	--------------------------------------------------------->
     
     <style>
         .header {
@@ -41,6 +44,7 @@ if (!(isset($_SESSION['email']))) {
 
 <!-- navbar -->
 <?php include "includes/navbar.php"; ?>
+
 
 <main>
     <section class="text-center py-5">
@@ -66,32 +70,15 @@ if (!(isset($_SESSION['email']))) {
         </div>
     </section>
 
-    <section class="text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="card mb-3 shadow-sm">
-                        <p>activity?</p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card mb-3 shadow-sm">
-                        <p>activity?</p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card mb-3 shadow-sm">
-                        <p>activity?</p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card mb-3 shadow-sm">
-                        <p>activity?</p>
-                    </div>
-                </div>
-            </div>
+<section class="interactions list py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Recent Interactions</h2>
+        <div class="row" id="interactions-container">
+            <!-- interactions will append here dynamically -->
         </div>
-    </section>
+    </div>
+</section>
+
 </main>
 
 <?php include "includes/footer.php"; ?>
@@ -100,12 +87,11 @@ if (!(isset($_SESSION['email']))) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
 $(document).ready(function() {
     // Fetch dances using AJAX
     $.ajax({
-        url: 'fetch_account_info.php', 
+        url: 'fetch_account_info.php',
         method: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -138,7 +124,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                         </div>`;
-                    
+
                     const $card = $(cardHTML);
 
                     $card.on('click', function(e) {
@@ -146,41 +132,35 @@ $(document).ready(function() {
                         window.location.href = 'dance_detail.php';
                     });
 
-                    $('#dances-container').append($card);
-                });
+                        container.append($card);
+                    });
 
-                console.log("Dance cards loaded:", $('.dance-card').length);
-            } else {
-                alert('Failed to fetch dances: ' + response.error);
-            }
-        },
-        error: function() {
-            alert('An error occurred while fetching dances.');
-        }
-    });
+                    //Delete Button
+                    $('.delete_button').click(function()
+                    {
+                        const dance_ID = $(this).data('id');
+                        console.log(dance_ID);
+                        $.ajax({
+                            url: 'delete_dance.php',
+                            method: 'POST',
+                            data: { dance_ID:dance_ID},
+                            success: function(response)
+                            {
+                                location.reload();
+                            }
+                        });
+                    });
 
-    $(document).on('click', '.dance-card', function(e) {
-        const card = $(e.target).closest('.dance-card');
-        const dance_ID = card.data('id');
-        console.log("Dance card clicked! Dance ID:", dance_ID);
-        localStorage.setItem('dance_ID', dance_ID);
-        window.location.href = 'dance_detail.php';
-    });
 
-    $(document).on('click', '.delete_button', function(event) {
-        event.stopPropagation();
-        const dance_ID = $(this).data('id');
-        console.log("Delete clicked for dance ID:", dance_ID);
-        $.ajax({
-            url: 'delete_dance.php',
-            method: 'POST',
-            data: { dance_ID: dance_ID },
-            success: function(response) {
-                location.reload();
+                } else {
+                    alert('Failed to fetch dances: ' + response.error);
+                }
+            },
+            error: function() {
+                alert('An error occurred while fetching dances.');
             }
         });
     });
-});
 </script>
 
 <script>
@@ -188,46 +168,148 @@ $(document).ready(function() {
     const container = $('#details-container');
     container.empty(); // Clear previous results
 
-    $.ajax({
-        url: 'fetch_account_details.php',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                const account = response.data[0];
-                const container = $('#details-container');
-                container.empty(); // Clear previous results
+        $.ajax({
+            url: 'fetch_account_details.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    const account = response.data[0];
+                    const container = $('#details-container');
+                    container.empty(); // clears previous results
 
-                const left_card = `<div class="col-sm-4">
-                                        <div class="card shadow-sm">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${account.first_name} ${account.last_name}</h5>
-                                                <img src="images/default-profile-pic.webp" alt="account image" width="100%">
-                                            </div>
-                                        </div>
-                                    </div>`;
-                const right_card = `<div class="col-sm-8">
-                                        <div class="card shadow-sm">
-                                            <div class="card-body">
-                                                <p>Email: ${account.email}</p>
-                                                <p>Account Type: ${account.role}</p>
-                                                <p>Display Column Preference: ${account.value}</p>
-                                            </div>
-                                        </div>
-                                    </div>`;
-                container.append(left_card);
-                container.append(right_card);
-                console.log("Cards appended successfully!");
-            } else {
-                alert('Failed to fetch account details: ' + response.error);
+                    const left_card = `<div class="col-sm-4">
+                                                 <div class="card shadow-sm">
+                                                     <div class="card-body">
+                                                         <h5 class="card-title">${account.first_name} ${account.last_name}</h5>
+                                                         <img src="images/default-profile-pic.webp" alt="account image" width="100%">
+                                                     </div>
+                                                 </div>
+                                             </div>`;
+                    const right_card = `<div class="col-sm-8">
+                                                  <div class="card shadow-sm">
+                                                      <div class="card-body">
+                                                          <p>Email: ${account.email}</p>
+                                                          <p>Account Type: ${account.role}</p>
+                                                          <p>Display Column Preference: ${account.value}</p>
+                                                      </div>
+                                                  </div>
+                                              </div>`;
+                    container.append(left_card);
+                    container.append(right_card);
+                    console.log("Cards appended successfully!");
+                } else {
+                    alert('Failed to fetch account details: ' + response.error);
+                }
+            },
+            error: function () {
+                alert('An error occurred while fetching account details.');
             }
-        },
-        error: function() {
-            alert('An error occurred while fetching account details.');
-        }
-    });
+        });
 });
 </script>
+
+<script>
+    $(document).ready(function() {
+        // fetch with ajax
+        $.ajax({
+            url: 'fetch_account_interactions.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const interactions = response.data;
+                    const container = $('#interactions-container');
+
+                    // dynamically creates cards based on returned results
+                    interactions.forEach(interaction => {
+                        const card = `
+                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
+                                <div class="card mb-4 shadow-sm w-100 d-flex flex-column">
+                                    <div class="card-body d-flex flex-column">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <p class="card-text mb-0 fw-semibold">${interaction.name}</p>
+                                            <p class="text-muted mb-0">${interaction.stars} ⭐</p>
+                                        </div>
+                                        <h5 class="card-title">${interaction.title}</h5>
+                                        <p class="card-text">${interaction.comment}</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                            <small class="text-muted">by ${interaction.first_name}</small>
+                                            <small class="text-muted">${timeAgo(interaction.created_on)}</small>
+                                        </div>
+                                        <a href="update_interaction.php?dance_ID=${interaction.interaction_id}" class="btn btn-primary">Update</a>
+                                        <button class="delete_button btn btn-primary" data-id="${interaction.interaction_id}">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const $card = $(card);
+                        $card.on('click', function() {
+                            localStorage.setItem('dance', JSON.stringify(interaction)); // <-- fixed: use interaction
+                            window.location.href = 'dance_detail.php';
+                        });
+
+                        $('#interactions-container').append($card);
+                    });
+
+                    //Delete Button
+                   $('.delete_button').click(function()
+                    {
+                        const dance_ID = $(this).data('id');
+                        console.log(dance_ID);
+                        $.ajax({
+                            url: 'delete_interaction.php',
+                            method: 'POST',
+                            data: { dance_ID:dance_ID},
+                            success: function(response)
+                            {
+                                location.reload();
+                            }
+                        });
+                    });
+
+
+                } else {
+                    alert('Failed to fetch dances: ' + response.error);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("AJAX Error", {
+                    textStatus: textStatus,
+                    errorThrown: errorThrown,
+                    responseText: jqXHR.responseText
+                });
+
+                alert('An error occurred while fetching interactions.');
+            }
+        });
+    });
+
+    function timeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+
+        const intervals = [
+            { label: "year", seconds: 31536000 },
+            { label: "month", seconds: 2592000 },
+            { label: "week", seconds: 604800 },
+            { label: "day", seconds: 86400 },
+        ];
+
+        for (const interval of intervals) {
+            const count = Math.floor(seconds / interval.seconds);
+            if (count >= 1) {
+                return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+            }
+        }
+
+        return "Today";
+    }
+</script>
+
+
 
 </body>
 
@@ -235,3 +317,4 @@ $(document).ready(function() {
 <?php include "includes/chatbot_code.php"; ?>
 
 </html>
+

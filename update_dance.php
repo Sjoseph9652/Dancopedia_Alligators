@@ -5,6 +5,7 @@ $host = "localhost";
 $dbname = "gatorz_db";
 $username = "root";
 $password = "";
+$port = 3306;
 
 
 $conn = mysqli_connect($host, $username, $password, $dbname, 3306);
