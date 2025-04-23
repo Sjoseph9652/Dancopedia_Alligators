@@ -238,7 +238,6 @@ $(document).ready(function() {
                                             <small class="text-muted">by ${interaction.first_name}</small>
                                             <small class="text-muted">${timeAgo(interaction.created_on)}</small>
                                         </div>
-                                        <a href="update_interaction.php?dance_ID=${interaction.interaction_id}" class="btn btn-primary">Update</a>
                                         <button class="delete_button btn btn-primary" data-id="${interaction.interaction_id}">Delete</button>
                                     </div>
                                 </div>
