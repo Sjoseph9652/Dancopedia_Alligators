@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+
 // Check if the user is logged in
 if (!(isset($_SESSION['email']))) 
 {
@@ -48,11 +49,15 @@ if (!(isset($_SESSION['email'])))
 
 <main>
     <section class="text-center py-5">
-        <div class="container">
-            <div class="row" id="details-container">
-               <!-- Account details dynamically added here -->
-            </div>
+      <div class="container">
+        <div class="d-flex justify-content-end mb-3">
+          <a href="edit_my_account.php?user_id=<?= $_SESSION['user_id'] ?>" class="btn btn-outline-primary btn-sm">Edit My Details</a>
         </div>
+        <div class="row" id="details-container">
+          <!-- Account details dynamically added here -->
+        </div>
+
+      </div>
     </section>
 
     <section class="dance-list py-5">
@@ -305,6 +310,23 @@ $(document).ready(function() {
 
         return "Today";
     }
+
+$(document).on('click', '.delete_button', function () {
+  const interactionId = $(this).data('id');
+
+  $.post('delete_interaction.php', { interaction_id: interactionId }, function (response) {
+    if (response.success) {
+      alert('Interaction deleted successfully.');
+    } else {
+      alert('Error: ' + response.error);
+    }
+  }, 'json');
+});
+
+$('#editBtn').on('click', function () {
+  window.location.href = 'edit_my_account.php';
+});
+
 </script>
 
 

@@ -1,8 +1,6 @@
 <?php
 session_start(); // start session
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 // connection variables 
 $host = 'localhost';
 $dbname = 'gatorz_db';
