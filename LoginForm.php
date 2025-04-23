@@ -1,6 +1,5 @@
 <?php
-session_save_path('/tmp');
-session_start(); 
+session_start();
 ob_start();
 require 'db_configuration.php';
 include('header.php');

@@ -4,7 +4,6 @@ if (isset($_SESSION['email']))
 {
     echo "Logged in as: " . $_SESSION['email'];
 } else {
-    session_save_path('/tmp');
     session_start();
     echo "User is not logged in.";
 }

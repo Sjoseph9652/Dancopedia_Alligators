@@ -1,5 +1,4 @@
 <?php
-session_save_path('/tmp');
 session_start();
 if (!isset($_SESSION['redirect_back'])) {
     if (!empty($_SERVER['HTTP_REFERER'])) {
@@ -7,11 +6,10 @@ if (!isset($_SESSION['redirect_back'])) {
     }
 }
 
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
-$username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$host = 'localhost';
+$dbname = 'gatorz_db';
+$username = 'root';
+$password = '';
 
 $conn = mysqli_connect($host, $username, $password, $dbname, $port);
 
