@@ -117,13 +117,15 @@ if (isset($_SESSION['email']))
         }
 
         const left_card = `<div class="col-sm-4">
-                                     <div class="card shadow-sm">
-                                         <div class="card-body">
-                                             <h5 class="card-title">${dance.name}</h5>
-                                             <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">
-                                         </div>
-                                     </div>
-                                 </div>`;
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">${dance.name}</h5>
+                    ${dance.video_link 
+                        ? `<div class="ratio ratio-16x9 mb-3"><iframe src="${dance.video_link}" title="Dance Video" allowfullscreen></iframe></div>` 
+                        : `<img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" class="img-fluid mb-3">`}
+                </div>
+            </div>
+        </div>`;
         const right_card = `<div class="col-sm-8">
                                       <div class="card shadow-sm">
                                           <div class="card-body">

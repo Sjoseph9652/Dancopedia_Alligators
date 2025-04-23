@@ -41,4 +41,5 @@ if (!function_exists('run_sql')) {
         }
     }
 }
+    return $db;
 ?>
