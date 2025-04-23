@@ -1,5 +1,4 @@
 <?php
-session_save_path('/tmp');
 session_start(); 
 ob_start();
 require 'db_configuration.php';
@@ -46,7 +45,7 @@ ob_flush();
         <div class="tab-content">
             <div id="login" class="tab-pane fade show active">
                 <h2>Welcome Back!</h2>
-                <form action="LoginForm.php" method="post">
+                <form action="loginForm.php" method="post">
                     <div class="mb-3">
                         <label>Email Address</label>
                         <input type="email" class="form-control" required name="email">

@@ -2,15 +2,14 @@
 <?php
 
 //connection variables
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
 
 //connection object
 //***Change to port 3306 when COMPLETE***
-$conn = mysqli_connect($host, $username, $password, $dbname, $port);
+$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
 
 //Check for connection error
 if (mysqli_connect_errno()) {

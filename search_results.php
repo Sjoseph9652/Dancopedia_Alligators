@@ -44,10 +44,6 @@
 
                     <input type="radio" class="btn-check" name="search-button" id="style-button" autocomplete="off">
                     <label class="btn btn-outline-primary" for="style-button">Style</label>
-
-                    <input type="radio" class="btn-check" name="search-button" id="any-button" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="any-button">Any</label>
-
                 </div>
                 <br>
 

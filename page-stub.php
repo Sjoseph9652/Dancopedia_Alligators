@@ -1,53 +1,60 @@
+<?php
+session_start();
+//var_dump($_SESSION);
+if (isset($_SESSION['email']))
+{
+    echo "Logged in as: " . $_SESSION['email'];
+} else {
+    echo "User is not logged in.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dancopedia - Redesigned</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
-
+    <title>Dancopedia - Discover Dances</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/chatbot.css"> <!-- Link to your external chatbot CSS -->
     <link rel="stylesheet" href="css/custom_style.css">
 </head>
-<body>
-    <!-- Navbar Include -->
-    <?php include 'navbar.php'; ?>
+<style>
+    /* Header Background, extra */
+    .header {
+        background-image: url('images/blog_dance2_480x480.webp');
+    }
 
-    <!-- Hero Banner -->
-    <section class="py-5 text-center bg-light hero-section">
+
+</style>
+
+<body>
+<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+
+<!-- navbar -->
+<?php include "includes/navbar.php"; ?>
+
+
+<main>
+    <section class="dance-list py-5">
         <div class="container">
-            <h1 class="display-4">Bienvenidos a Dancopedia</h1>
-            <p class="lead">Explora la rica herencia de las danzas tradicionales mexicanas</p>
+            <h2 class="text-center mb-4">Page Header</h2>
+            <div class="row" id="dances-container">
+                <!-- dances will be appended here dynamically -->
+            </div>
         </div>
     </section>
+</main>
 
-    <!-- Main Content -->
-    <main class="container-fluid py-4">
-        <div class="row g-4 justify-content-center" id="dances-container">
-            <!-- Sample Dance Card -->
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="images/danza1.jpg" class="card-img-top" alt="Danza Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Jarabe Tapatío</h5>
-                        <p class="card-text">El Jarabe Tapatío es un baile folclórico mexicano tradicionalmente reconocido por su estilo colorido y pasos vibrantes.</p>
-                        <a href="#" class="btn btn-primary">Ver más</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for other dances -->
-        </div>
-    </main>
 
-    <!-- Footer Include -->
-    <?php include 'footer.php'; ?>
+<!-- footer -->
+<?php include "includes/footer.php"; ?>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Include Chatbot -->
+<?php include "includes/chatbot_code.php"; ?>
+
+
 </body>
 </html>

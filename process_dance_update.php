@@ -1,15 +1,13 @@
 <?php
-session_save_path('/tmp');
 session_start();
 // Connection variables 
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
 
 // Connection object 
-$conn = mysqli_connect($host, $username, $password, $dbname, $port);
+$conn = mysqli_connect($host, $username, $password, $dbname, 3306);
 
 // form variables in IF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,13 +1,12 @@
 <?php
-session_save_path('/tmp');
 session_start();
 
 //connection variables
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+
 //connection object
 $mysqli = new mysqli($host, $username, $password, $dbname);
 
@@ -24,22 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty($user_email) && !empty($user_password)) {
         // Prepare the MySQLi statement
-        $stmt = $mysqli->prepare("SELECT user_ID, email, user_password, role FROM users WHERE email = ?");
+        $stmt = $mysqli->prepare("SELECT user_ID, email, user_password FROM users WHERE email = ?");
         $stmt->bind_param("s", $user_email); // "s" means string
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        echo "<pre>";
-        var_dump($user);
-        echo "</pre>";
-        exit;
-
         if ($user && $user_password === $user['user_password']) {
             $_SESSION['user_ID'] = $user['user_ID'];
             $_SESSION['username'] = $user['email']; // Assuming email is used as username
-            // After successful authentication
-            $_SESSION['role'] = $user['role']; // 'admin' or 'user'
             header("Location: index.php"); // Redirect to home page
             exit();
         } else {
@@ -48,15 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Close statement
         $stmt->close();
-
-
-
     } else {
         echo "<p style='color: red;'>Please fill in all fields.</p>";
     }
 }
-
-
 
 $mysqli->close();
 ?>
