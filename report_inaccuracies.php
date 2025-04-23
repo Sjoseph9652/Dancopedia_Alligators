@@ -52,18 +52,17 @@
 <!-- Include Chatbot -->
 <?php include "includes/chatbot_code.php"; ?>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
 
 <?php
-<?php
-session_start();
-if (isset($_SESSION['report_feedback'])) {
-    $type = $_SESSION['feedback_type'] ?? 'info';
-    echo '<div class="alert alert-' . htmlspecialchars($type) . ' text-center" role="alert">'
-         . htmlspecialchars($_SESSION['report_feedback']) .
-         '</div>';
-    unset($_SESSION['report_feedback'], $_SESSION['feedback_type']);
-}
+if (isset($_SESSION['report_feedback'])): ?>
+    <div class="alert alert-<?php echo htmlspecialchars($_SESSION['feedback_type'] ?? 'info'); ?> alert-dismissible fade show" role="alert">
+        <?php echo htmlspecialchars($_SESSION['report_feedback']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['report_feedback'], $_SESSION['feedback_type']); ?>
+<?php endif; ?>
 ?>
