@@ -1,11 +1,11 @@
 <?php
 // Handles adding the dance suggestions from the form into the dancesuggestion table in the database
 //connection variables
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
 
 //form variables
 $title = $_POST["title"];

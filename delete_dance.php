@@ -5,11 +5,11 @@ file_put_contents("log.txt", print_r($_POST, true));
 
 
 // Connection variables 
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+$port = 3306;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['email'])) {

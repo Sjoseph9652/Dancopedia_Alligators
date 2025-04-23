@@ -1,15 +1,15 @@
 <?php
-session_save_path('/tmp');
+
 session_start(); // start session
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 // connection variables 
-$host = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+$port = 3306;
 
 // sets up connection to database and does error handling 
 try {

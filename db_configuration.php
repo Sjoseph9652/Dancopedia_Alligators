@@ -7,10 +7,10 @@ if (session_status() === PHP_SESSION_NONE) {
 if (!function_exists('run_sql')) {
 
     // Database configuration for Dancopedia AI on localhost
-    DEFINE('DATABASE_HOST', 'metro.proxy.rlwy.net');
-    DEFINE('DATABASE_DATABASE', 'railway');
+    DEFINE('DATABASE_HOST', 'localhost');
+    DEFINE('DATABASE_DATABASE', 'gatorz_db');
     DEFINE('DATABASE_USER', 'root');
-    DEFINE('DATABASE_PASSWORD', 'ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ');
+    DEFINE('DATABASE_PASSWORD', '');
 
     $mysqli_options = [
         MYSQLI_OPT_CONNECT_TIMEOUT => 5

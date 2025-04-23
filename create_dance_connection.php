@@ -1,11 +1,12 @@
 <?php
 
 //connection variables
-$host = "metro.proxy.rlwy.net";
-$dbname = "railway";
+
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+$port = 3306;
 
 //form variables
 $creator_email = $_POST["creator_email"];

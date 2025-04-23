@@ -1,16 +1,16 @@
 <?php
-session_save_path('/tmp');
+
 session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$host = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$host = "localhost";
+$dbname = "gatorz_db";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+$port = 3306;
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
