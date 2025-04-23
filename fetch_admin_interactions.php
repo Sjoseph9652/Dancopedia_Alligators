@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $host = 'localhost';
 $dbname = 'gatorz_db';
 $username = 'root';

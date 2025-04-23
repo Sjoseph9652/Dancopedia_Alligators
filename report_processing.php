@@ -1,46 +1,53 @@
 <?php
-// Handles adding the report into the inaccuracies table in the database
-//connection variables
-$host = 'localhost';
-$dbname = 'gatorz_db';
-$username = 'root';
-$password = '';
 
-//form variables
+session_start(); 
+
+// Connection variables
+$host = "localhost";
+$dbname = "gatorz_db";
+$username = "root";
+$password = "";
+
+
 $title = $_POST["title"];
 $complaint = $_POST["complaint"];
 
-
-var_dump($title, $complaint);
-
-//connection object
+// Connection object
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
-//Check for connection error
+// Check for connection error
 if (mysqli_connect_errno()) {
-    die("Connection Error: " . mysqli_connect_error());
+    $_SESSION['report_feedback'] = "Error: Could not connect to the database.";
+    $_SESSION['feedback_type'] = "danger";
+    header("Location: report_inaccuracies.php");
+    exit();
 }
 
-//sql statement variable
-$sql = "INSERT INTO inaccuracies (dance_name, description)
-        VALUES (?, ?)";
 
-//prepared statement object
+$sql = "INSERT INTO inaccuracies (dance_name, description) VALUES (?, ?)";
+
 $stmt = mysqli_stmt_init($conn);
 
-//check for prepared statement errors
-if (! mysqli_stmt_prepare($stmt, $sql)) {
-    die(mysqli_error($conn));
+// Check for prepared statement errors
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+    $_SESSION['report_feedback'] = "Error: Could not prepare the statement.";
+    $_SESSION['feedback_type'] = "danger";
+    header("Location: report_inaccuracies.php");
+    exit();
 }
 
-//bind variables to prepared statement
 mysqli_stmt_bind_param($stmt, "ss", $title, $complaint);
 
-//execute prepared statment
-mysqli_stmt_execute($stmt);
+if (mysqli_stmt_execute($stmt)) {
+    $_SESSION['report_feedback'] = "Thank you! Your report has been submitted successfully.";
+    $_SESSION['feedback_type'] = "success";
+} else {
+    $_SESSION['report_feedback'] = "There was an issue submitting your report. Please try again.";
+    $_SESSION['feedback_type'] = "danger";
+}
 
 $conn->close();
 
-header("Location: my_account.php");
+header("Location: report_inaccuracies.php");
 exit();
 ?>

@@ -18,6 +18,7 @@ $default_columns = 4;
 
 // login check
 if (!isset($_SESSION['email'])) {
+
     exit;
 }
 

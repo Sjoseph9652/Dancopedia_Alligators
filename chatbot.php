@@ -3,11 +3,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-$servername = "metro.proxy.rlwy.net";
-$dbname = "railway";
+$servername = "localhost";
 $username = "root";
-$password = "ZvOusNgFFhFQyzSIOouCCAUDqYVJFhCJ";
-$port = 55656;
+$password = "";
+$database = "gatorz_db";
 
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {

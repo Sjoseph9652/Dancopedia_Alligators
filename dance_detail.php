@@ -54,11 +54,9 @@ if (isset($_SESSION['email']))
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Recent Interactions</h2>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <button type="button" class="btn btn-primary btn-sm square-btn" data-bs-toggle="modal" data-bs-target="#interactionModal">
-                    +
-                </button>
-            <?php endif; ?>
+            <button type="button" class="btn btn-primary btn-sm square-btn" data-bs-toggle="modal" data-bs-target="#interactionModal">
+                +
+            </button>
         </div>
         <div class="row" id="interactions-container">
             <!-- interactions will append here dynamically -->
@@ -119,13 +117,15 @@ if (isset($_SESSION['email']))
         }
 
         const left_card = `<div class="col-sm-4">
-                                     <div class="card shadow-sm">
-                                         <div class="card-body">
-                                             <h5 class="card-title">${dance.name}</h5>
-                                             <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">
-                                         </div>
-                                     </div>
-                                 </div>`;
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">${dance.name}</h5>
+                    ${dance.video_link 
+                        ? `<div class="ratio ratio-16x9 mb-3"><iframe src="${dance.video_link}" title="Dance Video" allowfullscreen></iframe></div>` 
+                        : `<img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" class="img-fluid mb-3">`}
+                </div>
+            </div>
+        </div>`;
         const right_card = `<div class="col-sm-8">
                                       <div class="card shadow-sm">
                                           <div class="card-body">
