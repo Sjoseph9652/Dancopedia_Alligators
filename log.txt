@@ -1,4 +1,10 @@
 Array
 (
-    [dance_ID] => 43
+    [user_ids] => Array
+        (
+            [0] => 4
+            [1] => 5
+        )
+
+    [new_status] => yes
 )

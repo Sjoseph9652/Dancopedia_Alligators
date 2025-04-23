@@ -1,28 +1,24 @@
-<?php 
-
+<?php
+/* need to install phpmailer
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/config.php'; 
+*/
+require __DIR__ . "/vendor/autoload.php";
 
 $mail = new PHPMailer(true);
 
-try {
-    $mail->isSMTP();
-    $mail->Host = 'sandbox.smtp.mailtrap.io';
-    $mail->SMTPAuth = true;
-    $mail->Username = SMTP_USERNAME;
-    $mail->Password = SMTP_PASSWORD;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = SMTP_PORT;
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
-    $mail->isHTML(true);
-    $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+$mail->isSMTP();
+$mail->SMTPAuth = true;
 
-    return $mail;
+$mail->Host = "smtp.example.com"; //TBD
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+$mail->Username = "your-user@example.com"; //TBD
+$mail->Password = "your-password"; //TBD
 
-} catch (Exception $e) {
-    echo "Mailer error: {$mail->ErrorInfo}";
-    return null;
-}
+$mail->isHtml(true);
+
+return $mail;

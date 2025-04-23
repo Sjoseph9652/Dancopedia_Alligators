@@ -2,6 +2,7 @@
 session_start();
 
 //connection variables
+
 $host = "localhost";
 $dbname = "gatorz_db";
 $username = "root";
