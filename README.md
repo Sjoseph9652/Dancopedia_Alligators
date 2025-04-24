@@ -28,17 +28,17 @@ TECHNICAL INFRASTRUCTURE
 
 
 SETUP
-Install an XAMPP environment, and configure Apache webserver with MYSQL backend. Apache should be running on Ports 80 or 443 based on security, and MYSQL should be on 3306 or 3307.
-Working directory should be C:\XAMPP\htdocs\Dancopedia_alligators
-Install a source code editor such as Visual Studio Code.
-Clone the repository http://localhost/Dancopedia_Alligators/ 
-Using a web browser, explore the pages by using local host on your computer to http://localhost/Dancopedia_Alligators/  and  run the server side application.
-Create a userid, and use the chatbot to explore and upload dance information using the generative AI bot.
+- Install an XAMPP environment, and configure Apache webserver with MYSQL backend. Apache should be running on Ports 80 or 443 based on security, and MYSQL should be on 3306 or 3307.
+- Working directory should be C:\XAMPP\htdocs\Dancopedia_alligators
+- Install a source code editor such as Visual Studio Code.
+- Clone the repository http://localhost/Dancopedia_Alligators/ 
+- Using a web browser, explore the pages by using local host on your computer to http://localhost/Dancopedia_Alligators/  and  run the server side application.
+- Create a userid, and use the chatbot to explore and upload dance information using the generative AI bot.
 
 
 HELP
-Help with the project can be found by contacting the host at https://github.com/Sjoseph9652/Dancopedia_Alligators
-Creators of the project are Joseph, Joseph, Bryn, Wisdom, Cory, and Elizabeth
-ICS499-51
-April 23, 2025
+- Help with the project can be found by contacting the host at https://github.com/Sjoseph9652/Dancopedia_Alligators
+- Creators of the project are Joseph, Joseph, Bryn, Wisdom, Cory, and Elizabeth
+- Metro State University ICS499-51
+- April 23, 2025
 
