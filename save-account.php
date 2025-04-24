@@ -1,9 +1,10 @@
 <?php
 //connection variables
-$host = 'localhost';
-$dbname = 'gatorz_db';
-$username = 'root';
-$password = '';
+
+$host = "localhost";
+$dbname = "gatorz_db";
+$username = "root";
+$password = "";
 
 //form variables
 $firstName = $_POST["firstname"];

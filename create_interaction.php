@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-$host = 'localhost';
-$dbname = 'gatorz_db';
-$username = 'root';
-$password = '';
+
+$host = "localhost";
+$dbname = "gatorz_db";
+$username = "root";
+$password = "";
 
 $email = $_SESSION['email'] ?? null;
 $title = $_POST['title'] ?? null;

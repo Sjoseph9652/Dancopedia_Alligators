@@ -98,7 +98,9 @@ session_start();
                                        </div></div></div>`;
 
                                 const $card = $(card_start + card_body);
-                                $card.on('click', function () {
+
+                                $card.on('click', function() {
+                                    dance.video_link = dance.link;
                                     localStorage.setItem('dance', JSON.stringify(dance));
                                     window.location.href = 'dance_detail.php';
                                 });

@@ -1,13 +1,7 @@
 <?php
 session_start();
-
-
 if (!isset($_SESSION['email'])) {
     header("Location: LoginForm.php");
-    exit;
-}
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
     exit;
 }
 ?>
@@ -22,7 +16,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   <!-- Bootstrap & DataTables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/index.css">
@@ -51,6 +44,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
           <h2 class="flex-grow-1 text-center mb-0">Interactions</h2>
           <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
         </div>
+
 
     <div class="mb-3 text-end">
       <button id="deleteBtn" class="btn btn-danger">Delete</button>

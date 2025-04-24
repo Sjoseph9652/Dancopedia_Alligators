@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 // Check if the user is logged in
 if (!(isset($_SESSION['email']))) 
 {
@@ -241,7 +242,6 @@ $(document).ready(function() {
                                             <small class="text-muted">by ${interaction.first_name}</small>
                                             <small class="text-muted">${timeAgo(interaction.created_on)}</small>
                                         </div>
-                                        <button class="delete_button btn btn-primary" data-id="${interaction.interaction_id}">Delete</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,17 +1,11 @@
 <?php
 session_start();
-
-
 // Check if the user is logged in
 if (!(isset($_SESSION['email'])))
 {
 
     header("Location: LoginForm.php");
 
-    exit;
-}
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
     exit;
 }
 ?>
@@ -23,7 +17,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dancopedia - Dances List</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
@@ -59,9 +52,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             <h2 class="flex-grow-1 text-center mb-0">Dances</h2>
             <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
           </div>
+
       <div class="mb-3 text-end">
           <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
-          <a href="create_dance.php" class="btn btn-success me-2">Create Dance</a>
           <button id="statusBtn" class="btn btn-info me-2">Change Status</button>
           <button id="deleteBtn" class="btn btn-danger">Delete</button>
         </div>
@@ -88,7 +81,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 </main>
 
-<!-- Delete Dances Modal -->
+<!-- deletion modal -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -102,29 +95,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Change Dance Status Modal -->
-<div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="changeStatusModalLabel">Change Dance Status</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-start">
-        <label for="newStatus" class="form-label fw-bold">Set selected dances to:</label>
-        <select class="form-select" id="newStatus">
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button id="confirmStatusBtn" class="btn btn-info">Update Status</button>
       </div>
     </div>
   </div>
@@ -225,41 +195,21 @@ $('#deleteBtn').on('click', function () {
     return;
   }
 
+  // modal
   const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
   modal.show();
 });
 
-$('#confirmDeleteBtn').on('click', function () {
-  selectedDeleteIDs.forEach(id => {
-    $.post('delete_dance.php', { dance_ID: id }, function (response) {
-      if (response.success) {
-        $('#danceTable').DataTable().ajax.reload();
-      } else {
-        alert('Error: ' + response.error);
-      }
-    }, 'json').fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX delete error:", textStatus, jqXHR.responseText);
-    });
-  });
-
-  selectedDeleteIDs = [];
-
-  const modalElement = document.getElementById('confirmDeleteModal');
-  const modalInstance = bootstrap.Modal.getInstance(modalElement);
-  modalInstance.hide();
-});
-
 $('#statusBtn').on('click', function () {
-  selectedIDs = $('.row-checkbox:checked').map(function () {
+  const ids = $('.row-checkbox:checked').map(function () {
     return this.value;
   }).get();
 
-  if (selectedIDs.length === 0) {
-    alert('Please select at least one dance.');
+  if (ids.length === 0) {
+    alert('Please select at least one item to change status.');
     return;
   }
 
-  new bootstrap.Modal(document.getElementById('changeStatusModal')).show();
 });
 
 $('#confirmStatusBtn').on('click', function () {
@@ -283,6 +233,7 @@ $('#confirmStatusBtn').on('click', function () {
 
 
 
+
 $('#editBtn').on('click', function () {
   const table = $('#danceTable').DataTable();
   const selectedCheckbox = $('.row-checkbox:checked');
@@ -295,10 +246,6 @@ $('#editBtn').on('click', function () {
   const row = selectedCheckbox.closest('tr');
   const rowData = table.row(row).data();
 
-  if (!rowData || !rowData.dance_ID) {
-    alert("Unable to retrieve the selected dance ID.");
-    return;
-  }
 
   const danceID = rowData.dance_ID;
 

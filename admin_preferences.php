@@ -1,13 +1,7 @@
 <?php
 session_start();
-
-
 if (!isset($_SESSION['email'])) {
     header("Location: LoginForm.php");
-    exit;
-}
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
     exit;
 }
 ?>
@@ -22,8 +16,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   <!-- Bootstrap & DataTables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/index.css">
@@ -53,6 +45,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
     </div>
 
+
     <div class="mb-3 text-end">
       <button id="deleteBtn" class="btn btn-danger">Delete</button>
     </div>
@@ -63,9 +56,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
           <th><input type="checkbox" id="selectAll"></th>
           <th>Pref. ID</th>
           <th>User ID</th>
-          <th>Username</th>
-          <th>Type</th>
+          <th>Name</th>
           <th>Value</th>
+          <th>Description</th>
         </tr>
       </thead>
     </table>
@@ -73,7 +66,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 </section>
 </main>
 
-<!-- Delete Confirmation Modal -->
+<!-- Delete Modal -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -82,16 +75,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-dark">
-        Are you sure you want to delete the selected preference(s)?
+        Are you sure you want to delete the selected preference(s)? This action <strong>cannot</strong> be undone.
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>
 </div>
-
 
 <!-- Footer -->
 <?php include 'includes/footer.php'; ?>
@@ -118,9 +110,9 @@ $(document).ready(function () {
       },
       { "data": "pref_ID" },
       { "data": "user_id" },
-      { "data": "email"},
       { "data": "name" },
-      { "data": "value" }
+      { "data": "value" },
+      { "data": "description" }
     ]
   });
 
