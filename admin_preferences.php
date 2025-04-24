@@ -46,7 +46,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 <section class="text-center py-5">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm" title="Go back">
+      <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
         <i class="bi bi-arrow-left"></i>
       </a>
       <h2 class="flex-grow-1 text-center mb-0">User Preferences</h2>
@@ -54,7 +54,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     </div>
 
     <div class="mb-3 text-end">
-      <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
       <button id="deleteBtn" class="btn btn-danger">Delete</button>
     </div>
 
@@ -62,7 +61,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
+          <th>Pref. ID</th>
           <th>User ID</th>
           <th>Username</th>
           <th>Type</th>
@@ -157,7 +156,7 @@ $(document).ready(function () {
 
   $('#confirmDeleteBtn').on('click', function () {
     selectedDeleteIDs.forEach(id => {
-      $.post('delete_prefs.php', { preference_id: id }, function (response) {
+      $.post('delete_prefs.php', { pref_ID: id }, function (response) {
         if (response.success) {
           $('#preferencesTable').DataTable().ajax.reload();
         } else {
@@ -173,16 +172,7 @@ $(document).ready(function () {
     modalInstance.hide();
   });
 
-  $('#editBtn').on('click', function () {
-    const selectedCheckbox = $('.row-checkbox:checked');
-    if (selectedCheckbox.length !== 1) return;
 
-    const row = selectedCheckbox.closest('tr');
-    const rowData = table.row(row).data();
-    const prefID = rowData.pref_ID;
-
-    window.location.href = `update_preference.php?pref_ID=${prefID}`;
-  });
 });
 </script>
 

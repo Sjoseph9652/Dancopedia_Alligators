@@ -45,7 +45,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 <section class="text-center py-5">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm" title="Go back">
+      <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
         <i class="bi bi-arrow-left"></i>
       </a>
       <h2 class="flex-grow-1 text-center mb-0">Inaccuracy Reports</h2>
@@ -122,35 +122,44 @@ $(document).ready(function () {
     $('.row-checkbox').prop('checked', this.checked);
   });
 
-  let selectedDeleteIDs = [];
+  // Delete
+    let selectedDeleteIDs = [];
 
-  $('#deleteBtn').on('click', function () {
-    selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
-      return this.value;
-    }).get();
+    $('#deleteBtn').on('click', function () {
+      selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
+        return this.value;
+      }).get();
 
-    if (selectedDeleteIDs.length === 0) {
-      alert('Please select at least one report to delete.');
-      return;
-    }
+      if (selectedDeleteIDs.length === 0) {
+        alert('Please select at least one report to delete.');
+        return;
+      }
 
-    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-    modal.show();
-  });
-
-  $('#confirmDeleteBtn').on('click', function () {
-    // TODO: Send selectedDeleteIDs via AJAX to delete them server-side
-    console.log("Deleting reports with IDs:", selectedDeleteIDs);
-
-    // Example AJAX call (uncomment and implement delete_reports.php):
-    /*
-    $.post("delete_reports.php", { ids: selectedDeleteIDs }, function(response) {
-      table.ajax.reload();
-      const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
-      modal.hide();
+      const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+      modal.show();
     });
-    */
-  });
+
+    $('#confirmDeleteBtn').on('click', function () {
+      const selectedIds = $('.row-checkbox:checked').map(function () {
+        return $(this).val();
+      }).get();
+
+      selectedIds.forEach(id => {
+        $.post('delete_inaccuracy.php', { report_ID: id }, function (response) {
+          if (response.success) {
+            $('#inaccuraciesTable').DataTable().ajax.reload();
+          } else {
+            alert('Error: ' + response.error);
+          }
+        }, 'json').fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX delete error:", textStatus, jqXHR.responseText);
+        });
+      });
+
+      const modalElement = document.getElementById('confirmDeleteModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    });
 });
 </script>
 </body>

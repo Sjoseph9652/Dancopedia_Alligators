@@ -53,7 +53,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 <section class="text-center py-5">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm" title="Go back">
+            <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
               <i class="bi bi-arrow-left"></i>
             </a>
             <h2 class="flex-grow-1 text-center mb-0">Dances</h2>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         <thead class="table-dark">
           <tr>
             <th><input type="checkbox" id="selectAll"></th>
-            <th>ID</th>
+            <th>Dance ID</th>
             <th>Name</th>
             <th>Creator</th>
             <th>Region</th>
@@ -266,7 +266,7 @@ $('#confirmStatusBtn').on('click', function () {
   const newStatus = $('#newStatus').val();
 
   $.post('change_dance_status.php', {
-    dance_ids: selectedIDs, // ✅ MUST be named this way
+    dance_ids: selectedIDs,
     new_status: newStatus
   }, function (response) {
     if (response.success) {
@@ -284,17 +284,25 @@ $('#confirmStatusBtn').on('click', function () {
 
 
 $('#editBtn').on('click', function () {
-  const table = $('#usersTable').DataTable();
+  const table = $('#danceTable').DataTable();
   const selectedCheckbox = $('.row-checkbox:checked');
 
-  if (selectedCheckbox.length !== 1) return;
+  if (selectedCheckbox.length !== 1) {
+    alert('Please select exactly one dance to edit.');
+    return;
+  }
 
   const row = selectedCheckbox.closest('tr');
   const rowData = table.row(row).data();
 
-  const userID = rowData.id; // or user_ID if that's the column name
+  if (!rowData || !rowData.dance_ID) {
+    alert("Unable to retrieve the selected dance ID.");
+    return;
+  }
 
-  window.location.href = `update_user.php?user_id=${userID}`;
+  const danceID = rowData.dance_ID;
+
+  window.location.href = `update_dance.php?dance_ID=${danceID}`;
 });
 
 </script>

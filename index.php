@@ -1,12 +1,6 @@
 <?php
 session_start();
-//var_dump($_SESSION);
-if (isset($_SESSION['email'])) 
-{
-    echo "Logged in as: " . $_SESSION['email'];
-} else {
-    echo "User is not logged in.";
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,96 +50,73 @@ if (isset($_SESSION['email']))
 <?php include "includes/chatbot_code.php"; ?>
 
 <script>
-    $(document).ready(function() {
-        let col_pref = 4; // default
-        // fetch column number prefrence with ajax
+    $(document).ready(function () {
         $.ajax({
-            url: 'fetch_prefs.php',
+            url: 'fetch_cols.php',
             method: 'GET',
             dataType: 'json',
             success: function (response) {
-                if (response.success) {
-                    col_pref = response.columns;
-                } else {
-                    console.warn('Failed to fetch preferences:', response.error);
+                let col_pref = 4; // default fallback
+                if (response.success && response.columns) {
+                    col_pref = parseInt(response.columns);
                 }
-            },
-            error: function () {
-                console.warn('Error fetching preferences.');
-            }
-        });
 
-        $(document).ready(function () {
-            // fetch search results with ajax
-            $.ajax({
-                url: 'index_dances.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success) {
-                        const dances = response.data;
-                        const container = $('#dances-container');
+                // fetch and render dances using the correct col_pref
+                $.ajax({
+                    url: 'index_dances.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            const dances = response.data;
+                            const container = $('#dances-container');
 
-                        // dynamically creates cards based on returned results
-                        dances.forEach(dance => {
-                            let card_start = ''
-                            switch (col_pref) {
-                                case 2:
-                                    card_start = `
-                            <div class="col-md-6">
-                                <div class="card mb-2 shadow-sm align-items-stretch">`
-                                    break;
-                                case 3:
-                                    card_start = `
-                            <div class="col-md-4">
-                                <div class="card mb-3 shadow-sm align-items-stretch">`
-                                    break;
-                                case 4:
-                                    card_start = `
-                            <div class="col-md-3">
-                                <div class="card mb-4 shadow-sm align-items-stretch">`
-                                    break;
-                                case 5:
-                                    card_start = `
-                            <div class="col-md-2">
-                                <div class="card mb-5 shadow-sm align-items-stretch">`
-                                    break;
-                                case 6:
-                                    card_start = `
-                            <div class="col-md-2">
-                                <div class="card mb-6 shadow-sm align-items-stretch">`
-                                    break;
-                            }
-                            /*NEW up until the :*/
-                            const card_body = dance.link ? `<div class="card-body d-flex flex-column h-300"> 
+                            dances.forEach(dance => {
+                                let card_start = '';
+                                switch (col_pref) {
+                                    case 2:
+                                        card_start = `<div class="col-md-6"><div class="card mb-2 shadow-sm align-items-stretch">`; break;
+                                    case 3:
+                                        card_start = `<div class="col-md-4"><div class="card mb-3 shadow-sm align-items-stretch">`; break;
+                                    case 4:
+                                    default:
+                                        card_start = `<div class="col-md-3"><div class="card mb-4 shadow-sm align-items-stretch">`; break;
+                                    case 6:
+                                        card_start = `<div class="col-md-2"><div class="card mb-6 shadow-sm align-items-stretch">`; break;
+                                }
+
+                                const card_body = dance.link
+                                    ? `<div class="card-body d-flex flex-column h-300">
                                             <h5 class="card-title">${dance.name}</h5>
                                             <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
                                             <iframe src="${dance.link}"></iframe>
-                                        </div>
-                                    </div>
-                                </div>` : `
-                                        <div class="card-body d-flex flex-column h-300">
+                                       </div></div></div>`
+                                    : `<div class="card-body d-flex flex-column h-300">
                                             <h5 class="card-title">${dance.name}</h5>
                                             <p class="text-muted">Region: ${dance.region} | Style: ${dance.style}</p>
-                                            <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">                                    </div>
-                                    </div>
-                                </div>`;
+                                            <img src="${dance.image || 'images/default-dance.webp'}" alt="dance image" width="100%">
+                                       </div></div></div>`;
 
-                                // opens new page on click
                                 const $card = $(card_start + card_body);
-                                $card.on('click', function() {
+                                $card.on('click', function () {
                                     localStorage.setItem('dance', JSON.stringify(dance));
                                     window.location.href = 'dance_detail.php';
                                 });
 
                                 container.append($card);
                             });
-                    } else {
-                        alert('Failed to fetch dances: ' + response.error);
+                        } else {
+                            alert('Failed to fetch dances: ' + response.error);
+                        }
+                    },
+                    error: function () {
+                        alert('Error loading dances.');
                     }
-                },
-
-            });
+                });
+            },
+            error: function () {
+                console.warn('Error fetching preferences.');
+            }
         });
     });
 </script>

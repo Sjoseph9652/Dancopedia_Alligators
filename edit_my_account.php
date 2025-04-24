@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -38,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Upsert column preference
     $stmt = $conn->prepare("
-        INSERT INTO preferences (user_id, name, value)
-        VALUES (?, 'columns', ?)
-        ON DUPLICATE KEY UPDATE value = VALUES(value)
+        INSERT INTO preferences (user_id, name, value, description)
+        VALUES (?, 'columns', ?, 'User column preference')
+        ON DUPLICATE KEY UPDATE value = VALUES(value), description = VALUES(description)
     ");
     $stmt->bind_param("ii", $user_id, $column_pref);
     $stmt->execute();

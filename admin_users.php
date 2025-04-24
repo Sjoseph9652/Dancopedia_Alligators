@@ -57,7 +57,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
+          <th>User ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>

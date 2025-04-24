@@ -45,7 +45,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 <section class="text-center py-5">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-          <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm" title="Go back">
+          <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
             <i class="bi bi-arrow-left"></i>
           </a>
           <h2 class="flex-grow-1 text-center mb-0">Interactions</h2>
@@ -60,7 +60,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
+          <th>Int. ID</th>
           <th>Dance Name</th>
           <th>Author</th>
           <th>Title</th>
