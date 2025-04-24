@@ -248,29 +248,20 @@ $(document).ready(function() {
                         `;
 
                         const $card = $(card);
-                        $card.on('click', function() {
-                            localStorage.setItem('dance', JSON.stringify(interaction)); // <-- fixed: use interaction
-                            window.location.href = 'dance_detail.php';
+                        $card.on('click', function (e) {
+                          // if user clicked a button or something inside a button, do nothing
+                          if ($(e.target).closest('button').length > 0) {
+                            return;
+                          }
+
+                          localStorage.setItem('dance', JSON.stringify(interaction));
+                          window.location.href = 'dance_detail.php';
                         });
 
                         $('#interactions-container').append($card);
                     });
 
-                    //Delete Button
-                   $('.delete_button').click(function()
-                    {
-                        const dance_ID = $(this).data('id');
-                        console.log(dance_ID);
-                        $.ajax({
-                            url: 'delete_interaction.php',
-                            method: 'POST',
-                            data: { dance_ID:dance_ID},
-                            success: function(response)
-                            {
-                                location.reload();
-                            }
-                        });
-                    });
+
 
 
                 } else {
@@ -311,17 +302,23 @@ $(document).ready(function() {
         return "Today";
     }
 
-$(document).on('click', '.delete_button', function () {
-  const interactionId = $(this).data('id');
+$(document).on('click', '.delete_button', function (e) {
+   e.stopPropagation();
 
-  $.post('delete_interaction.php', { interaction_id: interactionId }, function (response) {
-    if (response.success) {
-      alert('Interaction deleted successfully.');
-    } else {
-      alert('Error: ' + response.error);
-    }
-  }, 'json');
-});
+   const interactionId = $(this).data('id');
+
+   $.post('delete_interaction.php', { interaction_id: interactionId }, function (response) {
+     if (response.success) {
+       alert('Interaction deleted successfully.');
+       location.reload();
+     } else {
+       alert('Error: ' + response.error);
+     }
+   }, 'json');
+ });
+
+
+
 
 $('#editBtn').on('click', function () {
   window.location.href = 'edit_my_account.php';

@@ -45,7 +45,14 @@ if (!(isset($_SESSION['email'])))
 
 <section class="text-center py-5">
     <div class="container">
-      <h2 class="mb-4">Dances</h2>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
+              <i class="bi bi-arrow-left"></i>
+            </a>
+            <h2 class="flex-grow-1 text-center mb-0">Dances</h2>
+            <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
+          </div>
+
       <div class="mb-3 text-end">
           <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
           <button id="statusBtn" class="btn btn-info me-2">Change Status</button>
@@ -55,7 +62,7 @@ if (!(isset($_SESSION['email'])))
         <thead class="table-dark">
           <tr>
             <th><input type="checkbox" id="selectAll"></th>
-            <th>ID</th>
+            <th>Dance ID</th>
             <th>Name</th>
             <th>Creator</th>
             <th>Region</th>
@@ -203,19 +210,42 @@ $('#statusBtn').on('click', function () {
     return;
   }
 
-  // You would send these IDs to the server via AJAX
-  console.log('Change status of these IDs:', ids);
-  // TODO: Add AJAX to toggle status
 });
+
+$('#confirmStatusBtn').on('click', function () {
+  const newStatus = $('#newStatus').val();
+
+  $.post('change_dance_status.php', {
+    dance_ids: selectedIDs,
+    new_status: newStatus
+  }, function (response) {
+    if (response.success) {
+      $('#danceTable').DataTable().ajax.reload();
+      const modalElement = document.getElementById('changeStatusModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+      alert('Dance status updated successfully.');
+    } else {
+      alert('Server error: ' + response.error);
+    }
+  }, 'json');
+});
+
+
+
 
 $('#editBtn').on('click', function () {
   const table = $('#danceTable').DataTable();
   const selectedCheckbox = $('.row-checkbox:checked');
 
-  if (selectedCheckbox.length !== 1) return;
+  if (selectedCheckbox.length !== 1) {
+    alert('Please select exactly one dance to edit.');
+    return;
+  }
 
   const row = selectedCheckbox.closest('tr');
   const rowData = table.row(row).data();
+
 
   const danceID = rowData.dance_ID;
 

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection Error: " . mysqli_connect_error());
     }
 
-    $id = $_POST['pref_id'];
+    $id = $_POST['pref_ID'];
 
     $sql = "DELETE FROM preferences WHERE pref_id = ?";
     $stmt = $conn->prepare($sql);

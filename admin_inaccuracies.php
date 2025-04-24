@@ -37,7 +37,19 @@ if (!isset($_SESSION['email'])) {
 <main>
 <section class="text-center py-5">
   <div class="container">
-    <h2 class="mb-4">Inaccuracies</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="flex-grow-1 text-center mb-0">Inaccuracy Reports</h2>
+      <div style="width: 32px;"></div>
+    </div>
+
+    <div class="mb-3 text-end">
+      <button id="deleteBtn" class="btn btn-danger">Delete</button>
+    </div>
+
+
     <table id="inaccuraciesTable" class="table table-bordered table-hover align-middle text-center">
       <thead class="table-dark">
         <tr>
@@ -69,6 +81,51 @@ $(document).ready(function () {
       { "data": "description" },
     ]
   });
+
+  // Select All toggle
+  $('#selectAll').on('click', function () {
+    $('.row-checkbox').prop('checked', this.checked);
+  });
+
+  // Delete
+    let selectedDeleteIDs = [];
+
+    $('#deleteBtn').on('click', function () {
+      selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
+        return this.value;
+      }).get();
+
+      if (selectedDeleteIDs.length === 0) {
+        alert('Please select at least one report to delete.');
+        return;
+      }
+
+      const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+      modal.show();
+    });
+
+    $('#confirmDeleteBtn').on('click', function () {
+      const selectedIds = $('.row-checkbox:checked').map(function () {
+        return $(this).val();
+      }).get();
+
+      selectedIds.forEach(id => {
+        $.post('delete_inaccuracy.php', { report_ID: id }, function (response) {
+          if (response.success) {
+            $('#inaccuraciesTable').DataTable().ajax.reload();
+          } else {
+            alert('Error: ' + response.error);
+          }
+        }, 'json').fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX delete error:", textStatus, jqXHR.responseText);
+        });
+      });
+
+      const modalElement = document.getElementById('confirmDeleteModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    });
+
 });
 </script>
 </body>
