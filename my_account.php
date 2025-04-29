@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+
 // Check if the user is logged in
 if (!(isset($_SESSION['email']))) 
 {
@@ -48,11 +49,15 @@ if (!(isset($_SESSION['email'])))
 
 <main>
     <section class="text-center py-5">
-        <div class="container">
-            <div class="row" id="details-container">
-               <!-- Account details dynamically added here -->
-            </div>
+      <div class="container">
+        <div class="d-flex justify-content-end mb-3">
+          <a href="edit_my_account.php?user_id=<?= $_SESSION['user_id'] ?>" class="btn btn-outline-primary btn-sm">Edit My Details</a>
         </div>
+        <div class="row" id="details-container">
+          <!-- Account details dynamically added here -->
+        </div>
+
+      </div>
     </section>
 
     <section class="dance-list py-5">
@@ -237,37 +242,26 @@ $(document).ready(function() {
                                             <small class="text-muted">by ${interaction.first_name}</small>
                                             <small class="text-muted">${timeAgo(interaction.created_on)}</small>
                                         </div>
-                                        <a href="update_interaction.php?dance_ID=${interaction.interaction_id}" class="btn btn-primary">Update</a>
-                                        <button class="delete_button btn btn-primary" data-id="${interaction.interaction_id}">Delete</button>
                                     </div>
                                 </div>
                             </div>
                         `;
 
                         const $card = $(card);
-                        $card.on('click', function() {
-                            localStorage.setItem('dance', JSON.stringify(interaction)); // <-- fixed: use interaction
-                            window.location.href = 'dance_detail.php';
+                        $card.on('click', function (e) {
+                          // if user clicked a button or something inside a button, do nothing
+                          if ($(e.target).closest('button').length > 0) {
+                            return;
+                          }
+
+                          localStorage.setItem('dance', JSON.stringify(interaction));
+                          window.location.href = 'dance_detail.php';
                         });
 
                         $('#interactions-container').append($card);
                     });
 
-                    //Delete Button
-                   $('.delete_button').click(function()
-                    {
-                        const dance_ID = $(this).data('id');
-                        console.log(dance_ID);
-                        $.ajax({
-                            url: 'delete_interaction.php',
-                            method: 'POST',
-                            data: { dance_ID:dance_ID},
-                            success: function(response)
-                            {
-                                location.reload();
-                            }
-                        });
-                    });
+
 
 
                 } else {
@@ -307,6 +301,29 @@ $(document).ready(function() {
 
         return "Today";
     }
+
+$(document).on('click', '.delete_button', function (e) {
+   e.stopPropagation();
+
+   const interactionId = $(this).data('id');
+
+   $.post('delete_interaction.php', { interaction_id: interactionId }, function (response) {
+     if (response.success) {
+       alert('Interaction deleted successfully.');
+       location.reload();
+     } else {
+       alert('Error: ' + response.error);
+     }
+   }, 'json');
+ });
+
+
+
+
+$('#editBtn').on('click', function () {
+  window.location.href = 'edit_my_account.php';
+});
+
 </script>
 
 

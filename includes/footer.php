@@ -21,8 +21,7 @@
                 <div class="col-md-4">
                     <h5>Resources</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Requirements</a></li>
+                     
                         <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>

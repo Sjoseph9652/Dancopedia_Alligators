@@ -37,10 +37,16 @@ if (!isset($_SESSION['email'])) {
 <main>
 <section class="text-center py-5">
   <div class="container">
-    <h2 class="mb-4">Interactions</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+          <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <h2 class="flex-grow-1 text-center mb-0">Interactions</h2>
+          <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
+        </div>
+
 
     <div class="mb-3 text-end">
-      <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
       <button id="deleteBtn" class="btn btn-danger">Delete</button>
     </div>
 
@@ -48,7 +54,7 @@ if (!isset($_SESSION['email'])) {
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
+          <th>Int. ID</th>
           <th>Dance Name</th>
           <th>Author</th>
           <th>Title</th>
@@ -130,35 +136,38 @@ $(document).ready(function () {
   // Delete
   let selectedDeleteIDs = [];
 
-  $('#deleteBtn').on('click', function () {
-    selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
-      return this.value;
-    }).get();
+    $('#deleteBtn').on('click', function () {
+      selectedDeleteIDs = $('.row-checkbox:checked').map(function () {
+        return this.value;
+      }).get();
 
-    if (selectedDeleteIDs.length === 0) {
-      alert('Please select at least one interaction to delete.');
-      return;
-    }
+      if (selectedDeleteIDs.length === 0) {
+        alert('Please select at least one user to delete.');
+        return;
+      }
 
-    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-    modal.show();
-  });
+      const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+      modal.show();
+    });
 
+    $('#confirmDeleteBtn').on('click', function () {
+      const selectedIds = $('.row-checkbox:checked').map(function () {
+        return $(this).val();
+      }).get();
 
+      selectedIds.forEach(id => {
+        $.post('delete_interaction.php', { interaction_id: id }, function (response) {
+          if (response.success) {
+            table.ajax.reload();
+          } else {
+            alert('Error: ' + response.error);
+          }
+        }, 'json');
+      });
 
-  // Edit
-  $('#editBtn').on('click', function () {
-    const selectedCheckbox = $('.row-checkbox:checked');
+      $('#confirmDeleteModal').modal('hide');
+    });
 
-    if (selectedCheckbox.length !== 1) return;
-
-    const row = selectedCheckbox.closest('tr');
-    const rowData = table.row(row).data();
-
-    const interactionID = rowData.interaction_id;
-
-    window.location.href = `update_interaction.php?interaction_id=${interactionID}`;
-  });
 
 });
 </script>

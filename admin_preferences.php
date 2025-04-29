@@ -37,10 +37,16 @@ if (!isset($_SESSION['email'])) {
 <main>
 <section class="text-center py-5">
   <div class="container">
-    <h2 class="mb-4">User Preferences</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm" title="Go back">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="flex-grow-1 text-center mb-0">User Preferences</h2>
+      <div style="width: 32px;"></div> <!-- Spacer to balance the back button on the left -->
+    </div>
+
 
     <div class="mb-3 text-end">
-      <button id="editBtn" class="btn btn-warning me-2" style="display: none;">Edit</button>
       <button id="deleteBtn" class="btn btn-danger">Delete</button>
     </div>
 
@@ -48,7 +54,7 @@ if (!isset($_SESSION['email'])) {
       <thead class="table-dark">
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
+          <th>Pref. ID</th>
           <th>User ID</th>
           <th>Name</th>
           <th>Value</th>
@@ -140,16 +146,25 @@ $(document).ready(function () {
     modal.show();
   });
 
-  $('#editBtn').on('click', function () {
-    const selectedCheckbox = $('.row-checkbox:checked');
-    if (selectedCheckbox.length !== 1) return;
+  $('#confirmDeleteBtn').on('click', function () {
+    selectedDeleteIDs.forEach(id => {
+      $.post('delete_prefs.php', { pref_ID: id }, function (response) {
+        if (response.success) {
+          $('#preferencesTable').DataTable().ajax.reload();
+        } else {
+          alert('Error: ' + response.error);
+        }
+      }, 'json');
+    });
 
-    const row = selectedCheckbox.closest('tr');
-    const rowData = table.row(row).data();
-    const prefID = rowData.pref_ID;
+    selectedDeleteIDs = [];
 
-    window.location.href = `update_preference.php?pref_ID=${prefID}`;
+    const modalElement = document.getElementById('confirmDeleteModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    modalInstance.hide();
   });
+
+
 });
 </script>
 

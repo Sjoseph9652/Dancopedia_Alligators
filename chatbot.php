@@ -19,7 +19,7 @@ if (!is_dir($uploadDir)) {
 }
 
 // OpenAI API Key
-$apiKey = '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';
+$apiKey = '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';
 $apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 // Handle Image Upload
